@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin Dashboard - Digital Service Center</title>
+<title>Admin Panel - Digital Service Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
 }
 
 body{
@@ -21,44 +21,53 @@ body{
     color:#172033;
 }
 
-button,input,select{
-    font:inherit;
+button,
+input,
+select{
+    font-family:inherit;
 }
 
-.login-page{
+.hidden{
+    display:none!important;
+}
+
+/* LOGIN */
+
+#loginPage{
     min-height:100vh;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     padding:20px;
-    background:linear-gradient(135deg,#0f766e,#2563eb);
+    background:linear-gradient(135deg,#0f766e,#0f172a);
 }
 
 .login-box{
     width:100%;
     max-width:420px;
-    background:#fff;
-    padding:30px;
+    background:white;
+    padding:32px;
     border-radius:20px;
-    box-shadow:0 20px 50px rgba(0,0,0,.2);
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-.logo{
+.login-logo{
     width:65px;
     height:65px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
     border-radius:18px;
     background:#0f766e;
     color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     font-size:30px;
+    margin:0 auto 15px;
 }
 
 .login-box h1{
     text-align:center;
-    margin:18px 0 7px;
+    font-size:25px;
+    margin-bottom:7px;
 }
 
 .login-box p{
@@ -67,239 +76,281 @@ button,input,select{
     margin-bottom:25px;
 }
 
-.field{
-    margin-bottom:15px;
+.form-group{
+    margin-bottom:17px;
 }
 
-.field label{
+.form-group label{
     display:block;
-    font-weight:700;
+    font-size:14px;
+    font-weight:bold;
     margin-bottom:7px;
 }
 
-.field input,
-.field select{
+.form-group input{
     width:100%;
     padding:13px 14px;
-    border:1px solid #dbe2ea;
+    border:1px solid #dbe3ee;
     border-radius:10px;
     outline:none;
-    background:#fff;
+    font-size:15px;
 }
 
-.field input:focus,
-.field select:focus{
+.form-group input:focus{
     border-color:#0f766e;
-}
-
-.btn{
-    border:0;
-    cursor:pointer;
-    border-radius:10px;
-    padding:12px 18px;
-    font-weight:700;
 }
 
 .login-btn{
     width:100%;
+    border:none;
     background:#0f766e;
-    color:#fff;
-    margin-top:5px;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.message{
+.login-btn:hover{
+    background:#115e59;
+}
+
+.login-error{
     margin-top:15px;
+    background:#fee2e2;
+    color:#b91c1c;
     padding:11px;
     border-radius:9px;
-    display:none;
     font-size:14px;
+    display:none;
 }
 
-.error{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.success{
-    background:#dcfce7;
-    color:#166534;
-}
+/* DASHBOARD */
 
 #dashboard{
-    display:none;
+    min-height:100vh;
 }
 
 .topbar{
-    background:#fff;
-    border-bottom:1px solid #e5e7eb;
-    position:sticky;
-    top:0;
-    z-index:20;
-}
-
-.topbar-inner{
-    max-width:1400px;
-    margin:auto;
-    padding:14px 20px;
+    height:70px;
+    background:white;
+    border-bottom:1px solid #e5eaf1;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:10px;
-    font-weight:800;
+    gap:11px;
 }
 
 .brand-icon{
     width:42px;
     height:42px;
-    border-radius:12px;
+    border-radius:11px;
     background:#0f766e;
     color:white;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     font-size:20px;
 }
 
-.logout{
+.brand h2{
+    font-size:19px;
+}
+
+.brand span{
+    display:block;
+    font-size:11px;
+    color:#64748b;
+    margin-top:2px;
+}
+
+.logout-btn{
+    border:none;
     background:#fee2e2;
     color:#b91c1c;
+    padding:9px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
 .container{
+    width:100%;
     max-width:1400px;
     margin:auto;
-    padding:25px 20px 50px;
+    padding:25px;
 }
 
-.welcome{
-    margin-bottom:22px;
-}
+/* STATS */
 
-.welcome h1{
-    font-size:28px;
-    margin-bottom:5px;
-}
-
-.welcome p{
-    color:#64748b;
-}
-
-.stats{
+.stats-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    gap:18px;
     margin-bottom:25px;
 }
 
-.stat{
-    background:#fff;
-    border-radius:16px;
+.stat-card{
+    background:white;
+    border-radius:15px;
     padding:20px;
-    border:1px solid #e8edf3;
+    border:1px solid #e7edf4;
 }
 
-.stat-title{
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    background:#e6fffb;
+}
+
+.stat-card h3{
+    font-size:28px;
+    margin-top:15px;
+}
+
+.stat-card p{
     color:#64748b;
     font-size:14px;
-    margin-bottom:10px;
+    margin-top:4px;
 }
 
-.stat-number{
-    font-size:28px;
-    font-weight:800;
-}
+/* SECTIONS */
 
-.panel{
-    background:#fff;
-    border-radius:16px;
-    border:1px solid #e8edf3;
+.section{
+    background:white;
+    border:1px solid #e7edf4;
+    border-radius:15px;
     margin-bottom:25px;
     overflow:hidden;
 }
 
-.panel-head{
+.section-header{
     padding:18px 20px;
-    border-bottom:1px solid #edf0f4;
+    border-bottom:1px solid #edf1f5;
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:15px;
 }
 
-.panel-head h2{
+.section-header h2{
     font-size:19px;
 }
 
-.service-grid{
+.refresh-btn{
+    border:none;
+    background:#e8f5f3;
+    color:#0f766e;
+    padding:9px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* SERVICE */
+
+.service-list{
     padding:20px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:15px;
 }
 
-.service-box{
-    border:1px solid #e5e7eb;
-    border-radius:14px;
+.service-card{
+    border:1px solid #e2e8f0;
+    border-radius:12px;
     padding:17px;
 }
 
 .service-title{
     display:flex;
+    justify-content:space-between;
     align-items:center;
     gap:10px;
-    margin-bottom:12px;
 }
 
-.service-icon{
-    font-size:25px;
+.service-title h3{
+    font-size:16px;
 }
 
-.service-name{
-    font-weight:800;
+.service-category{
+    font-size:12px;
+    color:#64748b;
+    margin-top:5px;
 }
 
-.charge-row{
+.service-charge{
     display:flex;
-    gap:8px;
     align-items:center;
+    gap:8px;
+    margin-top:15px;
 }
 
-.charge-row input{
-    flex:1;
-    padding:11px;
-    border:1px solid #dbe2ea;
-    border-radius:9px;
+.service-charge input{
+    width:100px;
+    padding:9px;
+    border:1px solid #dbe3ee;
+    border-radius:7px;
 }
 
-.save-btn{
+.save-charge{
+    border:none;
     background:#0f766e;
     color:white;
+    padding:9px 12px;
+    border-radius:7px;
+    cursor:pointer;
 }
 
+/* FILTER */
+
 .filters{
-    padding:15px 20px;
+    padding:18px 20px;
     display:grid;
-    grid-template-columns:1.5fr 1fr 1fr;
-    gap:10px;
-    border-bottom:1px solid #edf0f4;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:12px;
+    border-bottom:1px solid #edf1f5;
 }
 
 .filters input,
 .filters select{
+    width:100%;
     padding:11px 12px;
-    border:1px solid #dbe2ea;
+    border:1px solid #dbe3ee;
     border-radius:9px;
-    background:white;
     outline:none;
 }
 
+.filters input:focus,
+.filters select:focus{
+    border-color:#0f766e;
+}
+
+/* TABLE */
+
 .table-wrap{
+    width:100%;
     overflow-x:auto;
 }
 
@@ -309,24 +360,47 @@ table{
     min-width:850px;
 }
 
-th,td{
-    padding:14px 15px;
+th,
+td{
+    padding:13px 15px;
     text-align:left;
-    border-bottom:1px solid #edf0f4;
+    border-bottom:1px solid #edf1f5;
     font-size:14px;
 }
 
 th{
     background:#f8fafc;
     color:#475569;
+    font-size:13px;
 }
 
-.status{
+tr:hover td{
+    background:#fafdfd;
+}
+
+.status-select{
+    padding:7px 9px;
+    border-radius:7px;
+    border:1px solid #dbe3ee;
+    font-size:13px;
+}
+
+.view-btn{
+    border:none;
+    background:#e0f2fe;
+    color:#0369a1;
+    padding:7px 11px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.badge{
     display:inline-block;
-    padding:6px 10px;
+    padding:5px 9px;
     border-radius:20px;
     font-size:12px;
-    font-weight:700;
+    font-weight:bold;
 }
 
 .pending{
@@ -346,28 +420,115 @@ th{
 
 .cancelled{
     background:#fee2e2;
-    color:#991b1b;
+    color:#b91c1c;
 }
 
-.action-btn{
-    background:#e0f2fe;
-    color:#0369a1;
-    border:0;
-    padding:7px 10px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:700;
-}
-
-.status-select{
-    padding:7px;
-    border:1px solid #dbe2ea;
-    border-radius:8px;
-}
+/* EMPTY */
 
 .empty{
-    padding:35px;
+    padding:40px 20px;
     text-align:center;
+    color:#64748b;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.65);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:500;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:700px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:white;
+    border-radius:17px;
+}
+
+.modal-header{
+    padding:18px 20px;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-header h2{
+    font-size:19px;
+}
+
+.close-btn{
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:50%;
+    background:#f1f5f9;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.detail{
+    background:#f8fafc;
+    padding:13px;
+    border-radius:9px;
+}
+
+.detail.full{
+    grid-column:1/-1;
+}
+
+.detail small{
+    display:block;
+    color:#64748b;
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.detail strong{
+    font-size:14px;
+    word-break:break-word;
+}
+
+.data-box{
+    margin-top:18px;
+}
+
+.data-box h3{
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.data-item{
+    padding:10px;
+    border-bottom:1px solid #edf1f5;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.data-item span:first-child{
     color:#64748b;
 }
 
@@ -377,121 +538,104 @@ th{
     color:#64748b;
 }
 
-.modal{
+/* TOAST */
+
+.toast{
     position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
+    right:20px;
+    bottom:20px;
+    background:#0f172a;
+    color:white;
+    padding:13px 18px;
+    border-radius:9px;
     display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:100;
+    z-index:1000;
+    font-size:14px;
 }
 
-.modal-box{
-    width:100%;
-    max-width:650px;
-    max-height:90vh;
-    overflow:auto;
-    background:white;
-    border-radius:18px;
-}
-
-.modal-head{
-    padding:18px 20px;
-    border-bottom:1px solid #edf0f4;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.close{
-    border:0;
-    background:#f1f5f9;
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:20px;
-}
-
-.modal-body{
-    padding:20px;
-}
-
-.detail{
-    margin-bottom:15px;
-}
-
-.detail strong{
+.toast.show{
     display:block;
-    color:#475569;
-    font-size:13px;
-    margin-bottom:5px;
 }
 
-.detail span,
-.detail pre{
-    display:block;
-    background:#f8fafc;
-    padding:10px;
-    border-radius:8px;
-    white-space:pre-wrap;
-    word-break:break-word;
-}
+/* RESPONSIVE */
 
 @media(max-width:1000px){
-    .stats{
+    .stats-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .service-grid{
+    .service-list{
         grid-template-columns:repeat(2,1fr);
     }
 }
 
 @media(max-width:650px){
-    .topbar-inner{
-        padding:12px 15px;
+
+    .topbar{
+        padding:0 14px;
+        height:62px;
+    }
+
+    .brand h2{
+        font-size:16px;
+    }
+
+    .brand span{
+        display:none;
+    }
+
+    .logout-btn{
+        padding:8px 10px;
+        font-size:12px;
     }
 
     .container{
-        padding:20px 14px 40px;
+        padding:15px;
     }
 
-    .welcome h1{
-        font-size:23px;
-    }
-
-    .stats{
+    .stats-grid{
         grid-template-columns:1fr 1fr;
         gap:10px;
     }
 
-    .stat{
-        padding:15px;
+    .stat-card{
+        padding:14px;
     }
 
-    .stat-number{
+    .stat-card h3{
         font-size:23px;
     }
 
-    .service-grid{
+    .stat-icon{
+        width:38px;
+        height:38px;
+        font-size:17px;
+    }
+
+    .service-list{
         grid-template-columns:1fr;
-        padding:14px;
+        padding:15px;
+    }
+
+    .section-header{
+        padding:15px;
     }
 
     .filters{
         grid-template-columns:1fr;
-        padding:14px;
-    }
-
-    .panel-head{
         padding:15px;
     }
 
-    .brand-text{
-        font-size:14px;
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+
+    .detail.full{
+        grid-column:auto;
+    }
+
+    .login-box{
+        padding:25px 20px;
     }
 }
 </style>
@@ -499,11 +643,13 @@ th{
 
 <body>
 
-<div id="loginPage" class="login-page">
+<!-- LOGIN -->
+
+<div id="loginPage">
 
     <div class="login-box">
 
-        <div class="logo">🔐</div>
+        <div class="login-logo">🔐</div>
 
         <h1>Admin Login</h1>
 
@@ -511,8 +657,8 @@ th{
 
         <form id="loginForm">
 
-            <div class="field">
-                <label>Email</label>
+            <div class="form-group">
+                <label>ইমেইল</label>
                 <input
                     type="email"
                     id="email"
@@ -521,8 +667,8 @@ th{
                 >
             </div>
 
-            <div class="field">
-                <label>Password</label>
+            <div class="form-group">
+                <label>পাসওয়ার্ড</label>
                 <input
                     type="password"
                     id="password"
@@ -531,161 +677,162 @@ th{
                 >
             </div>
 
-            <button class="btn login-btn" type="submit">
+            <button class="login-btn" type="submit">
                 Login
             </button>
 
         </form>
 
-        <div id="loginMessage" class="message"></div>
+        <div id="loginError" class="login-error"></div>
 
     </div>
 
 </div>
 
 
-<div id="dashboard">
+<!-- DASHBOARD -->
 
-    <div class="topbar">
+<div id="dashboard" class="hidden">
 
-        <div class="topbar-inner">
+    <header class="topbar">
 
-            <div class="brand">
+        <div class="brand">
 
-                <div class="brand-icon">⚙️</div>
-
-                <div class="brand-text">
-                    Digital Service Center Admin
-                </div>
-
+            <div class="brand-icon">
+                ⚙️
             </div>
 
-            <button
-                class="btn logout"
-                onclick="logout()"
-            >
-                Logout
-            </button>
+            <div>
+                <h2>Admin Panel</h2>
+                <span>Digital Service Center</span>
+            </div>
 
         </div>
 
-    </div>
+        <button class="logout-btn" id="logoutBtn">
+            Logout
+        </button>
+
+    </header>
 
 
     <main class="container">
 
-        <div class="welcome">
+        <!-- STATS -->
 
-            <h1>Admin Dashboard</h1>
+        <div class="stats-grid">
 
-            <p id="adminEmail"></p>
+            <div class="stat-card">
 
-        </div>
+                <div class="stat-top">
+                    <div>
+                        <p>মোট Request</p>
+                    </div>
 
-
-        <div class="stats">
-
-            <div class="stat">
-
-                <div class="stat-title">
-                    মোট আবেদন
+                    <div class="stat-icon">
+                        📋
+                    </div>
                 </div>
 
-                <div
-                    class="stat-number"
-                    id="totalRequests"
-                >
-                    0
-                </div>
+                <h3 id="totalRequests">0</h3>
 
             </div>
 
 
-            <div class="stat">
+            <div class="stat-card">
 
-                <div class="stat-title">
-                    Pending
+                <div class="stat-top">
+                    <div>
+                        <p>Pending</p>
+                    </div>
+
+                    <div class="stat-icon">
+                        ⏳
+                    </div>
                 </div>
 
-                <div
-                    class="stat-number"
-                    id="pendingRequests"
-                >
-                    0
-                </div>
+                <h3 id="pendingRequests">0</h3>
 
             </div>
 
 
-            <div class="stat">
+            <div class="stat-card">
 
-                <div class="stat-title">
-                    Processing
+                <div class="stat-top">
+                    <div>
+                        <p>Processing</p>
+                    </div>
+
+                    <div class="stat-icon">
+                        🔄
+                    </div>
                 </div>
 
-                <div
-                    class="stat-number"
-                    id="processingRequests"
-                >
-                    0
-                </div>
+                <h3 id="processingRequests">0</h3>
 
             </div>
 
 
-            <div class="stat">
+            <div class="stat-card">
 
-                <div class="stat-title">
-                    Completed
+                <div class="stat-top">
+                    <div>
+                        <p>Completed</p>
+                    </div>
+
+                    <div class="stat-icon">
+                        ✅
+                    </div>
                 </div>
 
-                <div
-                    class="stat-number"
-                    id="completedRequests"
-                >
-                    0
-                </div>
+                <h3 id="completedRequests">0</h3>
 
             </div>
 
         </div>
 
 
-        <section class="panel">
+        <!-- SERVICES -->
 
-            <div class="panel-head">
+        <section class="section">
 
-                <h2>💰 সার্ভিস চার্জ</h2>
+            <div class="section-header">
+
+                <h2>💰 Service Charge Management</h2>
 
                 <button
-                    class="btn"
+                    class="refresh-btn"
                     onclick="loadServices()"
                 >
-                    Refresh
+                    🔄 Refresh
                 </button>
 
             </div>
 
-            <div id="servicesContainer">
+            <div id="servicesList" class="service-list">
+
                 <div class="loading">
-                    সার্ভিস লোড হচ্ছে...
+                    Loading services...
                 </div>
+
             </div>
 
         </section>
 
 
-        <section class="panel">
+        <!-- REQUESTS -->
 
-            <div class="panel-head">
+        <section class="section">
 
-                <h2>📋 Service Requests</h2>
+            <div class="section-header">
+
+                <h2>📋 Customer Requests</h2>
 
                 <button
-                    class="btn"
+                    class="refresh-btn"
                     onclick="loadRequests()"
                 >
-                    Refresh
+                    🔄 Refresh
                 </button>
 
             </div>
@@ -696,26 +843,24 @@ th{
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Request No / নাম / WhatsApp"
-                    oninput="renderRequests()"
+                    placeholder="🔎 Request No, নাম বা WhatsApp খুঁজুন..."
                 >
 
-                <select
-                    id="statusFilter"
-                    onchange="renderRequests()"
-                >
+                <select id="statusFilter">
+
                     <option value="">সব Status</option>
                     <option value="pending">Pending</option>
                     <option value="processing">Processing</option>
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
+
                 </select>
 
-                <select
-                    id="serviceFilter"
-                    onchange="renderRequests()"
-                >
-                    <option value="">সব সার্ভিস</option>
+
+                <select id="serviceFilter">
+
+                    <option value="">সব Service</option>
+
                 </select>
 
             </div>
@@ -730,11 +875,12 @@ th{
                         <tr>
                             <th>Request No</th>
                             <th>Customer</th>
+                            <th>WhatsApp</th>
                             <th>Service</th>
-                            <th>Sub Service</th>
                             <th>Charge</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>Date</th>
+                            <th>Details</th>
                         </tr>
 
                     </thead>
@@ -754,16 +900,18 @@ th{
 </div>
 
 
-<div id="detailModal" class="modal">
+<!-- DETAILS MODAL -->
+
+<div id="detailsModal" class="modal">
 
     <div class="modal-box">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
             <h2>Request Details</h2>
 
             <button
-                class="close"
+                class="close-btn"
                 onclick="closeModal()"
             >
                 ×
@@ -781,6 +929,9 @@ th{
 </div>
 
 
+<div id="toast" class="toast"></div>
+
+
 <script>
 
 const SUPABASE_URL =
@@ -796,8 +947,8 @@ const supabaseClient =
     );
 
 
-let requests = [];
-let services = [];
+let allRequests = [];
+let allServices = [];
 
 
 const loginPage =
@@ -806,193 +957,171 @@ const loginPage =
 const dashboard =
     document.getElementById("dashboard");
 
-const loginMessage =
-    document.getElementById("loginMessage");
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginError =
+    document.getElementById("loginError");
 
 
-function showLoginMessage(message,type="error"){
+/* LOGIN */
 
-    loginMessage.textContent = message;
+loginForm.addEventListener("submit", async function(e){
 
-    loginMessage.className =
-        "message " + type;
+    e.preventDefault();
 
-    loginMessage.style.display = "block";
+    loginError.style.display = "none";
 
-}
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const button =
+        loginForm.querySelector("button");
+
+    button.disabled = true;
+    button.textContent = "Login হচ্ছে...";
 
 
-async function checkSession(){
+    try{
 
-    const {
-        data:{
-            session
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+                email,
+                password
+            });
+
+
+        if(error){
+            throw error;
         }
-    } = await supabaseClient
-        .auth
-        .getSession();
 
-    if(session){
 
-        const isAdmin =
-            await checkAdmin(session.user.id);
-
-        if(isAdmin){
-
-            showDashboard(
-                session.user
+        if(!data.user){
+            throw new Error(
+                "User পাওয়া যায়নি।"
             );
+        }
 
-        }else{
 
+        const { data: adminData, error: adminError } =
             await supabaseClient
-                .auth
-                .signOut();
+                .from("admins")
+                .select("id,email")
+                .eq("id", data.user.id)
+                .maybeSingle();
 
-            showLoginMessage(
-                "আপনার Admin Access নেই।"
-            );
 
+        if(adminError){
+            throw adminError;
         }
 
-    }
 
-}
+        if(!adminData){
+
+            await supabaseClient.auth.signOut();
+
+            throw new Error(
+                "এই Account-এর Admin Access নেই।"
+            );
+        }
 
 
-async function checkAdmin(userId){
+        showDashboard();
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("admins")
-        .select("id,email")
-        .eq("id",userId)
-        .maybeSingle();
-
-    if(error){
+    }catch(error){
 
         console.error(error);
 
-        return false;
+        loginError.textContent =
+            error.message ||
+            "Login করতে সমস্যা হয়েছে।";
+
+        loginError.style.display = "block";
+
+    }finally{
+
+        button.disabled = false;
+        button.textContent = "Login";
 
     }
 
-    return !!data;
+});
+
+
+/* SHOW DASHBOARD */
+
+async function showDashboard(){
+
+    loginPage.classList.add("hidden");
+
+    dashboard.classList.remove("hidden");
+
+    await Promise.all([
+        loadServices(),
+        loadRequests()
+    ]);
 
 }
 
 
-document
-    .getElementById("loginForm")
-    .addEventListener(
-        "submit",
-        async function(e){
+/* CHECK EXISTING SESSION */
 
-            e.preventDefault();
+async function checkSession(){
 
-            const email =
-                document
-                .getElementById("email")
-                .value
-                .trim();
+    try{
 
-            const password =
-                document
-                .getElementById("password")
-                .value;
-
-            showLoginMessage(
-                "Login হচ্ছে...",
-                "success"
-            );
-
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .auth
-                .signInWithPassword({
-                    email,
-                    password
-                });
-
-            if(error){
-
-                showLoginMessage(
-                    error.message
-                );
-
-                return;
-
+        const {
+            data: {
+                session
             }
+        } = await supabaseClient.auth.getSession();
 
-            const isAdmin =
-                await checkAdmin(
-                    data.user.id
-                );
 
-            if(!isAdmin){
+        if(!session){
+            return;
+        }
 
-                await supabaseClient
-                    .auth
-                    .signOut();
 
-                showLoginMessage(
-                    "এই Account-এর Admin Permission নেই।"
-                );
+        const { data: adminData } =
+            await supabaseClient
+                .from("admins")
+                .select("id")
+                .eq("id", session.user.id)
+                .maybeSingle();
 
-                return;
 
-            }
+        if(adminData){
 
-            showDashboard(data.user);
+            showDashboard();
+
+        }else{
+
+            await supabaseClient.auth.signOut();
 
         }
-    );
 
+    }catch(error){
 
-function showDashboard(user){
+        console.error(error);
 
-    loginPage.style.display = "none";
-
-    dashboard.style.display = "block";
-
-    document.getElementById(
-        "adminEmail"
-    ).textContent =
-        "Logged in: " + user.email;
-
-    loadServices();
-
-    loadRequests();
+    }
 
 }
 
 
-async function logout(){
-
-    await supabaseClient
-        .auth
-        .signOut();
-
-    location.reload();
-
-}
-
+/* LOAD SERVICES */
 
 async function loadServices(){
 
     const container =
-        document.getElementById(
-            "servicesContainer"
-        );
+        document.getElementById("servicesList");
 
     container.innerHTML =
-        `<div class="loading">
-            সার্ভিস লোড হচ্ছে...
-        </div>`;
+        '<div class="loading">Loading services...</div>';
+
 
     const {
         data,
@@ -1000,7 +1129,10 @@ async function loadServices(){
     } = await supabaseClient
         .from("services")
         .select("*")
-        .order("created_at");
+        .order("created_at", {
+            ascending:false
+        });
+
 
     if(error){
 
@@ -1008,64 +1140,57 @@ async function loadServices(){
 
         container.innerHTML =
             `<div class="empty">
-                সার্ভিস লোড করা যায়নি।
+                Services load করতে সমস্যা হয়েছে।
                 <br>
-                ${error.message}
+                ${escapeHtml(error.message)}
             </div>`;
 
         return;
-
     }
 
-    services = data || [];
 
-    renderServices();
+    allServices = data || [];
+
 
     updateServiceFilter();
 
-}
 
-
-function renderServices(){
-
-    const container =
-        document.getElementById(
-            "servicesContainer"
-        );
-
-    if(!services.length){
+    if(!allServices.length){
 
         container.innerHTML =
-            `<div class="empty">
-                কোনো সার্ভিস পাওয়া যায়নি।
-            </div>`;
+            '<div class="empty">কোনো Service পাওয়া যায়নি।</div>';
 
         return;
-
     }
 
-    container.innerHTML = `
-        <div class="service-grid">
 
-            ${services.map(service => `
+    container.innerHTML =
+        allServices.map(service => {
 
-                <div class="service-box">
+            return `
+
+                <div class="service-card">
 
                     <div class="service-title">
 
-                        <div class="service-icon">
-                            ${service.icon || "📌"}
-                        </div>
-
-                        <div class="service-name">
+                        <h3>
+                            ${escapeHtml(
+                                service.icon || "📌"
+                            )}
                             ${escapeHtml(
                                 service.service_name || ""
                             )}
-                        </div>
+                        </h3>
 
                     </div>
 
-                    <div class="charge-row">
+                    <div class="service-category">
+                        ${escapeHtml(
+                            service.category || ""
+                        )}
+                    </div>
+
+                    <div class="service-charge">
 
                         <input
                             type="number"
@@ -1074,9 +1199,11 @@ function renderServices(){
                             value="${service.charge || 0}"
                         >
 
+                        <span>৳</span>
+
                         <button
-                            class="btn save-btn"
-                            onclick="saveCharge('${service.id}')"
+                            class="save-charge"
+                            onclick="updateCharge('${service.id}')"
                         >
                             Save
                         </button>
@@ -1085,31 +1212,64 @@ function renderServices(){
 
                 </div>
 
-            `).join("")}
+            `;
 
-        </div>
-    `;
+        }).join("");
 
 }
 
 
-async function saveCharge(id){
+/* UPDATE SERVICE FILTER */
+
+function updateServiceFilter(){
+
+    const filter =
+        document.getElementById("serviceFilter");
+
+    filter.innerHTML =
+        '<option value="">সব Service</option>';
+
+
+    allServices.forEach(service => {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            service.service_key;
+
+        option.textContent =
+            service.service_name;
+
+        filter.appendChild(option);
+
+    });
+
+}
+
+
+/* UPDATE CHARGE */
+
+async function updateCharge(id){
 
     const input =
         document.getElementById(
-            "charge-" + id
+            `charge-${id}`
         );
 
     const charge =
         Number(input.value);
 
+
     if(charge < 0){
 
-        alert("সঠিক চার্জ দিন।");
+        showToast(
+            "Charge সঠিকভাবে দিন।"
+        );
 
         return;
-
     }
+
 
     const {
         error
@@ -1119,42 +1279,47 @@ async function saveCharge(id){
             charge,
             updated_at:new Date().toISOString()
         })
-        .eq("id",id);
+        .eq("id", id);
+
 
     if(error){
 
-        alert(
-            "Charge Update হয়নি: " +
-            error.message
+        console.error(error);
+
+        showToast(
+            "Charge update হয়নি।"
         );
 
         return;
-
     }
 
-    alert("Service charge সফলভাবে Update হয়েছে।");
 
-    loadServices();
+    showToast(
+        "Service Charge আপডেট হয়েছে।"
+    );
+
+
+    await loadServices();
 
 }
 
 
+/* LOAD REQUESTS */
+
 async function loadRequests(){
 
     const tbody =
-        document.getElementById(
-            "requestsTable"
-        );
+        document.getElementById("requestsTable");
 
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="7">
+    tbody.innerHTML =
+        `<tr>
+            <td colspan="8">
                 <div class="loading">
-                    Request লোড হচ্ছে...
+                    Request loading...
                 </div>
             </td>
-        </tr>
-    `;
+        </tr>`;
+
 
     const {
         data,
@@ -1162,31 +1327,32 @@ async function loadRequests(){
     } = await supabaseClient
         .from("service_requests")
         .select("*")
-        .order("created_at",{
+        .order("created_at", {
             ascending:false
         });
+
 
     if(error){
 
         console.error(error);
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="8">
                     <div class="empty">
-                        Request লোড করা যায়নি।
+                        Request load করতে সমস্যা হয়েছে।
                         <br>
                         ${escapeHtml(error.message)}
                     </div>
                 </td>
-            </tr>
-        `;
+            </tr>`;
 
         return;
-
     }
 
-    requests = data || [];
+
+    allRequests = data || [];
+
 
     updateStats();
 
@@ -1195,125 +1361,113 @@ async function loadRequests(){
 }
 
 
+/* UPDATE STATS */
+
 function updateStats(){
 
-    document.getElementById(
-        "totalRequests"
-    ).textContent =
-        requests.length;
+    const total =
+        allRequests.length;
 
-    document.getElementById(
-        "pendingRequests"
-    ).textContent =
-        requests.filter(
+    const pending =
+        allRequests.filter(
             r => r.status === "pending"
         ).length;
 
-    document.getElementById(
-        "processingRequests"
-    ).textContent =
-        requests.filter(
+    const processing =
+        allRequests.filter(
             r => r.status === "processing"
         ).length;
 
-    document.getElementById(
-        "completedRequests"
-    ).textContent =
-        requests.filter(
+    const completed =
+        allRequests.filter(
             r => r.status === "completed"
         ).length;
 
-}
+
+    document.getElementById(
+        "totalRequests"
+    ).textContent = total;
 
 
-function updateServiceFilter(){
+    document.getElementById(
+        "pendingRequests"
+    ).textContent = pending;
 
-    const select =
-        document.getElementById(
-            "serviceFilter"
-        );
 
-    const current =
-        select.value;
+    document.getElementById(
+        "processingRequests"
+    ).textContent = processing;
 
-    select.innerHTML =
-        `<option value="">
-            সব সার্ভিস
-        </option>`;
 
-    services.forEach(service => {
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            service.service_name;
-
-        option.textContent =
-            service.service_name;
-
-        select.appendChild(option);
-
-    });
-
-    select.value = current;
+    document.getElementById(
+        "completedRequests"
+    ).textContent = completed;
 
 }
 
+
+/* RENDER REQUESTS */
 
 function renderRequests(){
 
     const tbody =
-        document.getElementById(
-            "requestsTable"
-        );
+        document.getElementById("requestsTable");
+
 
     const search =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
+        document.getElementById(
+            "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
 
     const status =
         document.getElementById(
             "statusFilter"
         ).value;
 
+
     const service =
         document.getElementById(
             "serviceFilter"
         ).value;
 
+
     let filtered =
-        requests.filter(request => {
+        allRequests.filter(request => {
 
-            const text =
-                (
-                    request.request_no +
-                    " " +
-                    request.name +
-                    " " +
-                    request.whatsapp
-                )
-                .toLowerCase();
+            const searchText = [
 
-            const searchMatch =
+                request.request_no,
+                request.name,
+                request.whatsapp,
+                request.service_name
+
+            ]
+            .join(" ")
+            .toLowerCase();
+
+
+            const matchSearch =
                 !search ||
-                text.includes(search);
+                searchText.includes(search);
 
-            const statusMatch =
+
+            const matchStatus =
                 !status ||
                 request.status === status;
 
-            const serviceMatch =
+
+            const matchService =
                 !service ||
-                request.service_name === service;
+                request.service_key === service;
+
 
             return (
-                searchMatch &&
-                statusMatch &&
-                serviceMatch
+                matchSearch &&
+                matchStatus &&
+                matchService
             );
 
         });
@@ -1321,125 +1475,132 @@ function renderRequests(){
 
     if(!filtered.length){
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="8">
                     <div class="empty">
                         কোনো Request পাওয়া যায়নি।
                     </div>
                 </td>
-            </tr>
-        `;
+            </tr>`;
 
         return;
-
     }
 
 
     tbody.innerHTML =
-        filtered.map(request => `
+        filtered.map(request => {
 
-            <tr>
+            return `
 
-                <td>
-                    <strong>
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                request.request_no || "-"
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
                         ${escapeHtml(
-                            request.request_no || "-"
+                            request.name || "-"
                         )}
-                    </strong>
-                </td>
+                    </td>
 
-                <td>
-                    ${escapeHtml(
-                        request.name || "-"
-                    )}
-                    <br>
-                    <small>
+                    <td>
                         ${escapeHtml(
-                            request.whatsapp || ""
+                            request.whatsapp || "-"
                         )}
-                    </small>
-                </td>
+                    </td>
 
-                <td>
-                    ${escapeHtml(
-                        request.service_name || "-"
-                    )}
-                </td>
+                    <td>
+                        ${escapeHtml(
+                            request.service_name || "-"
+                        )}
+                    </td>
 
-                <td>
-                    ${escapeHtml(
-                        request.sub_service || "-"
-                    )}
-                </td>
+                    <td>
+                        ৳${Number(
+                            request.charge || 0
+                        ).toLocaleString("en-BD")}
+                    </td>
 
-                <td>
-                    ৳${Number(
-                        request.charge || 0
-                    ).toLocaleString("bn-BD")}
-                </td>
+                    <td>
 
-                <td>
-
-                    <select
-                        class="status-select"
-                        onchange="updateStatus(
-                            '${request.id}',
-                            this.value
-                        )"
-                    >
-
-                        <option
-                            value="pending"
-                            ${request.status==="pending" ? "selected" : ""}
+                        <select
+                            class="status-select"
+                            onchange="changeStatus(
+                                '${request.id}',
+                                this.value
+                            )"
                         >
-                            Pending
-                        </option>
 
-                        <option
-                            value="processing"
-                            ${request.status==="processing" ? "selected" : ""}
+                            <option
+                                value="pending"
+                                ${request.status === "pending" ? "selected" : ""}
+                            >
+                                Pending
+                            </option>
+
+                            <option
+                                value="processing"
+                                ${request.status === "processing" ? "selected" : ""}
+                            >
+                                Processing
+                            </option>
+
+                            <option
+                                value="completed"
+                                ${request.status === "completed" ? "selected" : ""}
+                            >
+                                Completed
+                            </option>
+
+                            <option
+                                value="cancelled"
+                                ${request.status === "cancelled" ? "selected" : ""}
+                            >
+                                Cancelled
+                            </option>
+
+                        </select>
+
+                    </td>
+
+                    <td>
+                        ${formatDate(
+                            request.created_at
+                        )}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="view-btn"
+                            onclick="viewDetails('${request.id}')"
                         >
-                            Processing
-                        </option>
+                            View
+                        </button>
 
-                        <option
-                            value="completed"
-                            ${request.status==="completed" ? "selected" : ""}
-                        >
-                            Completed
-                        </option>
+                    </td>
 
-                        <option
-                            value="cancelled"
-                            ${request.status==="cancelled" ? "selected" : ""}
-                        >
-                            Cancelled
-                        </option>
+                </tr>
 
-                    </select>
+            `;
 
-                </td>
-
-                <td>
-
-                    <button
-                        class="action-btn"
-                        onclick="showDetails('${request.id}')"
-                    >
-                        Details
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `).join("");
+        }).join("");
 
 }
 
 
-async function updateStatus(id,status){
+/* CHANGE STATUS */
+
+async function changeStatus(
+    id,
+    status
+){
 
     const {
         error
@@ -1449,241 +1610,456 @@ async function updateStatus(id,status){
             status,
             updated_at:new Date().toISOString()
         })
-        .eq("id",id);
+        .eq("id", id);
+
 
     if(error){
 
-        alert(
-            "Status Update হয়নি: " +
-            error.message
+        console.error(error);
+
+        showToast(
+            "Status update হয়নি।"
         );
 
-        return;
+        await loadRequests();
 
+        return;
     }
 
+
     const request =
-        requests.find(
+        allRequests.find(
             r => r.id === id
         );
 
+
     if(request){
-
         request.status = status;
-
     }
+
 
     updateStats();
 
-    alert("Status Update হয়েছে।");
+    showToast(
+        "Status আপডেট হয়েছে।"
+    );
 
 }
 
 
-function showDetails(id){
+/* VIEW DETAILS */
+
+function viewDetails(id){
 
     const request =
-        requests.find(
+        allRequests.find(
             r => r.id === id
         );
 
-    if(!request) return;
 
-    let serviceData = "";
+    if(!request){
+        return;
+    }
 
-    try{
 
-        serviceData =
-            JSON.stringify(
-                request.service_data || {},
-                null,
-                2
+    let serviceDataHtml = "";
+
+
+    if(
+        request.service_data &&
+        typeof request.service_data === "object"
+    ){
+
+        const entries =
+            Object.entries(
+                request.service_data
             );
 
-    }catch{
 
-        serviceData =
-            String(
-                request.service_data || ""
-            );
+        if(entries.length){
+
+            serviceDataHtml =
+                entries.map(([key,value]) => {
+
+                    return `
+
+                        <div class="data-item">
+
+                            <span>
+                                ${escapeHtml(
+                                    formatKey(key)
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHtml(
+                                    formatValue(value)
+                                )}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+        }
 
     }
 
 
-    document.getElementById(
-        "modalBody"
-    ).innerHTML = `
-
-        <div class="detail">
-
-            <strong>Request No</strong>
-
-            <span>
-                ${escapeHtml(
-                    request.request_no || "-"
-                )}
-            </span>
-
-        </div>
+    const body =
+        document.getElementById(
+            "modalBody"
+        );
 
 
-        <div class="detail">
+    body.innerHTML = `
 
-            <strong>Customer Name</strong>
+        <div class="detail-grid">
 
-            <span>
-                ${escapeHtml(
-                    request.name || "-"
-                )}
-            </span>
+            <div class="detail">
 
-        </div>
+                <small>Request No</small>
 
+                <strong>
+                    ${escapeHtml(
+                        request.request_no || "-"
+                    )}
+                </strong>
 
-        <div class="detail">
-
-            <strong>WhatsApp / Mobile</strong>
-
-            <span>
-                ${escapeHtml(
-                    request.whatsapp || "-"
-                )}
-            </span>
-
-        </div>
+            </div>
 
 
-        <div class="detail">
+            <div class="detail">
 
-            <strong>Address</strong>
+                <small>Status</small>
 
-            <span>
-                ${escapeHtml(
-                    request.address || "-"
-                )}
-            </span>
+                <strong>
+                    ${escapeHtml(
+                        request.status || "-"
+                    )}
+                </strong>
 
-        </div>
-
-
-        <div class="detail">
-
-            <strong>Service</strong>
-
-            <span>
-                ${escapeHtml(
-                    request.service_name || "-"
-                )}
-            </span>
-
-        </div>
+            </div>
 
 
-        <div class="detail">
+            <div class="detail">
 
-            <strong>Sub Service</strong>
+                <small>Customer Name</small>
 
-            <span>
-                ${escapeHtml(
-                    request.sub_service || "-"
-                )}
-            </span>
+                <strong>
+                    ${escapeHtml(
+                        request.name || "-"
+                    )}
+                </strong>
 
-        </div>
-
-
-        <div class="detail">
-
-            <strong>Charge</strong>
-
-            <span>
-                ৳${Number(
-                    request.charge || 0
-                ).toLocaleString("bn-BD")}
-            </span>
-
-        </div>
+            </div>
 
 
-        <div class="detail">
+            <div class="detail">
 
-            <strong>Additional Details</strong>
+                <small>WhatsApp</small>
 
-            <span>
-                ${escapeHtml(
-                    request.additional_details || "-"
-                )}
-            </span>
+                <strong>
+                    ${escapeHtml(
+                        request.whatsapp || "-"
+                    )}
+                </strong>
 
-        </div>
-
-
-        <div class="detail">
-
-            <strong>Service Information</strong>
-
-            <pre>${escapeHtml(
-                serviceData
-            )}</pre>
-
-        </div>
+            </div>
 
 
-        <div class="detail">
+            <div class="detail">
 
-            <strong>Created At</strong>
+                <small>Service</small>
 
-            <span>
-                ${request.created_at
-                    ? new Date(
+                <strong>
+                    ${escapeHtml(
+                        request.service_name || "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>Sub Service</small>
+
+                <strong>
+                    ${escapeHtml(
+                        request.sub_service || "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>Charge</small>
+
+                <strong>
+                    ৳${Number(
+                        request.charge || 0
+                    ).toLocaleString("en-BD")}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>Created</small>
+
+                <strong>
+                    ${formatDate(
                         request.created_at
-                    ).toLocaleString(
-                        "bn-BD"
-                    )
-                    : "-"
-                }
-            </span>
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail full">
+
+                <small>Address</small>
+
+                <strong>
+                    ${escapeHtml(
+                        request.address || "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail full">
+
+                <small>Additional Details</small>
+
+                <strong>
+                    ${escapeHtml(
+                        request.additional_details || "-"
+                    )}
+                </strong>
+
+            </div>
 
         </div>
+
+
+        ${
+            serviceDataHtml
+            ?
+            `
+                <div class="data-box">
+
+                    <h3>
+                        Service Information
+                    </h3>
+
+                    ${serviceDataHtml}
+
+                </div>
+            `
+            :
+            ""
+        }
 
     `;
 
 
-    document.getElementById(
-        "detailModal"
-    ).style.display = "flex";
+    document
+        .getElementById("detailsModal")
+        .classList.add("active");
 
 }
 
 
+/* CLOSE MODAL */
+
 function closeModal(){
 
-    document.getElementById(
-        "detailModal"
-    ).style.display = "none";
+    document
+        .getElementById("detailsModal")
+        .classList.remove("active");
 
 }
 
 
 document
-    .getElementById("detailModal")
+    .getElementById("detailsModal")
     .addEventListener(
         "click",
         function(e){
 
             if(e.target === this){
-
                 closeModal();
-
             }
 
         }
     );
 
 
+/* SEARCH */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        renderRequests
+    );
+
+
+document
+    .getElementById("statusFilter")
+    .addEventListener(
+        "change",
+        renderRequests
+    );
+
+
+document
+    .getElementById("serviceFilter")
+    .addEventListener(
+        "change",
+        renderRequests
+    );
+
+
+/* LOGOUT */
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        async function(){
+
+            await supabaseClient.auth.signOut();
+
+            dashboard.classList.add("hidden");
+
+            loginPage.classList.remove("hidden");
+
+            document.getElementById(
+                "password"
+            ).value = "";
+
+        }
+    );
+
+
+/* TOAST */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/* DATE */
+
+function formatDate(date){
+
+    if(!date){
+        return "-";
+    }
+
+
+    try{
+
+        return new Date(date)
+            .toLocaleString(
+                "bn-BD",
+                {
+                    year:"numeric",
+                    month:"short",
+                    day:"numeric",
+                    hour:"numeric",
+                    minute:"2-digit"
+                }
+            );
+
+    }catch{
+
+        return date;
+
+    }
+
+}
+
+
+/* FORMAT KEY */
+
+function formatKey(key){
+
+    return String(key)
+        .replaceAll("_"," ")
+        .replace(/\b\w/g, c =>
+            c.toUpperCase()
+        );
+
+}
+
+
+/* FORMAT VALUE */
+
+function formatValue(value){
+
+    if(value === null ||
+       value === undefined){
+
+        return "-";
+
+    }
+
+
+    if(typeof value === "object"){
+
+        return JSON.stringify(
+            value,
+            null,
+            2
+        );
+
+    }
+
+
+    return String(value);
+
+}
+
+
+/* ESCAPE */
+
 function escapeHtml(value){
 
-    return String(value ?? "")
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -1692,6 +2068,8 @@ function escapeHtml(value){
 
 }
 
+
+/* START */
 
 checkSession();
 
