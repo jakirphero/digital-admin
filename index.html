@@ -21,9 +21,7 @@ body{
     color:#172033;
 }
 
-button,
-input,
-select{
+button,input,select{
     font-family:inherit;
 }
 
@@ -31,7 +29,7 @@ select{
     display:none!important;
 }
 
-/* LOGIN */
+/* ================= LOGIN ================= */
 
 #loginPage{
     min-height:100vh;
@@ -45,7 +43,7 @@ select{
 .login-box{
     width:100%;
     max-width:420px;
-    background:white;
+    background:#fff;
     padding:32px;
     border-radius:20px;
     box-shadow:0 20px 60px rgba(0,0,0,.25);
@@ -56,7 +54,7 @@ select{
     height:65px;
     border-radius:18px;
     background:#0f766e;
-    color:white;
+    color:#fff;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -104,7 +102,7 @@ select{
     width:100%;
     border:none;
     background:#0f766e;
-    color:white;
+    color:#fff;
     padding:14px;
     border-radius:10px;
     font-size:16px;
@@ -114,6 +112,11 @@ select{
 
 .login-btn:hover{
     background:#115e59;
+}
+
+.login-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
 }
 
 .login-error{
@@ -126,7 +129,7 @@ select{
     display:none;
 }
 
-/* DASHBOARD */
+/* ================= TOPBAR ================= */
 
 #dashboard{
     min-height:100vh;
@@ -134,7 +137,7 @@ select{
 
 .topbar{
     height:70px;
-    background:white;
+    background:#fff;
     border-bottom:1px solid #e5eaf1;
     display:flex;
     align-items:center;
@@ -156,7 +159,7 @@ select{
     height:42px;
     border-radius:11px;
     background:#0f766e;
-    color:white;
+    color:#fff;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -184,6 +187,8 @@ select{
     font-weight:bold;
 }
 
+/* ================= CONTAINER ================= */
+
 .container{
     width:100%;
     max-width:1400px;
@@ -191,7 +196,7 @@ select{
     padding:25px;
 }
 
-/* STATS */
+/* ================= STATS ================= */
 
 .stats-grid{
     display:grid;
@@ -201,7 +206,7 @@ select{
 }
 
 .stat-card{
-    background:white;
+    background:#fff;
     border-radius:15px;
     padding:20px;
     border:1px solid #e7edf4;
@@ -235,10 +240,10 @@ select{
     margin-top:4px;
 }
 
-/* SECTIONS */
+/* ================= SECTION ================= */
 
 .section{
-    background:white;
+    background:#fff;
     border:1px solid #e7edf4;
     border-radius:15px;
     margin-bottom:25px;
@@ -268,7 +273,7 @@ select{
     font-weight:bold;
 }
 
-/* SERVICE */
+/* ================= SERVICES ================= */
 
 .service-list{
     padding:20px;
@@ -317,13 +322,17 @@ select{
 .save-charge{
     border:none;
     background:#0f766e;
-    color:white;
+    color:#fff;
     padding:9px 12px;
     border-radius:7px;
     cursor:pointer;
 }
 
-/* FILTER */
+.save-charge:disabled{
+    opacity:.6;
+}
+
+/* ================= FILTER ================= */
 
 .filters{
     padding:18px 20px;
@@ -347,7 +356,7 @@ select{
     border-color:#0f766e;
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
 
 .table-wrap{
     width:100%;
@@ -357,11 +366,10 @@ select{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:850px;
+    min-width:900px;
 }
 
-th,
-td{
+th,td{
     padding:13px 15px;
     text-align:left;
     border-bottom:1px solid #edf1f5;
@@ -423,7 +431,7 @@ tr:hover td{
     color:#b91c1c;
 }
 
-/* EMPTY */
+/* ================= EMPTY / LOADING ================= */
 
 .empty{
     padding:40px 20px;
@@ -431,7 +439,13 @@ tr:hover td{
     color:#64748b;
 }
 
-/* MODAL */
+.loading{
+    padding:35px;
+    text-align:center;
+    color:#64748b;
+}
+
+/* ================= MODAL ================= */
 
 .modal{
     position:fixed;
@@ -453,7 +467,7 @@ tr:hover td{
     max-width:700px;
     max-height:90vh;
     overflow-y:auto;
-    background:white;
+    background:#fff;
     border-radius:17px;
 }
 
@@ -532,20 +546,14 @@ tr:hover td{
     color:#64748b;
 }
 
-.loading{
-    padding:35px;
-    text-align:center;
-    color:#64748b;
-}
-
-/* TOAST */
+/* ================= TOAST ================= */
 
 .toast{
     position:fixed;
     right:20px;
     bottom:20px;
     background:#0f172a;
-    color:white;
+    color:#fff;
     padding:13px 18px;
     border-radius:9px;
     display:none;
@@ -557,9 +565,10 @@ tr:hover td{
     display:block;
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:1000px){
+
     .stats-grid{
         grid-template-columns:repeat(2,1fr);
     }
@@ -643,7 +652,7 @@ tr:hover td{
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
 
 <div id="loginPage">
 
@@ -658,26 +667,38 @@ tr:hover td{
         <form id="loginForm">
 
             <div class="form-group">
+
                 <label>ইমেইল</label>
+
                 <input
                     type="email"
                     id="email"
                     placeholder="Admin Email"
+                    autocomplete="email"
                     required
                 >
+
             </div>
 
             <div class="form-group">
+
                 <label>পাসওয়ার্ড</label>
+
                 <input
                     type="password"
                     id="password"
                     placeholder="Password"
+                    autocomplete="current-password"
                     required
                 >
+
             </div>
 
-            <button class="login-btn" type="submit">
+            <button
+                class="login-btn"
+                type="submit"
+                id="loginBtn"
+            >
                 Login
             </button>
 
@@ -690,7 +711,7 @@ tr:hover td{
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
 
 <div id="dashboard" class="hidden">
 
@@ -703,13 +724,21 @@ tr:hover td{
             </div>
 
             <div>
+
                 <h2>Admin Panel</h2>
-                <span>Digital Service Center</span>
+
+                <span>
+                    Digital Service Center
+                </span>
+
             </div>
 
         </div>
 
-        <button class="logout-btn" id="logoutBtn">
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
             Logout
         </button>
 
@@ -718,13 +747,14 @@ tr:hover td{
 
     <main class="container">
 
-        <!-- STATS -->
+        <!-- ================= STATS ================= -->
 
         <div class="stats-grid">
 
             <div class="stat-card">
 
                 <div class="stat-top">
+
                     <div>
                         <p>মোট Request</p>
                     </div>
@@ -732,9 +762,12 @@ tr:hover td{
                     <div class="stat-icon">
                         📋
                     </div>
+
                 </div>
 
-                <h3 id="totalRequests">0</h3>
+                <h3 id="totalRequests">
+                    0
+                </h3>
 
             </div>
 
@@ -742,6 +775,7 @@ tr:hover td{
             <div class="stat-card">
 
                 <div class="stat-top">
+
                     <div>
                         <p>Pending</p>
                     </div>
@@ -749,9 +783,12 @@ tr:hover td{
                     <div class="stat-icon">
                         ⏳
                     </div>
+
                 </div>
 
-                <h3 id="pendingRequests">0</h3>
+                <h3 id="pendingRequests">
+                    0
+                </h3>
 
             </div>
 
@@ -759,6 +796,7 @@ tr:hover td{
             <div class="stat-card">
 
                 <div class="stat-top">
+
                     <div>
                         <p>Processing</p>
                     </div>
@@ -766,9 +804,12 @@ tr:hover td{
                     <div class="stat-icon">
                         🔄
                     </div>
+
                 </div>
 
-                <h3 id="processingRequests">0</h3>
+                <h3 id="processingRequests">
+                    0
+                </h3>
 
             </div>
 
@@ -776,6 +817,7 @@ tr:hover td{
             <div class="stat-card">
 
                 <div class="stat-top">
+
                     <div>
                         <p>Completed</p>
                     </div>
@@ -783,22 +825,27 @@ tr:hover td{
                     <div class="stat-icon">
                         ✅
                     </div>
+
                 </div>
 
-                <h3 id="completedRequests">0</h3>
+                <h3 id="completedRequests">
+                    0
+                </h3>
 
             </div>
 
         </div>
 
 
-        <!-- SERVICES -->
+        <!-- ================= SERVICES ================= -->
 
         <section class="section">
 
             <div class="section-header">
 
-                <h2>💰 Service Charge Management</h2>
+                <h2>
+                    💰 Service Charge Management
+                </h2>
 
                 <button
                     class="refresh-btn"
@@ -809,7 +856,10 @@ tr:hover td{
 
             </div>
 
-            <div id="servicesList" class="service-list">
+            <div
+                id="servicesList"
+                class="service-list"
+            >
 
                 <div class="loading">
                     Loading services...
@@ -820,13 +870,15 @@ tr:hover td{
         </section>
 
 
-        <!-- REQUESTS -->
+        <!-- ================= REQUESTS ================= -->
 
         <section class="section">
 
             <div class="section-header">
 
-                <h2>📋 Customer Requests</h2>
+                <h2>
+                    📋 Customer Requests
+                </h2>
 
                 <button
                     class="refresh-btn"
@@ -846,20 +898,37 @@ tr:hover td{
                     placeholder="🔎 Request No, নাম বা WhatsApp খুঁজুন..."
                 >
 
+
                 <select id="statusFilter">
 
-                    <option value="">সব Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="processing">Processing</option>
-                    <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
+                    <option value="">
+                        সব Status
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="processing">
+                        Processing
+                    </option>
+
+                    <option value="completed">
+                        Completed
+                    </option>
+
+                    <option value="cancelled">
+                        Cancelled
+                    </option>
 
                 </select>
 
 
                 <select id="serviceFilter">
 
-                    <option value="">সব Service</option>
+                    <option value="">
+                        সব Service
+                    </option>
 
                 </select>
 
@@ -873,21 +942,44 @@ tr:hover td{
                     <thead>
 
                         <tr>
-                            <th>Request No</th>
-                            <th>Customer</th>
-                            <th>WhatsApp</th>
-                            <th>Service</th>
-                            <th>Charge</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Details</th>
+
+                            <th>
+                                Request No
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                WhatsApp
+                            </th>
+
+                            <th>
+                                Service
+                            </th>
+
+                            <th>
+                                Charge
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Details
+                            </th>
+
                         </tr>
 
                     </thead>
 
-                    <tbody id="requestsTable">
-
-                    </tbody>
+                    <tbody id="requestsTable"></tbody>
 
                 </table>
 
@@ -900,15 +992,20 @@ tr:hover td{
 </div>
 
 
-<!-- DETAILS MODAL -->
+<!-- ================= DETAILS MODAL ================= -->
 
-<div id="detailsModal" class="modal">
+<div
+    id="detailsModal"
+    class="modal"
+>
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h2>Request Details</h2>
+            <h2>
+                Request Details
+            </h2>
 
             <button
                 class="close-btn"
@@ -929,16 +1026,30 @@ tr:hover td{
 </div>
 
 
-<div id="toast" class="toast"></div>
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
 <script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
 
 const SUPABASE_URL =
     "https://mulroqtysdawvwdrpdxt.supabase.co";
 
 const SUPABASE_ANON_KEY =
     "sb_publishable_-v7fU5dwzz0LddbM-f87PQ_-L1BH-bl";
+
+
+/* আপনার Admin Auth User ID */
+
+const ADMIN_USER_ID =
+    "95b9a85a-c30b-4111-b688-20abde0d3236";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -950,6 +1061,10 @@ const supabaseClient =
 let allRequests = [];
 let allServices = [];
 
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const loginPage =
     document.getElementById("loginPage");
@@ -964,49 +1079,89 @@ const loginError =
     document.getElementById("loginError");
 
 
-/* LOGIN */
+/* =====================================================
+   LOGIN
+===================================================== */
 
-loginForm.addEventListener("submit", async function(e){
+loginForm.addEventListener(
+    "submit",
+    async function(e){
 
-    e.preventDefault();
+        e.preventDefault();
 
-    loginError.style.display = "none";
+        loginError.style.display = "none";
 
-    const email =
-        document.getElementById("email").value.trim();
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
 
-    const password =
-        document.getElementById("password").value;
+        const password =
+            document
+                .getElementById("password")
+                .value;
 
-    const button =
-        loginForm.querySelector("button");
-
-    button.disabled = true;
-    button.textContent = "Login হচ্ছে...";
+        const button =
+            document.getElementById("loginBtn");
 
 
-    try{
+        button.disabled = true;
 
-        const { data, error } =
+        button.textContent =
+            "Login হচ্ছে...";
+
+
+        try{
+
+            const {
+                data,
+                error
+            } =
             await supabaseClient.auth.signInWithPassword({
                 email,
                 password
             });
 
 
-        if(error){
-            throw error;
-        }
+            if(error){
+                throw error;
+            }
 
 
-        if(!data.user){
-            throw new Error(
-                "User পাওয়া যায়নি।"
-            );
-        }
+            if(!data.user){
+
+                throw new Error(
+                    "User পাওয়া যায়নি।"
+                );
+
+            }
 
 
-        const { data: adminData, error: adminError } =
+            /* প্রথম নিরাপত্তা check:
+               নির্দিষ্ট Admin UUID */
+
+            if(
+                data.user.id !==
+                ADMIN_USER_ID
+            ){
+
+                await supabaseClient.auth.signOut();
+
+                throw new Error(
+                    "এই Account-এর Admin Access নেই।"
+                );
+
+            }
+
+
+            /* দ্বিতীয় check:
+               admins table */
+
+            const {
+                data: adminData,
+                error: adminError
+            } =
             await supabaseClient
                 .from("admins")
                 .select("id,email")
@@ -1014,50 +1169,114 @@ loginForm.addEventListener("submit", async function(e){
                 .maybeSingle();
 
 
-        if(adminError){
-            throw adminError;
-        }
+            if(adminError){
+                throw adminError;
+            }
 
 
-        if(!adminData){
+            if(!adminData){
 
-            await supabaseClient.auth.signOut();
+                await supabaseClient.auth.signOut();
 
-            throw new Error(
-                "এই Account-এর Admin Access নেই।"
+                throw new Error(
+                    "Admin account database-এ পাওয়া যায়নি।"
+                );
+
+            }
+
+
+            await showDashboard();
+
+
+        }catch(error){
+
+            console.error(
+                "Login Error:",
+                error
             );
+
+
+            loginError.textContent =
+                getFriendlyError(
+                    error
+                );
+
+            loginError.style.display =
+                "block";
+
+
+        }finally{
+
+            button.disabled = false;
+
+            button.textContent =
+                "Login";
+
         }
 
+    }
+);
 
-        showDashboard();
 
-    }catch(error){
+/* =====================================================
+   FRIENDLY ERROR
+===================================================== */
 
-        console.error(error);
+function getFriendlyError(error){
 
-        loginError.textContent =
-            error.message ||
-            "Login করতে সমস্যা হয়েছে।";
+    const message =
+        error?.message || "";
 
-        loginError.style.display = "block";
 
-    }finally{
+    if(
+        message
+            .toLowerCase()
+            .includes("invalid login credentials")
+    ){
 
-        button.disabled = false;
-        button.textContent = "Login";
+        return "ইমেইল অথবা পাসওয়ার্ড ভুল।";
 
     }
 
-});
+
+    if(
+        message
+            .toLowerCase()
+            .includes("email not confirmed")
+    ){
+
+        return "এই Email এখনো Confirm করা হয়নি।";
+
+    }
 
 
-/* SHOW DASHBOARD */
+    if(
+        message
+            .toLowerCase()
+            .includes("failed to fetch")
+    ){
+
+        return "Supabase-এর সাথে সংযোগ হচ্ছে না। Internet এবং Supabase URL/Key পরীক্ষা করুন।";
+
+    }
+
+
+    return message ||
+        "Login করতে সমস্যা হয়েছে।";
+
+}
+
+
+/* =====================================================
+   SHOW DASHBOARD
+===================================================== */
 
 async function showDashboard(){
 
     loginPage.classList.add("hidden");
 
     dashboard.classList.remove("hidden");
+
 
     await Promise.all([
         loadServices(),
@@ -1067,17 +1286,20 @@ async function showDashboard(){
 }
 
 
-/* CHECK EXISTING SESSION */
+/* =====================================================
+   SESSION CHECK
+===================================================== */
 
 async function checkSession(){
 
     try{
 
         const {
-            data: {
+            data:{
                 session
             }
-        } = await supabaseClient.auth.getSession();
+        } =
+        await supabaseClient.auth.getSession();
 
 
         if(!session){
@@ -1085,17 +1307,50 @@ async function checkSession(){
         }
 
 
-        const { data: adminData } =
-            await supabaseClient
-                .from("admins")
-                .select("id")
-                .eq("id", session.user.id)
-                .maybeSingle();
+        /* UUID check */
+
+        if(
+            session.user.id !==
+            ADMIN_USER_ID
+        ){
+
+            await supabaseClient.auth.signOut();
+
+            return;
+
+        }
+
+
+        /* Admin table check */
+
+        const {
+            data:adminData,
+            error
+        } =
+        await supabaseClient
+            .from("admins")
+            .select("id")
+            .eq("id", session.user.id)
+            .maybeSingle();
+
+
+        if(error){
+
+            console.error(
+                "Admin Check:",
+                error
+            );
+
+            await supabaseClient.auth.signOut();
+
+            return;
+
+        }
 
 
         if(adminData){
 
-            showDashboard();
+            await showDashboard();
 
         }else{
 
@@ -1103,21 +1358,30 @@ async function checkSession(){
 
         }
 
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Session Error:",
+            error
+        );
 
     }
 
 }
 
 
-/* LOAD SERVICES */
+/* =====================================================
+   LOAD SERVICES
+===================================================== */
 
 async function loadServices(){
 
     const container =
-        document.getElementById("servicesList");
+        document.getElementById(
+            "servicesList"
+        );
+
 
     container.innerHTML =
         '<div class="loading">Loading services...</div>';
@@ -1126,30 +1390,40 @@ async function loadServices(){
     const {
         data,
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("services")
         .select("*")
-        .order("created_at", {
-            ascending:false
-        });
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Services Error:",
+            error
+        );
+
 
         container.innerHTML =
             `<div class="empty">
                 Services load করতে সমস্যা হয়েছে।
-                <br>
+                <br><br>
                 ${escapeHtml(error.message)}
             </div>`;
 
         return;
+
     }
 
 
-    allServices = data || [];
+    allServices =
+        data || [];
 
 
     updateServiceFilter();
@@ -1158,97 +1432,141 @@ async function loadServices(){
     if(!allServices.length){
 
         container.innerHTML =
-            '<div class="empty">কোনো Service পাওয়া যায়নি।</div>';
+            `<div class="empty">
+                কোনো Service পাওয়া যায়নি।
+            </div>`;
 
         return;
+
     }
 
 
     container.innerHTML =
-        allServices.map(service => {
+        allServices
+            .map(
+                service => {
 
-            return `
+                    const charge =
+                        Number(
+                            service.charge || 0
+                        );
 
-                <div class="service-card">
 
-                    <div class="service-title">
+                    return `
 
-                        <h3>
+                    <div class="service-card">
+
+                        <div class="service-title">
+
+                            <h3>
+
+                                ${escapeHtml(
+                                    service.icon || "📌"
+                                )}
+
+                                ${escapeHtml(
+                                    service.service_name || "-"
+                                )}
+
+                            </h3>
+
+                        </div>
+
+
+                        <div class="service-category">
+
                             ${escapeHtml(
-                                service.icon || "📌"
+                                service.category || ""
                             )}
-                            ${escapeHtml(
-                                service.service_name || ""
-                            )}
-                        </h3>
+
+                        </div>
+
+
+                        <div class="service-charge">
+
+                            <input
+                                type="number"
+                                min="0"
+                                step="1"
+                                id="charge-${escapeHtml(
+                                    service.id
+                                )}"
+                                value="${charge}"
+                            >
+
+                            <span>৳</span>
+
+
+                            <button
+                                class="save-charge"
+                                onclick="updateCharge('${escapeHtml(
+                                    service.id
+                                )}')"
+                            >
+                                Save
+                            </button>
+
+                        </div>
 
                     </div>
 
-                    <div class="service-category">
-                        ${escapeHtml(
-                            service.category || ""
-                        )}
-                    </div>
+                    `;
 
-                    <div class="service-charge">
-
-                        <input
-                            type="number"
-                            min="0"
-                            id="charge-${service.id}"
-                            value="${service.charge || 0}"
-                        >
-
-                        <span>৳</span>
-
-                        <button
-                            class="save-charge"
-                            onclick="updateCharge('${service.id}')"
-                        >
-                            Save
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+                }
+            )
+            .join("");
 
 }
 
 
-/* UPDATE SERVICE FILTER */
+/* =====================================================
+   SERVICE FILTER
+===================================================== */
 
 function updateServiceFilter(){
 
     const filter =
-        document.getElementById("serviceFilter");
+        document.getElementById(
+            "serviceFilter"
+        );
+
 
     filter.innerHTML =
-        '<option value="">সব Service</option>';
+        `<option value="">
+            সব Service
+        </option>`;
 
 
-    allServices.forEach(service => {
+    allServices.forEach(
+        service => {
 
-        const option =
-            document.createElement("option");
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.value =
-            service.service_key;
 
-        option.textContent =
-            service.service_name;
+            option.value =
+                service.service_key || "";
 
-        filter.appendChild(option);
 
-    });
+            option.textContent =
+                service.service_name || "-";
+
+
+            filter.appendChild(
+                option
+            );
+
+        }
+    );
 
 }
 
 
-/* UPDATE CHARGE */
+/* =====================================================
+   UPDATE CHARGE
+===================================================== */
 
 async function updateCharge(id){
 
@@ -1257,40 +1575,99 @@ async function updateCharge(id){
             `charge-${id}`
         );
 
+
+    if(!input){
+
+        showToast(
+            "Charge input পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
     const charge =
         Number(input.value);
 
 
-    if(charge < 0){
+    if(
+        !Number.isFinite(charge) ||
+        charge < 0
+    ){
 
         showToast(
             "Charge সঠিকভাবে দিন।"
         );
 
         return;
+
+    }
+
+
+    const button =
+        input
+            .parentElement
+            .querySelector(
+                "button"
+            );
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+            "Saving...";
+
     }
 
 
     const {
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("services")
         .update({
-            charge,
-            updated_at:new Date().toISOString()
+
+            charge:charge,
+
+            updated_at:
+                new Date()
+                    .toISOString()
+
         })
-        .eq("id", id);
+        .eq(
+            "id",
+            id
+        );
 
 
     if(error){
 
-        console.error(error);
-
-        showToast(
-            "Charge update হয়নি।"
+        console.error(
+            "Charge Error:",
+            error
         );
 
+
+        showToast(
+            "Charge update হয়নি: " +
+            error.message
+        );
+
+
+        if(button){
+
+            button.disabled = false;
+
+            button.textContent =
+                "Save";
+
+        }
+
         return;
+
     }
 
 
@@ -1304,12 +1681,17 @@ async function updateCharge(id){
 }
 
 
-/* LOAD REQUESTS */
+/* =====================================================
+   LOAD REQUESTS
+===================================================== */
 
 async function loadRequests(){
 
     const tbody =
-        document.getElementById("requestsTable");
+        document.getElementById(
+            "requestsTable"
+        );
+
 
     tbody.innerHTML =
         `<tr>
@@ -1324,34 +1706,54 @@ async function loadRequests(){
     const {
         data,
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("service_requests")
         .select("*")
-        .order("created_at", {
-            ascending:false
-        });
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Request Error:",
+            error
+        );
+
 
         tbody.innerHTML =
             `<tr>
+
                 <td colspan="8">
+
                     <div class="empty">
+
                         Request load করতে সমস্যা হয়েছে।
-                        <br>
-                        ${escapeHtml(error.message)}
+
+                        <br><br>
+
+                        ${escapeHtml(
+                            error.message
+                        )}
+
                     </div>
+
                 </td>
+
             </tr>`;
 
         return;
+
     }
 
 
-    allRequests = data || [];
+    allRequests =
+        data || [];
 
 
     updateStats();
@@ -1361,63 +1763,111 @@ async function loadRequests(){
 }
 
 
-/* UPDATE STATS */
+/* =====================================================
+   UPDATE STATS
+===================================================== */
 
 function updateStats(){
 
     const total =
         allRequests.length;
 
+
     const pending =
         allRequests.filter(
-            r => r.status === "pending"
+            r =>
+                r.status ===
+                "pending"
         ).length;
+
 
     const processing =
         allRequests.filter(
-            r => r.status === "processing"
+            r =>
+                r.status ===
+                "processing"
         ).length;
+
 
     const completed =
         allRequests.filter(
-            r => r.status === "completed"
+            r =>
+                r.status ===
+                "completed"
         ).length;
 
 
     document.getElementById(
         "totalRequests"
-    ).textContent = total;
+    ).textContent =
+        total;
 
 
     document.getElementById(
         "pendingRequests"
-    ).textContent = pending;
+    ).textContent =
+        pending;
 
 
     document.getElementById(
         "processingRequests"
-    ).textContent = processing;
+    ).textContent =
+        processing;
 
 
     document.getElementById(
         "completedRequests"
-    ).textContent = completed;
+    ).textContent =
+        completed;
 
 }
 
 
-/* RENDER REQUESTS */
+/* =====================================================
+   STATUS BADGE
+===================================================== */
+
+function getStatusClass(status){
+
+    switch(status){
+
+        case "pending":
+            return "pending";
+
+        case "processing":
+            return "processing";
+
+        case "completed":
+            return "completed";
+
+        case "cancelled":
+            return "cancelled";
+
+        default:
+            return "pending";
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER REQUESTS
+===================================================== */
 
 function renderRequests(){
 
     const tbody =
-        document.getElementById("requestsTable");
+        document.getElementById(
+            "requestsTable"
+        );
 
 
     const search =
         document.getElementById(
             "searchInput"
-        ).value
+        )
+        .value
         .trim()
         .toLowerCase();
 
@@ -1434,168 +1884,242 @@ function renderRequests(){
         ).value;
 
 
-    let filtered =
-        allRequests.filter(request => {
+    const filtered =
+        allRequests.filter(
+            request => {
 
-            const searchText = [
+                const searchText = [
 
-                request.request_no,
-                request.name,
-                request.whatsapp,
-                request.service_name
+                    request.request_no,
 
-            ]
-            .join(" ")
-            .toLowerCase();
+                    request.name,
 
+                    request.whatsapp,
 
-            const matchSearch =
-                !search ||
-                searchText.includes(search);
+                    request.service_name
 
-
-            const matchStatus =
-                !status ||
-                request.status === status;
+                ]
+                .map(
+                    value =>
+                        value || ""
+                )
+                .join(" ")
+                .toLowerCase();
 
 
-            const matchService =
-                !service ||
-                request.service_key === service;
+                const matchSearch =
+                    !search ||
+                    searchText.includes(
+                        search
+                    );
 
 
-            return (
-                matchSearch &&
-                matchStatus &&
-                matchService
-            );
+                const matchStatus =
+                    !status ||
+                    request.status ===
+                    status;
 
-        });
+
+                const matchService =
+                    !service ||
+                    request.service_key ===
+                    service;
+
+
+                return (
+                    matchSearch &&
+                    matchStatus &&
+                    matchService
+                );
+
+            }
+        );
 
 
     if(!filtered.length){
 
         tbody.innerHTML =
             `<tr>
+
                 <td colspan="8">
+
                     <div class="empty">
+
                         কোনো Request পাওয়া যায়নি।
+
                     </div>
+
                 </td>
+
             </tr>`;
 
         return;
+
     }
 
 
     tbody.innerHTML =
-        filtered.map(request => {
+        filtered
+            .map(
+                request => {
 
-            return `
+                    const statusValue =
+                        request.status ||
+                        "pending";
 
-                <tr>
 
-                    <td>
-                        <strong>
+                    return `
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    request.request_no ||
+                                    "-"
+                                )}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
                             ${escapeHtml(
-                                request.request_no || "-"
+                                request.name ||
+                                "-"
                             )}
-                        </strong>
-                    </td>
 
-                    <td>
-                        ${escapeHtml(
-                            request.name || "-"
-                        )}
-                    </td>
+                        </td>
 
-                    <td>
-                        ${escapeHtml(
-                            request.whatsapp || "-"
-                        )}
-                    </td>
 
-                    <td>
-                        ${escapeHtml(
-                            request.service_name || "-"
-                        )}
-                    </td>
+                        <td>
 
-                    <td>
-                        ৳${Number(
-                            request.charge || 0
-                        ).toLocaleString("en-BD")}
-                    </td>
+                            ${escapeHtml(
+                                request.whatsapp ||
+                                "-"
+                            )}
 
-                    <td>
+                        </td>
 
-                        <select
-                            class="status-select"
-                            onchange="changeStatus(
-                                '${request.id}',
-                                this.value
-                            )"
-                        >
 
-                            <option
-                                value="pending"
-                                ${request.status === "pending" ? "selected" : ""}
+                        <td>
+
+                            ${escapeHtml(
+                                request.service_name ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ৳${Number(
+                                request.charge ||
+                                0
+                            ).toLocaleString(
+                                "en-BD"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <select
+                                class="status-select"
+                                onchange="changeStatus(
+                                    '${escapeHtml(
+                                        request.id
+                                    )}',
+                                    this.value
+                                )"
                             >
-                                Pending
-                            </option>
 
-                            <option
-                                value="processing"
-                                ${request.status === "processing" ? "selected" : ""}
+                                <option
+                                    value="pending"
+                                    ${statusValue === "pending"
+                                        ? "selected"
+                                        : ""}
+                                >
+                                    Pending
+                                </option>
+
+
+                                <option
+                                    value="processing"
+                                    ${statusValue === "processing"
+                                        ? "selected"
+                                        : ""}
+                                >
+                                    Processing
+                                </option>
+
+
+                                <option
+                                    value="completed"
+                                    ${statusValue === "completed"
+                                        ? "selected"
+                                        : ""}
+                                >
+                                    Completed
+                                </option>
+
+
+                                <option
+                                    value="cancelled"
+                                    ${statusValue === "cancelled"
+                                        ? "selected"
+                                        : ""}
+                                >
+                                    Cancelled
+                                </option>
+
+                            </select>
+
+                        </td>
+
+
+                        <td>
+
+                            ${formatDate(
+                                request.created_at
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="view-btn"
+                                onclick="viewDetails(
+                                    '${escapeHtml(
+                                        request.id
+                                    )}'
+                                )"
                             >
-                                Processing
-                            </option>
+                                View
+                            </button>
 
-                            <option
-                                value="completed"
-                                ${request.status === "completed" ? "selected" : ""}
-                            >
-                                Completed
-                            </option>
+                        </td>
 
-                            <option
-                                value="cancelled"
-                                ${request.status === "cancelled" ? "selected" : ""}
-                            >
-                                Cancelled
-                            </option>
+                    </tr>
 
-                        </select>
+                    `;
 
-                    </td>
-
-                    <td>
-                        ${formatDate(
-                            request.created_at
-                        )}
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="view-btn"
-                            onclick="viewDetails('${request.id}')"
-                        >
-                            View
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }).join("");
+                }
+            )
+            .join("");
 
 }
 
 
-/* CHANGE STATUS */
+/* =====================================================
+   CHANGE STATUS
+===================================================== */
 
 async function changeStatus(
     id,
@@ -1604,41 +2128,65 @@ async function changeStatus(
 
     const {
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("service_requests")
         .update({
-            status,
-            updated_at:new Date().toISOString()
+
+            status:status,
+
+            updated_at:
+                new Date()
+                    .toISOString()
+
         })
-        .eq("id", id);
+        .eq(
+            "id",
+            id
+        );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Status Error:",
+            error
+        );
+
 
         showToast(
-            "Status update হয়নি।"
+            "Status update হয়নি: " +
+            error.message
         );
+
 
         await loadRequests();
 
         return;
+
     }
 
 
     const request =
         allRequests.find(
-            r => r.id === id
+            r =>
+                String(r.id) ===
+                String(id)
         );
 
 
     if(request){
-        request.status = status;
+
+        request.status =
+            status;
+
     }
 
 
     updateStats();
+
+    renderRequests();
+
 
     showToast(
         "Status আপডেট হয়েছে।"
@@ -1647,13 +2195,17 @@ async function changeStatus(
 }
 
 
-/* VIEW DETAILS */
+/* =====================================================
+   VIEW DETAILS
+===================================================== */
 
 function viewDetails(id){
 
     const request =
         allRequests.find(
-            r => r.id === id
+            r =>
+                String(r.id) ===
+                String(id)
         );
 
 
@@ -1667,7 +2219,8 @@ function viewDetails(id){
 
     if(
         request.service_data &&
-        typeof request.service_data === "object"
+        typeof request.service_data ===
+            "object"
     ){
 
         const entries =
@@ -1679,33 +2232,51 @@ function viewDetails(id){
         if(entries.length){
 
             serviceDataHtml =
-                entries.map(([key,value]) => {
+                entries
+                    .map(
+                        ([key,value]) => {
 
-                    return `
+                            return `
 
-                        <div class="data-item">
+                            <div class="data-item">
 
-                            <span>
-                                ${escapeHtml(
-                                    formatKey(key)
-                                )}
-                            </span>
+                                <span>
 
-                            <strong>
-                                ${escapeHtml(
-                                    formatValue(value)
-                                )}
-                            </strong>
+                                    ${escapeHtml(
+                                        formatKey(
+                                            key
+                                        )
+                                    )}
 
-                        </div>
+                                </span>
 
-                    `;
 
-                }).join("");
+                                <strong>
+
+                                    ${escapeHtml(
+                                        formatValue(
+                                            value
+                                        )
+                                    )}
+
+                                </strong>
+
+                            </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
 
         }
 
     }
+
+
+    const status =
+        request.status ||
+        "-";
 
 
     const body =
@@ -1718,13 +2289,17 @@ function viewDetails(id){
 
         <div class="detail-grid">
 
+
             <div class="detail">
 
-                <small>Request No</small>
+                <small>
+                    Request No
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.request_no || "-"
+                        request.request_no ||
+                        "-"
                     )}
                 </strong>
 
@@ -1733,11 +2308,37 @@ function viewDetails(id){
 
             <div class="detail">
 
-                <small>Status</small>
+                <small>
+                    Status
+                </small>
+
+                <strong>
+
+                    <span
+                        class="badge ${getStatusClass(
+                            status
+                        )}"
+                    >
+                        ${escapeHtml(
+                            status
+                        )}
+                    </span>
+
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>
+                    Customer Name
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.status || "-"
+                        request.name ||
+                        "-"
                     )}
                 </strong>
 
@@ -1746,11 +2347,14 @@ function viewDetails(id){
 
             <div class="detail">
 
-                <small>Customer Name</small>
+                <small>
+                    WhatsApp
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.name || "-"
+                        request.whatsapp ||
+                        "-"
                     )}
                 </strong>
 
@@ -1759,11 +2363,14 @@ function viewDetails(id){
 
             <div class="detail">
 
-                <small>WhatsApp</small>
+                <small>
+                    Service
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.whatsapp || "-"
+                        request.service_name ||
+                        "-"
                     )}
                 </strong>
 
@@ -1772,11 +2379,14 @@ function viewDetails(id){
 
             <div class="detail">
 
-                <small>Service</small>
+                <small>
+                    Sub Service
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.service_name || "-"
+                        request.sub_service ||
+                        "-"
                     )}
                 </strong>
 
@@ -1785,25 +2395,17 @@ function viewDetails(id){
 
             <div class="detail">
 
-                <small>Sub Service</small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.sub_service || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>Charge</small>
+                <small>
+                    Charge
+                </small>
 
                 <strong>
                     ৳${Number(
-                        request.charge || 0
-                    ).toLocaleString("en-BD")}
+                        request.charge ||
+                        0
+                    ).toLocaleString(
+                        "en-BD"
+                    )}
                 </strong>
 
             </div>
@@ -1811,7 +2413,9 @@ function viewDetails(id){
 
             <div class="detail">
 
-                <small>Created</small>
+                <small>
+                    Created
+                </small>
 
                 <strong>
                     ${formatDate(
@@ -1824,11 +2428,14 @@ function viewDetails(id){
 
             <div class="detail full">
 
-                <small>Address</small>
+                <small>
+                    Address
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.address || "-"
+                        request.address ||
+                        "-"
                     )}
                 </strong>
 
@@ -1837,23 +2444,28 @@ function viewDetails(id){
 
             <div class="detail full">
 
-                <small>Additional Details</small>
+                <small>
+                    Additional Details
+                </small>
 
                 <strong>
                     ${escapeHtml(
-                        request.additional_details || "-"
+                        request.additional_details ||
+                        "-"
                     )}
                 </strong>
 
             </div>
+
 
         </div>
 
 
         ${
             serviceDataHtml
-            ?
-            `
+                ?
+                `
+
                 <div class="data-box">
 
                     <h3>
@@ -1863,50 +2475,72 @@ function viewDetails(id){
                     ${serviceDataHtml}
 
                 </div>
-            `
-            :
-            ""
+
+                `
+                :
+                ""
         }
 
     `;
 
 
     document
-        .getElementById("detailsModal")
-        .classList.add("active");
+        .getElementById(
+            "detailsModal"
+        )
+        .classList.add(
+            "active"
+        );
 
 }
 
 
-/* CLOSE MODAL */
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
 
 function closeModal(){
 
     document
-        .getElementById("detailsModal")
-        .classList.remove("active");
+        .getElementById(
+            "detailsModal"
+        )
+        .classList.remove(
+            "active"
+        );
 
 }
 
 
 document
-    .getElementById("detailsModal")
+    .getElementById(
+        "detailsModal"
+    )
     .addEventListener(
         "click",
         function(e){
 
-            if(e.target === this){
+            if(
+                e.target ===
+                this
+            ){
+
                 closeModal();
+
             }
 
         }
     );
 
 
-/* SEARCH */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 document
-    .getElementById("searchInput")
+    .getElementById(
+        "searchInput"
+    )
     .addEventListener(
         "input",
         renderRequests
@@ -1914,7 +2548,9 @@ document
 
 
 document
-    .getElementById("statusFilter")
+    .getElementById(
+        "statusFilter"
+    )
     .addEventListener(
         "change",
         renderRequests
@@ -1922,57 +2558,101 @@ document
 
 
 document
-    .getElementById("serviceFilter")
+    .getElementById(
+        "serviceFilter"
+    )
     .addEventListener(
         "change",
         renderRequests
     );
 
 
-/* LOGOUT */
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 document
-    .getElementById("logoutBtn")
+    .getElementById(
+        "logoutBtn"
+    )
     .addEventListener(
         "click",
         async function(){
 
-            await supabaseClient.auth.signOut();
+            await supabaseClient
+                .auth
+                .signOut();
 
-            dashboard.classList.add("hidden");
 
-            loginPage.classList.remove("hidden");
+            dashboard
+                .classList
+                .add(
+                    "hidden"
+                );
+
+
+            loginPage
+                .classList
+                .remove(
+                    "hidden"
+                );
+
 
             document.getElementById(
                 "password"
             ).value = "";
 
+
+            document.getElementById(
+                "email"
+            ).value = "";
+
+
+            loginError.style.display =
+                "none";
+
         }
     );
 
 
-/* TOAST */
+/* =====================================================
+   TOAST
+===================================================== */
 
 function showToast(message){
 
     const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
+        document.getElementById(
+            "toast"
+        );
 
 
-    setTimeout(() => {
+    toast.textContent =
+        message;
 
-        toast.classList.remove("show");
 
-    }, 2500);
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
 
 }
 
 
-/* DATE */
+/* =====================================================
+   DATE
+===================================================== */
 
 function formatDate(date){
 
@@ -1997,44 +2677,56 @@ function formatDate(date){
 
     }catch{
 
-        return date;
+        return String(date);
 
     }
 
 }
 
 
-/* FORMAT KEY */
+/* =====================================================
+   FORMAT KEY
+===================================================== */
 
 function formatKey(key){
 
     return String(key)
-        .replaceAll("_"," ")
-        .replace(/\b\w/g, c =>
-            c.toUpperCase()
+        .replaceAll(
+            "_",
+            " "
+        )
+        .replace(
+            /\b\w/g,
+            c =>
+                c.toUpperCase()
         );
 
 }
 
 
-/* FORMAT VALUE */
+/* =====================================================
+   FORMAT VALUE
+===================================================== */
 
 function formatValue(value){
 
-    if(value === null ||
-       value === undefined){
+    if(
+        value === null ||
+        value === undefined
+    ){
 
         return "-";
 
     }
 
 
-    if(typeof value === "object"){
+    if(
+        typeof value ===
+        "object"
+    ){
 
         return JSON.stringify(
-            value,
-            null,
-            2
+            value
         );
 
     }
@@ -2045,7 +2737,9 @@ function formatValue(value){
 }
 
 
-/* ESCAPE */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
@@ -2060,16 +2754,33 @@ function escapeHtml(value){
 
 
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* START */
+/* =====================================================
+   START
+===================================================== */
 
 checkSession();
 
