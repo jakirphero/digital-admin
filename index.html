@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Admin Panel - Digital Service Center</title>
 
@@ -10,9 +10,9 @@
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body{
@@ -21,21 +21,19 @@ body{
     color:#172033;
 }
 
-button,input,select{
-    font-family:inherit;
-}
-
 .hidden{
     display:none!important;
 }
 
-/* ================= LOGIN ================= */
+button,input,select{
+    font-family:inherit;
+}
 
 #loginPage{
     min-height:100vh;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     padding:20px;
     background:linear-gradient(135deg,#0f766e,#0f172a);
 }
@@ -49,9 +47,10 @@ button,input,select{
     box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-.login-logo{
+.logo{
     width:65px;
     height:65px;
+    margin:auto auto 15px;
     border-radius:18px;
     background:#0f766e;
     color:#fff;
@@ -59,19 +58,17 @@ button,input,select{
     justify-content:center;
     align-items:center;
     font-size:30px;
-    margin:0 auto 15px;
 }
 
 .login-box h1{
     text-align:center;
     font-size:25px;
-    margin-bottom:7px;
 }
 
 .login-box p{
     text-align:center;
     color:#64748b;
-    margin-bottom:25px;
+    margin:7px 0 25px;
 }
 
 .form-group{
@@ -87,11 +84,11 @@ button,input,select{
 
 .form-group input{
     width:100%;
-    padding:13px 14px;
+    padding:13px;
     border:1px solid #dbe3ee;
     border-radius:10px;
-    outline:none;
     font-size:15px;
+    outline:none;
 }
 
 .form-group input:focus{
@@ -100,7 +97,7 @@ button,input,select{
 
 .login-btn{
     width:100%;
-    border:none;
+    border:0;
     background:#0f766e;
     color:#fff;
     padding:14px;
@@ -110,26 +107,21 @@ button,input,select{
     cursor:pointer;
 }
 
-.login-btn:hover{
-    background:#115e59;
-}
-
 .login-btn:disabled{
-    opacity:.7;
-    cursor:not-allowed;
+    opacity:.6;
 }
 
-.login-error{
+.error{
+    display:none;
     margin-top:15px;
+    padding:12px;
+    border-radius:9px;
     background:#fee2e2;
     color:#b91c1c;
-    padding:11px;
-    border-radius:9px;
     font-size:14px;
-    display:none;
 }
 
-/* ================= TOPBAR ================= */
+/* DASHBOARD */
 
 #dashboard{
     min-height:100vh;
@@ -163,7 +155,6 @@ button,input,select{
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:20px;
 }
 
 .brand h2{
@@ -174,11 +165,10 @@ button,input,select{
     display:block;
     font-size:11px;
     color:#64748b;
-    margin-top:2px;
 }
 
-.logout-btn{
-    border:none;
+.logout{
+    border:0;
     background:#fee2e2;
     color:#b91c1c;
     padding:9px 14px;
@@ -187,67 +177,57 @@ button,input,select{
     font-weight:bold;
 }
 
-/* ================= CONTAINER ================= */
-
 .container{
-    width:100%;
     max-width:1400px;
     margin:auto;
     padding:25px;
 }
 
-/* ================= STATS ================= */
+/* STATS */
 
-.stats-grid{
+.stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:18px;
     margin-bottom:25px;
 }
 
-.stat-card{
+.stat{
     background:#fff;
+    border:1px solid #e7edf4;
     border-radius:15px;
     padding:20px;
-    border:1px solid #e7edf4;
-}
-
-.stat-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 }
 
 .stat-icon{
     width:45px;
     height:45px;
     border-radius:12px;
+    background:#e6fffb;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:21px;
-    background:#e6fffb;
 }
 
-.stat-card h3{
+.stat h3{
     font-size:28px;
     margin-top:15px;
 }
 
-.stat-card p{
+.stat p{
     color:#64748b;
     font-size:14px;
-    margin-top:4px;
 }
 
-/* ================= SECTION ================= */
+/* SECTION */
 
 .section{
     background:#fff;
     border:1px solid #e7edf4;
     border-radius:15px;
-    margin-bottom:25px;
     overflow:hidden;
+    margin-bottom:25px;
 }
 
 .section-header{
@@ -256,15 +236,14 @@ button,input,select{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:15px;
 }
 
 .section-header h2{
     font-size:19px;
 }
 
-.refresh-btn{
-    border:none;
+.refresh{
+    border:0;
     background:#e8f5f3;
     color:#0f766e;
     padding:9px 14px;
@@ -273,7 +252,7 @@ button,input,select{
     font-weight:bold;
 }
 
-/* ================= SERVICES ================= */
+/* SERVICES */
 
 .service-list{
     padding:20px;
@@ -288,39 +267,32 @@ button,input,select{
     padding:17px;
 }
 
-.service-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-}
-
-.service-title h3{
+.service-card h3{
     font-size:16px;
 }
 
-.service-category{
-    font-size:12px;
-    color:#64748b;
+.category{
     margin-top:5px;
+    color:#64748b;
+    font-size:12px;
 }
 
-.service-charge{
+.charge{
     display:flex;
     align-items:center;
     gap:8px;
     margin-top:15px;
 }
 
-.service-charge input{
+.charge input{
     width:100px;
     padding:9px;
     border:1px solid #dbe3ee;
     border-radius:7px;
 }
 
-.save-charge{
-    border:none;
+.save{
+    border:0;
     background:#0f766e;
     color:#fff;
     padding:9px 12px;
@@ -328,11 +300,7 @@ button,input,select{
     cursor:pointer;
 }
 
-.save-charge:disabled{
-    opacity:.6;
-}
-
-/* ================= FILTER ================= */
+/* FILTER */
 
 .filters{
     padding:18px 20px;
@@ -345,28 +313,21 @@ button,input,select{
 .filters input,
 .filters select{
     width:100%;
-    padding:11px 12px;
+    padding:11px;
     border:1px solid #dbe3ee;
     border-radius:9px;
-    outline:none;
 }
 
-.filters input:focus,
-.filters select:focus{
-    border-color:#0f766e;
-}
-
-/* ================= TABLE ================= */
+/* TABLE */
 
 .table-wrap{
-    width:100%;
     overflow-x:auto;
 }
 
 table{
     width:100%;
-    border-collapse:collapse;
     min-width:900px;
+    border-collapse:collapse;
 }
 
 th,td{
@@ -382,19 +343,14 @@ th{
     font-size:13px;
 }
 
-tr:hover td{
-    background:#fafdfd;
-}
-
-.status-select{
+.status{
     padding:7px 9px;
-    border-radius:7px;
     border:1px solid #dbe3ee;
-    font-size:13px;
+    border-radius:7px;
 }
 
-.view-btn{
-    border:none;
+.view{
+    border:0;
     background:#e0f2fe;
     color:#0369a1;
     padding:7px 11px;
@@ -403,49 +359,14 @@ tr:hover td{
     font-weight:bold;
 }
 
-.badge{
-    display:inline-block;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.pending{
-    background:#fef3c7;
-    color:#92400e;
-}
-
-.processing{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.completed{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.cancelled{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-/* ================= EMPTY / LOADING ================= */
-
+.loading,
 .empty{
-    padding:40px 20px;
+    padding:40px;
     text-align:center;
     color:#64748b;
 }
 
-.loading{
-    padding:35px;
-    text-align:center;
-    color:#64748b;
-}
-
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal{
     position:fixed;
@@ -466,7 +387,7 @@ tr:hover td{
     width:100%;
     max-width:700px;
     max-height:90vh;
-    overflow-y:auto;
+    overflow:auto;
     background:#fff;
     border-radius:17px;
 }
@@ -476,21 +397,14 @@ tr:hover td{
     border-bottom:1px solid #e5e7eb;
     display:flex;
     justify-content:space-between;
-    align-items:center;
 }
 
-.modal-header h2{
-    font-size:19px;
-}
-
-.close-btn{
+.close{
+    border:0;
     width:34px;
     height:34px;
-    border:none;
     border-radius:50%;
-    background:#f1f5f9;
     cursor:pointer;
-    font-size:18px;
 }
 
 .modal-body{
@@ -509,44 +423,19 @@ tr:hover td{
     border-radius:9px;
 }
 
-.detail.full{
+.full{
     grid-column:1/-1;
 }
 
 .detail small{
     display:block;
     color:#64748b;
-    font-size:12px;
     margin-bottom:5px;
 }
 
 .detail strong{
-    font-size:14px;
     word-break:break-word;
 }
-
-.data-box{
-    margin-top:18px;
-}
-
-.data-box h3{
-    margin-bottom:10px;
-    font-size:16px;
-}
-
-.data-item{
-    padding:10px;
-    border-bottom:1px solid #edf1f5;
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-}
-
-.data-item span:first-child{
-    color:#64748b;
-}
-
-/* ================= TOAST ================= */
 
 .toast{
     position:fixed;
@@ -557,32 +446,30 @@ tr:hover td{
     padding:13px 18px;
     border-radius:9px;
     display:none;
-    z-index:1000;
-    font-size:14px;
 }
 
 .toast.show{
     display:block;
 }
 
-/* ================= RESPONSIVE ================= */
+/* MOBILE */
 
 @media(max-width:1000px){
 
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
+    .stats{
+        grid-template-columns:1fr 1fr;
     }
 
     .service-list{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:1fr 1fr;
     }
 }
 
 @media(max-width:650px){
 
     .topbar{
-        padding:0 14px;
         height:62px;
+        padding:0 14px;
     }
 
     .brand h2{
@@ -593,40 +480,24 @@ tr:hover td{
         display:none;
     }
 
-    .logout-btn{
-        padding:8px 10px;
-        font-size:12px;
-    }
-
     .container{
         padding:15px;
     }
 
-    .stats-grid{
-        grid-template-columns:1fr 1fr;
+    .stats{
         gap:10px;
     }
 
-    .stat-card{
+    .stat{
         padding:14px;
     }
 
-    .stat-card h3{
+    .stat h3{
         font-size:23px;
-    }
-
-    .stat-icon{
-        width:38px;
-        height:38px;
-        font-size:17px;
     }
 
     .service-list{
         grid-template-columns:1fr;
-        padding:15px;
-    }
-
-    .section-header{
         padding:15px;
     }
 
@@ -639,12 +510,8 @@ tr:hover td{
         grid-template-columns:1fr;
     }
 
-    .detail.full{
+    .full{
         grid-column:auto;
-    }
-
-    .login-box{
-        padding:25px 20px;
     }
 }
 </style>
@@ -652,2135 +519,2021 @@ tr:hover td{
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div id="loginPage">
 
-    <div class="login-box">
+<div class="login-box">
 
-        <div class="login-logo">🔐</div>
+<div class="logo">🔐</div>
 
-        <h1>Admin Login</h1>
+<h1>Admin Login</h1>
 
-        <p>Digital Service Center</p>
+<p>Digital Service Center</p>
 
-        <form id="loginForm">
+<form id="loginForm">
 
-            <div class="form-group">
+<div class="form-group">
 
-                <label>ইমেইল</label>
+<label>ইমেইল</label>
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Admin Email"
-                    autocomplete="email"
-                    required
-                >
+<input
+id="email"
+type="email"
+placeholder="Admin Email"
+required
+>
 
-            </div>
+</div>
 
-            <div class="form-group">
+<div class="form-group">
 
-                <label>পাসওয়ার্ড</label>
+<label>পাসওয়ার্ড</label>
 
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    autocomplete="current-password"
-                    required
-                >
+<input
+id="password"
+type="password"
+placeholder="Password"
+required
+>
 
-            </div>
+</div>
 
-            <button
-                class="login-btn"
-                type="submit"
-                id="loginBtn"
-            >
-                Login
-            </button>
+<button
+id="loginBtn"
+class="login-btn"
+type="submit"
+>
+Login
+</button>
 
-        </form>
+</form>
 
-        <div id="loginError" class="login-error"></div>
+<div id="loginError" class="error"></div>
 
-    </div>
+</div>
 
 </div>
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 
 <div id="dashboard" class="hidden">
 
-    <header class="topbar">
+<header class="topbar">
 
-        <div class="brand">
+<div class="brand">
 
-            <div class="brand-icon">
-                ⚙️
-            </div>
+<div class="brand-icon">
+⚙️
+</div>
 
-            <div>
+<div>
 
-                <h2>Admin Panel</h2>
+<h2>Admin Panel</h2>
 
-                <span>
-                    Digital Service Center
-                </span>
+<span>
+Digital Service Center
+</span>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
-        <button
-            class="logout-btn"
-            id="logoutBtn"
-        >
-            Logout
-        </button>
+<button
+id="logoutBtn"
+class="logout"
+>
+Logout
+</button>
 
-    </header>
+</header>
 
 
-    <main class="container">
+<main class="container">
 
-        <!-- ================= STATS ================= -->
+<!-- STATS -->
 
-        <div class="stats-grid">
+<div class="stats">
 
-            <div class="stat-card">
+<div class="stat">
 
-                <div class="stat-top">
+<div class="stat-icon">
+📋
+</div>
 
-                    <div>
-                        <p>মোট Request</p>
-                    </div>
+<h3 id="totalRequests">
+0
+</h3>
 
-                    <div class="stat-icon">
-                        📋
-                    </div>
-
-                </div>
-
-                <h3 id="totalRequests">
-                    0
-                </h3>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-top">
-
-                    <div>
-                        <p>Pending</p>
-                    </div>
-
-                    <div class="stat-icon">
-                        ⏳
-                    </div>
-
-                </div>
-
-                <h3 id="pendingRequests">
-                    0
-                </h3>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-top">
-
-                    <div>
-                        <p>Processing</p>
-                    </div>
-
-                    <div class="stat-icon">
-                        🔄
-                    </div>
-
-                </div>
-
-                <h3 id="processingRequests">
-                    0
-                </h3>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-top">
-
-                    <div>
-                        <p>Completed</p>
-                    </div>
-
-                    <div class="stat-icon">
-                        ✅
-                    </div>
-
-                </div>
-
-                <h3 id="completedRequests">
-                    0
-                </h3>
-
-            </div>
-
-        </div>
-
-
-        <!-- ================= SERVICES ================= -->
-
-        <section class="section">
-
-            <div class="section-header">
-
-                <h2>
-                    💰 Service Charge Management
-                </h2>
-
-                <button
-                    class="refresh-btn"
-                    onclick="loadServices()"
-                >
-                    🔄 Refresh
-                </button>
-
-            </div>
-
-            <div
-                id="servicesList"
-                class="service-list"
-            >
-
-                <div class="loading">
-                    Loading services...
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= REQUESTS ================= -->
-
-        <section class="section">
-
-            <div class="section-header">
-
-                <h2>
-                    📋 Customer Requests
-                </h2>
-
-                <button
-                    class="refresh-btn"
-                    onclick="loadRequests()"
-                >
-                    🔄 Refresh
-                </button>
-
-            </div>
-
-
-            <div class="filters">
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="🔎 Request No, নাম বা WhatsApp খুঁজুন..."
-                >
-
-
-                <select id="statusFilter">
-
-                    <option value="">
-                        সব Status
-                    </option>
-
-                    <option value="pending">
-                        Pending
-                    </option>
-
-                    <option value="processing">
-                        Processing
-                    </option>
-
-                    <option value="completed">
-                        Completed
-                    </option>
-
-                    <option value="cancelled">
-                        Cancelled
-                    </option>
-
-                </select>
-
-
-                <select id="serviceFilter">
-
-                    <option value="">
-                        সব Service
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="table-wrap">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Request No
-                            </th>
-
-                            <th>
-                                Customer
-                            </th>
-
-                            <th>
-                                WhatsApp
-                            </th>
-
-                            <th>
-                                Service
-                            </th>
-
-                            <th>
-                                Charge
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Date
-                            </th>
-
-                            <th>
-                                Details
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="requestsTable"></tbody>
-
-                </table>
-
-            </div>
-
-        </section>
-
-    </main>
+<p>
+মোট Request
+</p>
 
 </div>
 
 
-<!-- ================= DETAILS MODAL ================= -->
+<div class="stat">
+
+<div class="stat-icon">
+⏳
+</div>
+
+<h3 id="pendingRequests">
+0
+</h3>
+
+<p>
+Pending
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+🔄
+</div>
+
+<h3 id="processingRequests">
+0
+</h3>
+
+<p>
+Processing
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+✅
+</div>
+
+<h3 id="completedRequests">
+0
+</h3>
+
+<p>
+Completed
+</p>
+
+</div>
+
+</div>
+
+
+<!-- SERVICES -->
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>
+💰 Service Charge Management
+</h2>
+
+<button
+class="refresh"
+onclick="loadServices()"
+>
+🔄 Refresh
+</button>
+
+</div>
 
 <div
-    id="detailsModal"
-    class="modal"
+id="servicesList"
+class="service-list"
 >
 
-    <div class="modal-box">
+<div class="loading">
+Loading services...
+</div>
 
-        <div class="modal-header">
+</div>
 
-            <h2>
-                Request Details
-            </h2>
+</section>
 
-            <button
-                class="close-btn"
-                onclick="closeModal()"
-            >
-                ×
-            </button>
 
-        </div>
+<!-- REQUESTS -->
 
-        <div
-            id="modalBody"
-            class="modal-body"
-        ></div>
+<section class="section">
 
-    </div>
+<div class="section-header">
+
+<h2>
+📋 Customer Requests
+</h2>
+
+<button
+class="refresh"
+onclick="loadRequests()"
+>
+🔄 Refresh
+</button>
+
+</div>
+
+
+<div class="filters">
+
+<input
+id="searchInput"
+placeholder="🔎 Request No, নাম বা WhatsApp খুঁজুন..."
+>
+
+<select id="statusFilter">
+
+<option value="">
+সব Status
+</option>
+
+<option value="pending">
+Pending
+</option>
+
+<option value="processing">
+Processing
+</option>
+
+<option value="completed">
+Completed
+</option>
+
+<option value="cancelled">
+Cancelled
+</option>
+
+</select>
+
+
+<select id="serviceFilter">
+
+<option value="">
+সব Service
+</option>
+
+</select>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Request No</th>
+<th>Customer</th>
+<th>WhatsApp</th>
+<th>Service</th>
+<th>Charge</th>
+<th>Status</th>
+<th>Date</th>
+<th>Details</th>
+
+</tr>
+
+</thead>
+
+<tbody id="requestsTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div
+id="detailsModal"
+class="modal"
+>
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2>
+Request Details
+</h2>
+
+<button
+class="close"
+onclick="closeModal()"
+>
+×
+</button>
+
+</div>
+
+<div
+id="modalBody"
+class="modal-body"
+></div>
+
+</div>
 
 </div>
 
 
 <div
-    id="toast"
-    class="toast"
+id="toast"
+class="toast"
 ></div>
 
 
 <script>
 
-/* =====================================================
-   SUPABASE CONFIG
-===================================================== */
+/* ==================================================
+SUPABASE CONFIG
+================================================== */
 
 const SUPABASE_URL =
-    "https://mulroqtysdawvwdrpdxt.supabase.co";
-
-const SUPABASE_ANON_KEY =
-    "sb_publishable_-v7fU5dwzz0LddbM-f87PQ_-L1BH-bl";
+"https://mulroqtysdawvwdrpdxt.supabase.co";
 
 
-/* আপনার Admin Auth User ID */
+/*
+   KEY 1
+   আপনার দেওয়া Publishable Key
+*/
+
+const KEY_1 =
+"sb_publishable_-v7fU5dwzz0LddbM-f87PQ_-L1BH-bl";
+
+
+/*
+   KEY 2
+   আপনার দেওয়া JWT anon key
+*/
+
+const KEY_2 =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11bHJvcXR5c2Rhd3d2ZHJwZHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MTI4NDEsImV4cCI6MjEwNDE4ODg0MX0.4IyzSSPea7-zJcenzeqo43gN7XCeEqFvBnOptz25Zx0";
+
+
+/*
+   ADMIN USER ID
+*/
 
 const ADMIN_USER_ID =
-    "95b9a85a-c30b-4111-b688-20abde0d3236";
+"95b9a85a-c30b-4111-b688-20abde0d3236";
 
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
+/*
+   প্রথমে KEY 1
+*/
 
+let supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    KEY_1
+);
+
+
+/* বর্তমান কোন key চলছে */
+
+let activeKey = 1;
 
 let allRequests = [];
 let allServices = [];
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* ==================================================
+HELPER
+================================================== */
 
-const loginPage =
-    document.getElementById("loginPage");
+function createClient(key){
 
-const dashboard =
-    document.getElementById("dashboard");
+    return window.supabase.createClient(
+        SUPABASE_URL,
+        key
+    );
 
-const loginForm =
-    document.getElementById("loginForm");
-
-const loginError =
-    document.getElementById("loginError");
+}
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
+/* ==================================================
+LOGIN
+================================================== */
 
-loginForm.addEventListener(
-    "submit",
-    async function(e){
+document
+.getElementById("loginForm")
+.addEventListener(
+"submit",
+async function(e){
 
-        e.preventDefault();
+e.preventDefault();
 
-        loginError.style.display = "none";
+const email =
+document
+.getElementById("email")
+.value
+.trim();
 
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
+const password =
+document
+.getElementById("password")
+.value;
 
-        const password =
-            document
-                .getElementById("password")
-                .value;
+const btn =
+document
+.getElementById("loginBtn");
 
-        const button =
-            document.getElementById("loginBtn");
+const errorBox =
+document
+.getElementById("loginError");
 
+errorBox.style.display =
+"none";
 
-        button.disabled = true;
+btn.disabled = true;
 
-        button.textContent =
-            "Login হচ্ছে...";
-
-
-        try{
-
-            const {
-                data,
-                error
-            } =
-            await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
+btn.textContent =
+"Login হচ্ছে...";
 
 
-            if(error){
-                throw error;
-            }
+try{
+
+let result =
+await supabaseClient
+.auth
+.signInWithPassword({
+    email,
+    password
+});
 
 
-            if(!data.user){
+/*
+   KEY 1 কাজ না করলে
+   KEY 2 দিয়ে retry
+*/
 
-                throw new Error(
-                    "User পাওয়া যায়নি।"
-                );
+if(result.error){
 
-            }
-
-
-            /* প্রথম নিরাপত্তা check:
-               নির্দিষ্ট Admin UUID */
-
-            if(
-                data.user.id !==
-                ADMIN_USER_ID
-            ){
-
-                await supabaseClient.auth.signOut();
-
-                throw new Error(
-                    "এই Account-এর Admin Access নেই।"
-                );
-
-            }
+    console.log(
+        "Key 1 failed:",
+        result.error.message
+    );
 
 
-            /* দ্বিতীয় check:
-               admins table */
+    supabaseClient =
+    createClient(KEY_2);
 
-            const {
-                data: adminData,
-                error: adminError
-            } =
-            await supabaseClient
-                .from("admins")
-                .select("id,email")
-                .eq("id", data.user.id)
-                .maybeSingle();
+    activeKey = 2;
 
 
-            if(adminError){
-                throw adminError;
-            }
+    result =
+    await supabaseClient
+    .auth
+    .signInWithPassword({
+        email,
+        password
+    });
+
+}
 
 
-            if(!adminData){
+if(result.error){
 
-                await supabaseClient.auth.signOut();
+    throw result.error;
 
-                throw new Error(
-                    "Admin account database-এ পাওয়া যায়নি।"
-                );
-
-            }
+}
 
 
-            await showDashboard();
+if(!result.data.user){
+
+    throw new Error(
+        "User পাওয়া যায়নি।"
+    );
+
+}
 
 
-        }catch(error){
+/* ADMIN UUID CHECK */
 
-            console.error(
-                "Login Error:",
-                error
-            );
+if(
+result.data.user.id !==
+ADMIN_USER_ID
+){
+
+await supabaseClient
+.auth
+.signOut();
+
+throw new Error(
+"এই Account-এর Admin Access নেই।"
+);
+
+}
 
 
-            loginError.textContent =
-                getFriendlyError(
-                    error
-                );
+/* ADMINS TABLE CHECK */
 
-            loginError.style.display =
-                "block";
+const {
+data:adminData,
+error:adminError
+} =
+await supabaseClient
+.from("admins")
+.select("id,email")
+.eq(
+"id",
+result.data.user.id
+)
+.maybeSingle();
 
 
-        }finally{
+if(adminError){
 
-            button.disabled = false;
+throw adminError;
 
-            button.textContent =
-                "Login";
+}
 
-        }
 
-    }
+if(!adminData){
+
+await supabaseClient
+.auth
+.signOut();
+
+throw new Error(
+"Admin account database-এ পাওয়া যায়নি।"
+);
+
+}
+
+
+await showDashboard();
+
+
+}catch(error){
+
+console.error(
+"LOGIN ERROR:",
+error
 );
 
 
-/* =====================================================
-   FRIENDLY ERROR
-===================================================== */
-
-function getFriendlyError(error){
-
-    const message =
-        error?.message || "";
+errorBox.textContent =
+friendlyError(error);
 
 
-    if(
-        message
-            .toLowerCase()
-            .includes("invalid login credentials")
-    ){
-
-        return "ইমেইল অথবা পাসওয়ার্ড ভুল।";
-
-    }
+errorBox.style.display =
+"block";
 
 
-    if(
-        message
-            .toLowerCase()
-            .includes("email not confirmed")
-    ){
+}finally{
 
-        return "এই Email এখনো Confirm করা হয়নি।";
+btn.disabled = false;
 
-    }
+btn.textContent =
+"Login";
 
+}
 
-    if(
-        message
-            .toLowerCase()
-            .includes("failed to fetch")
-    ){
-
-        return "Supabase-এর সাথে সংযোগ হচ্ছে না। Internet এবং Supabase URL/Key পরীক্ষা করুন।";
-
-    }
+});
 
 
-    return message ||
-        "Login করতে সমস্যা হয়েছে।";
+/* ==================================================
+FRIENDLY ERROR
+================================================== */
+
+function friendlyError(error){
+
+const msg =
+error?.message || "";
+
+
+if(
+msg
+.toLowerCase()
+.includes(
+"invalid login credentials"
+)
+){
+
+return "ইমেইল অথবা পাসওয়ার্ড ভুল।";
 
 }
 
 
-/* =====================================================
-   SHOW DASHBOARD
-===================================================== */
+if(
+msg
+.toLowerCase()
+.includes(
+"email not confirmed"
+)
+){
+
+return "Admin Email Confirm করা হয়নি।";
+
+}
+
+
+if(
+msg
+.toLowerCase()
+.includes(
+"failed to fetch"
+)
+){
+
+return "Supabase Server-এর সাথে সংযোগ হচ্ছে না। Supabase Project URL এবং API Key পরীক্ষা করুন।";
+
+}
+
+
+if(
+msg
+.toLowerCase()
+.includes(
+"permission"
+)
+){
+
+return "Database permission/RLS সমস্যা হয়েছে।";
+
+}
+
+
+return msg ||
+"Login করতে সমস্যা হয়েছে।";
+
+}
+
+
+/* ==================================================
+SHOW DASHBOARD
+================================================== */
 
 async function showDashboard(){
 
-    loginPage.classList.add("hidden");
+document
+.getElementById("loginPage")
+.classList
+.add("hidden");
 
-    dashboard.classList.remove("hidden");
+
+document
+.getElementById("dashboard")
+.classList
+.remove("hidden");
 
 
-    await Promise.all([
-        loadServices(),
-        loadRequests()
-    ]);
+await Promise.all([
+loadServices(),
+loadRequests()
+]);
 
 }
 
 
-/* =====================================================
-   SESSION CHECK
-===================================================== */
+/* ==================================================
+SESSION
+================================================== */
 
 async function checkSession(){
 
-    try{
+try{
 
-        const {
-            data:{
-                session
-            }
-        } =
-        await supabaseClient.auth.getSession();
-
-
-        if(!session){
-            return;
-        }
+let {
+data:{
+session
+}
+} =
+await supabaseClient
+.auth
+.getSession();
 
 
-        /* UUID check */
+/*
+   Session না থাকলে
+   কিছু করার দরকার নেই
+*/
 
-        if(
-            session.user.id !==
-            ADMIN_USER_ID
-        ){
+if(!session){
 
-            await supabaseClient.auth.signOut();
-
-            return;
-
-        }
-
-
-        /* Admin table check */
-
-        const {
-            data:adminData,
-            error
-        } =
-        await supabaseClient
-            .from("admins")
-            .select("id")
-            .eq("id", session.user.id)
-            .maybeSingle();
-
-
-        if(error){
-
-            console.error(
-                "Admin Check:",
-                error
-            );
-
-            await supabaseClient.auth.signOut();
-
-            return;
-
-        }
-
-
-        if(adminData){
-
-            await showDashboard();
-
-        }else{
-
-            await supabaseClient.auth.signOut();
-
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "Session Error:",
-            error
-        );
-
-    }
+return;
 
 }
 
 
-/* =====================================================
-   LOAD SERVICES
-===================================================== */
+/* ADMIN UUID */
+
+if(
+session.user.id !==
+ADMIN_USER_ID
+){
+
+await supabaseClient
+.auth
+.signOut();
+
+return;
+
+}
+
+
+/* ADMINS */
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("admins")
+.select("id")
+.eq(
+"id",
+session.user.id
+)
+.maybeSingle();
+
+
+if(
+error ||
+!data
+){
+
+await supabaseClient
+.auth
+.signOut();
+
+return;
+
+}
+
+
+await showDashboard();
+
+
+}catch(error){
+
+console.error(
+"SESSION ERROR:",
+error
+);
+
+}
+
+}
+
+
+/* ==================================================
+SERVICES
+================================================== */
 
 async function loadServices(){
 
-    const container =
-        document.getElementById(
-            "servicesList"
-        );
+const box =
+document
+.getElementById(
+"servicesList"
+);
 
 
-    container.innerHTML =
-        '<div class="loading">Loading services...</div>';
+box.innerHTML =
+'<div class="loading">Loading services...</div>';
 
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("services")
-        .select("*")
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("services")
+.select("*")
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
 
-    if(error){
+if(error){
 
-        console.error(
-            "Services Error:",
-            error
-        );
-
-
-        container.innerHTML =
-            `<div class="empty">
-                Services load করতে সমস্যা হয়েছে।
-                <br><br>
-                ${escapeHtml(error.message)}
-            </div>`;
-
-        return;
-
-    }
+console.error(
+"SERVICES ERROR:",
+error
+);
 
 
-    allServices =
-        data || [];
+box.innerHTML =
+`
+<div class="empty">
 
+Services load করতে সমস্যা হয়েছে।
 
-    updateServiceFilter();
+<br><br>
 
+${escapeHtml(
+error.message
+)}
 
-    if(!allServices.length){
+</div>
+`;
 
-        container.innerHTML =
-            `<div class="empty">
-                কোনো Service পাওয়া যায়নি।
-            </div>`;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        allServices
-            .map(
-                service => {
-
-                    const charge =
-                        Number(
-                            service.charge || 0
-                        );
-
-
-                    return `
-
-                    <div class="service-card">
-
-                        <div class="service-title">
-
-                            <h3>
-
-                                ${escapeHtml(
-                                    service.icon || "📌"
-                                )}
-
-                                ${escapeHtml(
-                                    service.service_name || "-"
-                                )}
-
-                            </h3>
-
-                        </div>
-
-
-                        <div class="service-category">
-
-                            ${escapeHtml(
-                                service.category || ""
-                            )}
-
-                        </div>
-
-
-                        <div class="service-charge">
-
-                            <input
-                                type="number"
-                                min="0"
-                                step="1"
-                                id="charge-${escapeHtml(
-                                    service.id
-                                )}"
-                                value="${charge}"
-                            >
-
-                            <span>৳</span>
-
-
-                            <button
-                                class="save-charge"
-                                onclick="updateCharge('${escapeHtml(
-                                    service.id
-                                )}')"
-                            >
-                                Save
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    `;
-
-                }
-            )
-            .join("");
+return;
 
 }
 
 
-/* =====================================================
-   SERVICE FILTER
-===================================================== */
+allServices =
+data || [];
+
+
+updateServiceFilter();
+
+
+if(!allServices.length){
+
+box.innerHTML =
+`
+<div class="empty">
+
+কোনো Service পাওয়া যায়নি।
+
+</div>
+`;
+
+return;
+
+}
+
+
+box.innerHTML =
+allServices
+.map(
+service => {
+
+return `
+
+<div class="service-card">
+
+<h3>
+
+${escapeHtml(
+service.icon || "📌"
+)}
+
+${escapeHtml(
+service.service_name || "-"
+)}
+
+</h3>
+
+
+<div class="category">
+
+${escapeHtml(
+service.category || ""
+)}
+
+</div>
+
+
+<div class="charge">
+
+<input
+type="number"
+min="0"
+id="charge-${escapeHtml(
+service.id
+)}"
+value="${Number(
+service.charge || 0
+)}"
+>
+
+<span>৳</span>
+
+
+<button
+class="save"
+onclick="updateCharge('${escapeHtml(
+service.id
+)}')"
+>
+Save
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+}
+
+
+/* ==================================================
+SERVICE FILTER
+================================================== */
 
 function updateServiceFilter(){
 
-    const filter =
-        document.getElementById(
-            "serviceFilter"
-        );
+const select =
+document
+.getElementById(
+"serviceFilter"
+);
 
 
-    filter.innerHTML =
-        `<option value="">
-            সব Service
-        </option>`;
+select.innerHTML =
+`
+<option value="">
+সব Service
+</option>
+`;
 
 
-    allServices.forEach(
-        service => {
+allServices.forEach(
+service => {
 
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                service.service_key || "";
+const option =
+document.createElement(
+"option"
+);
 
 
-            option.textContent =
-                service.service_name || "-";
+option.value =
+service.service_key || "";
 
 
-            filter.appendChild(
-                option
-            );
+option.textContent =
+service.service_name || "-";
 
-        }
-    );
+
+select.appendChild(
+option
+);
+
+});
 
 }
 
 
-/* =====================================================
-   UPDATE CHARGE
-===================================================== */
+/* ==================================================
+UPDATE CHARGE
+================================================== */
 
 async function updateCharge(id){
 
-    const input =
-        document.getElementById(
-            `charge-${id}`
-        );
+const input =
+document.getElementById(
+`charge-${id}`
+);
 
 
-    if(!input){
-
-        showToast(
-            "Charge input পাওয়া যায়নি।"
-        );
-
-        return;
-
-    }
+const charge =
+Number(input.value);
 
 
-    const charge =
-        Number(input.value);
+if(
+!Number.isFinite(charge) ||
+charge < 0
+){
 
+showToast(
+"সঠিক Charge দিন।"
+);
 
-    if(
-        !Number.isFinite(charge) ||
-        charge < 0
-    ){
-
-        showToast(
-            "Charge সঠিকভাবে দিন।"
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        input
-            .parentElement
-            .querySelector(
-                "button"
-            );
-
-
-    if(button){
-
-        button.disabled = true;
-
-        button.textContent =
-            "Saving...";
-
-    }
-
-
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("services")
-        .update({
-
-            charge:charge,
-
-            updated_at:
-                new Date()
-                    .toISOString()
-
-        })
-        .eq(
-            "id",
-            id
-        );
-
-
-    if(error){
-
-        console.error(
-            "Charge Error:",
-            error
-        );
-
-
-        showToast(
-            "Charge update হয়নি: " +
-            error.message
-        );
-
-
-        if(button){
-
-            button.disabled = false;
-
-            button.textContent =
-                "Save";
-
-        }
-
-        return;
-
-    }
-
-
-    showToast(
-        "Service Charge আপডেট হয়েছে।"
-    );
-
-
-    await loadServices();
+return;
 
 }
 
 
-/* =====================================================
-   LOAD REQUESTS
-===================================================== */
+const {
+error
+} =
+await supabaseClient
+.from("services")
+.update({
+    charge,
+    updated_at:
+        new Date()
+        .toISOString()
+})
+.eq(
+"id",
+id
+);
+
+
+if(error){
+
+console.error(error);
+
+showToast(
+"Charge update হয়নি।"
+);
+
+return;
+
+}
+
+
+showToast(
+"Charge আপডেট হয়েছে।"
+);
+
+
+await loadServices();
+
+}
+
+
+/* ==================================================
+REQUESTS
+================================================== */
 
 async function loadRequests(){
 
-    const tbody =
-        document.getElementById(
-            "requestsTable"
-        );
+const tbody =
+document
+.getElementById(
+"requestsTable"
+);
 
 
-    tbody.innerHTML =
-        `<tr>
-            <td colspan="8">
-                <div class="loading">
-                    Request loading...
-                </div>
-            </td>
-        </tr>`;
+tbody.innerHTML =
+`
+<tr>
+
+<td colspan="8">
+
+<div class="loading">
+Request loading...
+</div>
+
+</td>
+
+</tr>
+`;
 
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("service_requests")
-        .select("*")
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
+const {
+data,
+error
+} =
+await supabaseClient
+.from("service_requests")
+.select("*")
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
 
-    if(error){
+if(error){
 
-        console.error(
-            "Request Error:",
-            error
-        );
+console.error(error);
 
 
-        tbody.innerHTML =
-            `<tr>
+tbody.innerHTML =
+`
+<tr>
 
-                <td colspan="8">
+<td colspan="8">
 
-                    <div class="empty">
+<div class="empty">
 
-                        Request load করতে সমস্যা হয়েছে।
+Request load করতে সমস্যা হয়েছে।
 
-                        <br><br>
+<br><br>
 
-                        ${escapeHtml(
-                            error.message
-                        )}
+${escapeHtml(
+error.message
+)}
 
-                    </div>
+</div>
 
-                </td>
+</td>
 
-            </tr>`;
+</tr>
+`;
 
-        return;
-
-    }
-
-
-    allRequests =
-        data || [];
-
-
-    updateStats();
-
-    renderRequests();
+return;
 
 }
 
 
-/* =====================================================
-   UPDATE STATS
-===================================================== */
+allRequests =
+data || [];
+
+
+updateStats();
+
+renderRequests();
+
+}
+
+
+/* ==================================================
+STATS
+================================================== */
 
 function updateStats(){
 
-    const total =
-        allRequests.length;
+document
+.getElementById(
+"totalRequests"
+)
+.textContent =
+allRequests.length;
 
 
-    const pending =
-        allRequests.filter(
-            r =>
-                r.status ===
-                "pending"
-        ).length;
+document
+.getElementById(
+"pendingRequests"
+)
+.textContent =
+allRequests.filter(
+r =>
+r.status ===
+"pending"
+).length;
 
 
-    const processing =
-        allRequests.filter(
-            r =>
-                r.status ===
-                "processing"
-        ).length;
+document
+.getElementById(
+"processingRequests"
+)
+.textContent =
+allRequests.filter(
+r =>
+r.status ===
+"processing"
+).length;
 
 
-    const completed =
-        allRequests.filter(
-            r =>
-                r.status ===
-                "completed"
-        ).length;
-
-
-    document.getElementById(
-        "totalRequests"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "pendingRequests"
-    ).textContent =
-        pending;
-
-
-    document.getElementById(
-        "processingRequests"
-    ).textContent =
-        processing;
-
-
-    document.getElementById(
-        "completedRequests"
-    ).textContent =
-        completed;
+document
+.getElementById(
+"completedRequests"
+)
+.textContent =
+allRequests.filter(
+r =>
+r.status ===
+"completed"
+).length;
 
 }
 
 
-/* =====================================================
-   STATUS BADGE
-===================================================== */
-
-function getStatusClass(status){
-
-    switch(status){
-
-        case "pending":
-            return "pending";
-
-        case "processing":
-            return "processing";
-
-        case "completed":
-            return "completed";
-
-        case "cancelled":
-            return "cancelled";
-
-        default:
-            return "pending";
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER REQUESTS
-===================================================== */
+/* ==================================================
+RENDER
+================================================== */
 
 function renderRequests(){
 
-    const tbody =
-        document.getElementById(
-            "requestsTable"
-        );
+const tbody =
+document
+.getElementById(
+"requestsTable"
+);
 
 
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+const search =
+document
+.getElementById(
+"searchInput"
+)
+.value
+.trim()
+.toLowerCase();
 
 
-    const status =
-        document.getElementById(
-            "statusFilter"
-        ).value;
+const status =
+document
+.getElementById(
+"statusFilter"
+)
+.value;
 
 
-    const service =
-        document.getElementById(
-            "serviceFilter"
-        ).value;
+const service =
+document
+.getElementById(
+"serviceFilter"
+)
+.value;
 
 
-    const filtered =
-        allRequests.filter(
-            request => {
+const filtered =
+allRequests.filter(
+request => {
 
-                const searchText = [
+const text = [
 
-                    request.request_no,
+request.request_no,
+request.name,
+request.whatsapp,
+request.service_name
 
-                    request.name,
+]
+.map(
+v => v || ""
+)
+.join(" ")
+.toLowerCase();
 
-                    request.whatsapp,
 
-                    request.service_name
+return (
 
-                ]
-                .map(
-                    value =>
-                        value || ""
-                )
-                .join(" ")
-                .toLowerCase();
+(!search ||
+text.includes(search))
 
+&&
 
-                const matchSearch =
-                    !search ||
-                    searchText.includes(
-                        search
-                    );
+(!status ||
+request.status === status)
 
+&&
 
-                const matchStatus =
-                    !status ||
-                    request.status ===
-                    status;
+(!service ||
+request.service_key === service)
 
+);
 
-                const matchService =
-                    !service ||
-                    request.service_key ===
-                    service;
+});
 
 
-                return (
-                    matchSearch &&
-                    matchStatus &&
-                    matchService
-                );
+if(!filtered.length){
 
-            }
-        );
+tbody.innerHTML =
+`
+<tr>
 
+<td colspan="8">
 
-    if(!filtered.length){
+<div class="empty">
+কোনো Request পাওয়া যায়নি।
+</div>
 
-        tbody.innerHTML =
-            `<tr>
+</td>
 
-                <td colspan="8">
+</tr>
+`;
 
-                    <div class="empty">
-
-                        কোনো Request পাওয়া যায়নি।
-
-                    </div>
-
-                </td>
-
-            </tr>`;
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        filtered
-            .map(
-                request => {
-
-                    const statusValue =
-                        request.status ||
-                        "pending";
-
-
-                    return `
-
-                    <tr>
-
-                        <td>
-
-                            <strong>
-                                ${escapeHtml(
-                                    request.request_no ||
-                                    "-"
-                                )}
-                            </strong>
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                request.name ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                request.whatsapp ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHtml(
-                                request.service_name ||
-                                "-"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ৳${Number(
-                                request.charge ||
-                                0
-                            ).toLocaleString(
-                                "en-BD"
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            <select
-                                class="status-select"
-                                onchange="changeStatus(
-                                    '${escapeHtml(
-                                        request.id
-                                    )}',
-                                    this.value
-                                )"
-                            >
-
-                                <option
-                                    value="pending"
-                                    ${statusValue === "pending"
-                                        ? "selected"
-                                        : ""}
-                                >
-                                    Pending
-                                </option>
-
-
-                                <option
-                                    value="processing"
-                                    ${statusValue === "processing"
-                                        ? "selected"
-                                        : ""}
-                                >
-                                    Processing
-                                </option>
-
-
-                                <option
-                                    value="completed"
-                                    ${statusValue === "completed"
-                                        ? "selected"
-                                        : ""}
-                                >
-                                    Completed
-                                </option>
-
-
-                                <option
-                                    value="cancelled"
-                                    ${statusValue === "cancelled"
-                                        ? "selected"
-                                        : ""}
-                                >
-                                    Cancelled
-                                </option>
-
-                            </select>
-
-                        </td>
-
-
-                        <td>
-
-                            ${formatDate(
-                                request.created_at
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            <button
-                                class="view-btn"
-                                onclick="viewDetails(
-                                    '${escapeHtml(
-                                        request.id
-                                    )}'
-                                )"
-                            >
-                                View
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    `;
-
-                }
-            )
-            .join("");
+return;
 
 }
 
 
-/* =====================================================
-   CHANGE STATUS
-===================================================== */
+tbody.innerHTML =
+filtered
+.map(
+request => {
+
+const currentStatus =
+request.status ||
+"pending";
+
+
+return `
+
+<tr>
+
+<td>
+
+<strong>
+${escapeHtml(
+request.request_no || "-"
+)}
+</strong>
+
+</td>
+
+
+<td>
+${escapeHtml(
+request.name || "-"
+)}
+</td>
+
+
+<td>
+${escapeHtml(
+request.whatsapp || "-"
+)}
+</td>
+
+
+<td>
+${escapeHtml(
+request.service_name || "-"
+)}
+</td>
+
+
+<td>
+
+৳${Number(
+request.charge || 0
+).toLocaleString(
+"en-BD"
+)}
+
+</td>
+
+
+<td>
+
+<select
+class="status"
+onchange="changeStatus(
+'${escapeHtml(
+request.id
+)}',
+this.value
+)"
+>
+
+<option
+value="pending"
+${currentStatus ===
+"pending"
+? "selected"
+: ""}
+>
+Pending
+</option>
+
+<option
+value="processing"
+${currentStatus ===
+"processing"
+? "selected"
+: ""}
+>
+Processing
+</option>
+
+<option
+value="completed"
+${currentStatus ===
+"completed"
+? "selected"
+: ""}
+>
+Completed
+</option>
+
+<option
+value="cancelled"
+${currentStatus ===
+"cancelled"
+? "selected"
+: ""}
+>
+Cancelled
+</option>
+
+</select>
+
+</td>
+
+
+<td>
+
+${formatDate(
+request.created_at
+)}
+
+</td>
+
+
+<td>
+
+<button
+class="view"
+onclick="viewDetails(
+'${escapeHtml(
+request.id
+)}'
+)"
+>
+View
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}
+)
+.join("");
+
+}
+
+
+/* ==================================================
+CHANGE STATUS
+================================================== */
 
 async function changeStatus(
-    id,
-    status
+id,
+status
 ){
 
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("service_requests")
-        .update({
-
-            status:status,
-
-            updated_at:
-                new Date()
-                    .toISOString()
-
-        })
-        .eq(
-            "id",
-            id
-        );
+const {
+error
+} =
+await supabaseClient
+.from("service_requests")
+.update({
+    status,
+    updated_at:
+        new Date()
+        .toISOString()
+})
+.eq(
+"id",
+id
+);
 
 
-    if(error){
+if(error){
 
-        console.error(
-            "Status Error:",
-            error
-        );
+console.error(error);
 
+showToast(
+"Status update হয়নি।"
+);
 
-        showToast(
-            "Status update হয়নি: " +
-            error.message
-        );
+await loadRequests();
 
-
-        await loadRequests();
-
-        return;
-
-    }
-
-
-    const request =
-        allRequests.find(
-            r =>
-                String(r.id) ===
-                String(id)
-        );
-
-
-    if(request){
-
-        request.status =
-            status;
-
-    }
-
-
-    updateStats();
-
-    renderRequests();
-
-
-    showToast(
-        "Status আপডেট হয়েছে।"
-    );
+return;
 
 }
 
 
-/* =====================================================
-   VIEW DETAILS
-===================================================== */
+const request =
+allRequests.find(
+r =>
+String(r.id) ===
+String(id)
+);
+
+
+if(request){
+
+request.status =
+status;
+
+}
+
+
+updateStats();
+
+renderRequests();
+
+
+showToast(
+"Status আপডেট হয়েছে।"
+);
+
+}
+
+
+/* ==================================================
+DETAILS
+================================================== */
 
 function viewDetails(id){
 
-    const request =
-        allRequests.find(
-            r =>
-                String(r.id) ===
-                String(id)
-        );
+const request =
+allRequests.find(
+r =>
+String(r.id) ===
+String(id)
+);
 
 
-    if(!request){
-        return;
-    }
+if(!request){
+return;
+}
 
 
-    let serviceDataHtml = "";
+let extra = "";
 
 
-    if(
-        request.service_data &&
-        typeof request.service_data ===
-            "object"
-    ){
+if(
+request.service_data &&
+typeof request.service_data ===
+"object"
+){
 
-        const entries =
-            Object.entries(
-                request.service_data
-            );
+const entries =
+Object.entries(
+request.service_data
+);
 
 
-        if(entries.length){
+if(entries.length){
 
-            serviceDataHtml =
-                entries
-                    .map(
-                        ([key,value]) => {
+extra =
+entries
+.map(
+([key,value]) => {
 
-                            return `
+return `
 
-                            <div class="data-item">
+<div class="detail full">
 
-                                <span>
+<small>
+${escapeHtml(
+formatKey(key)
+)}
+</small>
 
-                                    ${escapeHtml(
-                                        formatKey(
-                                            key
-                                        )
-                                    )}
+<strong>
+${escapeHtml(
+formatValue(value)
+)}
+</strong>
 
-                                </span>
+</div>
 
+`;
 
-                                <strong>
+}
+)
+.join("");
 
-                                    ${escapeHtml(
-                                        formatValue(
-                                            value
-                                        )
-                                    )}
-
-                                </strong>
-
-                            </div>
-
-                            `;
-
-                        }
-                    )
-                    .join("");
-
-        }
-
-    }
-
-
-    const status =
-        request.status ||
-        "-";
-
-
-    const body =
-        document.getElementById(
-            "modalBody"
-        );
-
-
-    body.innerHTML = `
-
-        <div class="detail-grid">
-
-
-            <div class="detail">
-
-                <small>
-                    Request No
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.request_no ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    Status
-                </small>
-
-                <strong>
-
-                    <span
-                        class="badge ${getStatusClass(
-                            status
-                        )}"
-                    >
-                        ${escapeHtml(
-                            status
-                        )}
-                    </span>
-
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    Customer Name
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.name ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    WhatsApp
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.whatsapp ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    Service
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.service_name ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    Sub Service
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.sub_service ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    Charge
-                </small>
-
-                <strong>
-                    ৳${Number(
-                        request.charge ||
-                        0
-                    ).toLocaleString(
-                        "en-BD"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail">
-
-                <small>
-                    Created
-                </small>
-
-                <strong>
-                    ${formatDate(
-                        request.created_at
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail full">
-
-                <small>
-                    Address
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.address ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail full">
-
-                <small>
-                    Additional Details
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        request.additional_details ||
-                        "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-        </div>
-
-
-        ${
-            serviceDataHtml
-                ?
-                `
-
-                <div class="data-box">
-
-                    <h3>
-                        Service Information
-                    </h3>
-
-                    ${serviceDataHtml}
-
-                </div>
-
-                `
-                :
-                ""
-        }
-
-    `;
-
-
-    document
-        .getElementById(
-            "detailsModal"
-        )
-        .classList.add(
-            "active"
-        );
+}
 
 }
 
 
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
+document
+.getElementById(
+"modalBody"
+)
+.innerHTML = `
+
+<div class="detail-grid">
+
+<div class="detail">
+
+<small>
+Request No
+</small>
+
+<strong>
+${escapeHtml(
+request.request_no || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+Status
+</small>
+
+<strong>
+${escapeHtml(
+request.status || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+Customer Name
+</small>
+
+<strong>
+${escapeHtml(
+request.name || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+WhatsApp
+</small>
+
+<strong>
+${escapeHtml(
+request.whatsapp || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+Service
+</small>
+
+<strong>
+${escapeHtml(
+request.service_name || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+Sub Service
+</small>
+
+<strong>
+${escapeHtml(
+request.sub_service || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+Charge
+</small>
+
+<strong>
+৳${Number(
+request.charge || 0
+).toLocaleString(
+"en-BD"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail">
+
+<small>
+Created
+</small>
+
+<strong>
+${formatDate(
+request.created_at
+)}
+</strong>
+
+</div>
+
+
+<div class="detail full">
+
+<small>
+Address
+</small>
+
+<strong>
+${escapeHtml(
+request.address || "-"
+)}
+</strong>
+
+</div>
+
+
+<div class="detail full">
+
+<small>
+Additional Details
+</small>
+
+<strong>
+${escapeHtml(
+request.additional_details || "-"
+)}
+</strong>
+
+</div>
+
+${extra}
+
+</div>
+`;
+
+
+document
+.getElementById(
+"detailsModal"
+)
+.classList
+.add("active");
+
+}
+
+
+/* ==================================================
+MODAL
+================================================== */
 
 function closeModal(){
 
-    document
-        .getElementById(
-            "detailsModal"
-        )
-        .classList.remove(
-            "active"
-        );
+document
+.getElementById(
+"detailsModal"
+)
+.classList
+.remove("active");
 
 }
 
 
 document
-    .getElementById(
-        "detailsModal"
-    )
-    .addEventListener(
-        "click",
-        function(e){
+.getElementById(
+"detailsModal"
+)
+.addEventListener(
+"click",
+function(e){
 
-            if(
-                e.target ===
-                this
-            ){
+if(e.target === this){
 
-                closeModal();
+closeModal();
 
-            }
+}
 
-        }
-    );
+});
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
+/* ==================================================
+SEARCH
+================================================== */
 
 document
-    .getElementById(
-        "searchInput"
-    )
-    .addEventListener(
-        "input",
-        renderRequests
-    );
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+renderRequests
+);
 
 
 document
-    .getElementById(
-        "statusFilter"
-    )
-    .addEventListener(
-        "change",
-        renderRequests
-    );
+.getElementById(
+"statusFilter"
+)
+.addEventListener(
+"change",
+renderRequests
+);
 
 
 document
-    .getElementById(
-        "serviceFilter"
-    )
-    .addEventListener(
-        "change",
-        renderRequests
-    );
+.getElementById(
+"serviceFilter"
+)
+.addEventListener(
+"change",
+renderRequests
+);
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* ==================================================
+LOGOUT
+================================================== */
 
 document
-    .getElementById(
-        "logoutBtn"
-    )
-    .addEventListener(
-        "click",
-        async function(){
+.getElementById(
+"logoutBtn"
+)
+.addEventListener(
+"click",
+async function(){
 
-            await supabaseClient
-                .auth
-                .signOut();
-
-
-            dashboard
-                .classList
-                .add(
-                    "hidden"
-                );
+await supabaseClient
+.auth
+.signOut();
 
 
-            loginPage
-                .classList
-                .remove(
-                    "hidden"
-                );
+document
+.getElementById(
+"dashboard"
+)
+.classList
+.add("hidden");
 
 
-            document.getElementById(
-                "password"
-            ).value = "";
+document
+.getElementById(
+"loginPage"
+)
+.classList
+.remove("hidden");
 
 
-            document.getElementById(
-                "email"
-            ).value = "";
+document
+.getElementById(
+"password"
+)
+.value = "";
+
+});
 
 
-            loginError.style.display =
-                "none";
-
-        }
-    );
-
-
-/* =====================================================
-   TOAST
-===================================================== */
+/* ==================================================
+TOAST
+================================================== */
 
 function showToast(message){
 
-    const toast =
-        document.getElementById(
-            "toast"
-        );
+const toast =
+document.getElementById(
+"toast"
+);
 
 
-    toast.textContent =
-        message;
+toast.textContent =
+message;
 
 
-    toast.classList.add(
-        "show"
-    );
+toast.classList.add(
+"show"
+);
 
 
-    setTimeout(
-        () => {
+setTimeout(
+() => {
 
-            toast.classList.remove(
-                "show"
-            );
+toast.classList.remove(
+"show"
+);
 
-        },
-        2500
-    );
+},
+2500
+);
 
 }
 
 
-/* =====================================================
-   DATE
-===================================================== */
+/* ==================================================
+DATE
+================================================== */
 
 function formatDate(date){
 
-    if(!date){
-        return "-";
-    }
+if(!date){
+return "-";
+}
 
 
-    try{
+try{
 
-        return new Date(date)
-            .toLocaleString(
-                "bn-BD",
-                {
-                    year:"numeric",
-                    month:"short",
-                    day:"numeric",
-                    hour:"numeric",
-                    minute:"2-digit"
-                }
-            );
+return new Date(date)
+.toLocaleString(
+"bn-BD",
+{
+year:"numeric",
+month:"short",
+day:"numeric",
+hour:"numeric",
+minute:"2-digit"
+}
+);
 
-    }catch{
+}catch{
 
-        return String(date);
+return String(date);
 
-    }
+}
 
 }
 
 
-/* =====================================================
-   FORMAT KEY
-===================================================== */
+/* ==================================================
+FORMAT
+================================================== */
 
 function formatKey(key){
 
-    return String(key)
-        .replaceAll(
-            "_",
-            " "
-        )
-        .replace(
-            /\b\w/g,
-            c =>
-                c.toUpperCase()
-        );
+return String(key)
+.replaceAll(
+"_",
+" "
+)
+.replace(
+/\b\w/g,
+c => c.toUpperCase()
+);
 
 }
 
-
-/* =====================================================
-   FORMAT VALUE
-===================================================== */
 
 function formatValue(value){
 
-    if(
-        value === null ||
-        value === undefined
-    ){
+if(
+value === null ||
+value === undefined
+){
 
-        return "-";
-
-    }
-
-
-    if(
-        typeof value ===
-        "object"
-    ){
-
-        return JSON.stringify(
-            value
-        );
-
-    }
-
-
-    return String(value);
+return "-";
 
 }
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+if(
+typeof value ===
+"object"
+){
+
+return JSON.stringify(
+value
+);
+
+}
+
+
+return String(value);
+
+}
+
+
+/* ==================================================
+ESCAPE
+================================================== */
 
 function escapeHtml(value){
 
-    if(
-        value === null ||
-        value === undefined
-    ){
+if(
+value === null ||
+value === undefined
+){
 
-        return "";
-
-    }
-
-
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+return "";
 
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+return String(value)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+/* ==================================================
+START
+================================================== */
 
 checkSession();
 
