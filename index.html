@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin Panel - Digital Service Center</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Admin Panel - ডিজিটাল সেবা</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body{
     font-family:Arial,"Noto Sans Bengali",sans-serif;
     background:#f4f7fb;
-    color:#1f2937;
+    color:#172033;
 }
 
-/* ================= LOGIN ================= */
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+
+/* =====================================================
+LOGIN
+===================================================== */
 
 .login-page{
     min-height:100vh;
@@ -29,41 +54,38 @@ body{
     align-items:center;
     justify-content:center;
     padding:20px;
-    background:linear-gradient(135deg,#0f766e,#2563eb);
+    background:linear-gradient(
+        135deg,
+        #eff6ff,
+        #f8fafc
+    );
 }
 
-.login-box{
+.login-card{
     width:100%;
-    max-width:420px;
+    max-width:430px;
     background:#fff;
-    border-radius:18px;
-    padding:35px 28px;
-    box-shadow:0 20px 50px rgba(0,0,0,.2);
+    border-radius:22px;
+    padding:32px;
+    box-shadow:
+        0 20px 60px rgba(15,23,42,.12);
 }
 
 .login-logo{
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    background:#0f766e;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 18px;
-    font-size:30px;
-    font-weight:bold;
+    text-align:center;
+    font-size:48px;
+    margin-bottom:10px;
 }
 
-.login-box h1{
+.login-card h1{
     text-align:center;
-    font-size:25px;
-    margin-bottom:8px;
+    font-size:26px;
+    margin-bottom:7px;
 }
 
-.login-box p{
+.login-card p{
     text-align:center;
-    color:#6b7280;
+    color:#667085;
     margin-bottom:25px;
 }
 
@@ -73,158 +95,141 @@ body{
 
 .form-group label{
     display:block;
-    font-weight:bold;
+    font-size:14px;
+    font-weight:700;
     margin-bottom:7px;
 }
 
 .form-group input,
-.form-group select,
-.form-group textarea{
+.form-group textarea,
+.form-group select{
     width:100%;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    padding:12px;
-    font-size:15px;
+    border:1px solid #d9e1eb;
+    border-radius:10px;
+    padding:12px 13px;
     outline:none;
+    background:#fff;
+}
+
+.form-group textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
 .form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
+.form-group textarea:focus,
+.form-group select:focus{
     border-color:#2563eb;
 }
 
-.btn{
-    border:none;
-    padding:11px 16px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:bold;
-    transition:.2s;
-}
-
-.btn:hover{
-    opacity:.9;
-    transform:translateY(-1px);
-}
-
-.btn-primary{
+.login-btn{
+    width:100%;
+    border:0;
     background:#2563eb;
     color:#fff;
+    padding:13px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:15px;
 }
 
-.btn-success{
-    background:#16a34a;
-    color:#fff;
+.login-btn:hover{
+    background:#1d4ed8;
 }
 
-.btn-danger{
-    background:#dc2626;
-    color:#fff;
+.login-btn:disabled{
+    opacity:.6;
 }
 
-.btn-warning{
-    background:#f59e0b;
-    color:#fff;
-}
-
-.btn-secondary{
-    background:#64748b;
-    color:#fff;
-}
-
-.btn-whatsapp{
-    background:#25D366;
-    color:#fff;
-}
-
-.btn-full{
-    width:100%;
-}
-
-.error{
+.login-error{
     background:#fee2e2;
     color:#991b1b;
-    padding:10px;
-    border-radius:8px;
+    border:1px solid #fecaca;
+    padding:12px;
+    border-radius:10px;
     margin-bottom:15px;
-    display:none;
+    font-size:14px;
 }
 
-.success{
-    background:#dcfce7;
-    color:#166534;
-    padding:10px;
-    border-radius:8px;
-    margin-bottom:15px;
-    display:none;
-}
 
-/* ================= APP ================= */
+/* =====================================================
+LAYOUT
+===================================================== */
 
-#app{
-    display:none;
-}
-
-.layout{
+.admin-layout{
     min-height:100vh;
     display:flex;
 }
 
-/* ================= SIDEBAR ================= */
+
+/* =====================================================
+SIDEBAR
+===================================================== */
 
 .sidebar{
     width:250px;
-    background:#111827;
+    background:#172033;
     color:#fff;
     position:fixed;
     left:0;
     top:0;
     bottom:0;
-    z-index:1000;
+    z-index:500;
+    padding:22px 15px;
     overflow-y:auto;
 }
 
 .sidebar-logo{
-    padding:22px 18px;
     font-size:21px;
-    font-weight:bold;
-    border-bottom:1px solid rgba(255,255,255,.1);
+    font-weight:800;
+    padding:8px 10px 25px;
 }
 
 .sidebar-logo span{
-    color:#2dd4bf;
+    color:#60a5fa;
 }
 
-.menu{
-    padding:15px 10px;
+.sidebar-menu{
+    display:grid;
+    gap:7px;
 }
 
-.menu button{
+.sidebar-btn{
     width:100%;
-    border:none;
-    background:transparent;
-    color:#d1d5db;
     text-align:left;
-    padding:13px 14px;
-    margin-bottom:5px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:15px;
+    border:0;
+    background:transparent;
+    color:#cbd5e1;
+    padding:12px 13px;
+    border-radius:9px;
+    font-size:14px;
 }
 
-.menu button:hover,
-.menu button.active{
-    background:#1f2937;
+.sidebar-btn:hover,
+.sidebar-btn.active{
+    background:#2563eb;
     color:#fff;
 }
 
-.menu button span{
-    margin-right:10px;
+.logout-btn{
+    margin-top:20px;
+    width:100%;
+    border:0;
+    background:#dc2626;
+    color:#fff;
+    padding:11px;
+    border-radius:9px;
+    font-weight:700;
 }
 
-/* ================= MAIN ================= */
+.logout-btn:hover{
+    background:#b91c1c;
+}
+
+
+/* =====================================================
+MAIN
+===================================================== */
 
 .main{
     margin-left:250px;
@@ -233,282 +238,274 @@ body{
 }
 
 .topbar{
-    height:70px;
+    position:sticky;
+    top:0;
+    z-index:100;
     background:#fff;
     border-bottom:1px solid #e5e7eb;
+    padding:17px 25px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 25px;
-    position:sticky;
-    top:0;
-    z-index:900;
 }
 
 .topbar h2{
+    font-size:21px;
+}
+
+.admin-email{
+    font-size:13px;
+    color:#667085;
+}
+
+.mobile-menu{
+    display:none;
+    border:0;
+    background:#eff6ff;
+    padding:8px 11px;
+    border-radius:8px;
     font-size:20px;
-}
-
-.admin-info{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.admin-avatar{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:#2563eb;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
 }
 
 .content{
     padding:25px;
 }
 
-/* ================= MOBILE ================= */
 
-.mobile-menu{
-    display:none;
-    border:none;
-    background:#2563eb;
-    color:#fff;
-    padding:8px 12px;
-    border-radius:7px;
-    cursor:pointer;
-    font-size:20px;
-}
+/* =====================================================
+SECTIONS
+===================================================== */
 
-/* ================= SECTIONS ================= */
-
-.section{
+.page-section{
     display:none;
 }
 
-.section.active{
+.page-section.active{
     display:block;
 }
 
-.page-title{
+.section-header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     gap:15px;
     margin-bottom:20px;
 }
 
-.page-title h1{
-    font-size:24px;
+.section-header h2{
+    font-size:22px;
 }
 
-.page-title p{
-    color:#6b7280;
-    margin-top:5px;
+.primary-btn{
+    border:0;
+    background:#2563eb;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:9px;
+    font-weight:700;
 }
 
-/* ================= STATS ================= */
+.primary-btn:hover{
+    background:#1d4ed8;
+}
 
-.stats{
+
+/* =====================================================
+DASHBOARD
+===================================================== */
+
+.stats-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
+    grid-template-columns:
+        repeat(4,1fr);
+    gap:17px;
     margin-bottom:25px;
 }
 
 .stat-card{
     background:#fff;
+    border:1px solid #e7ebf1;
+    border-radius:15px;
     padding:20px;
-    border-radius:14px;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-}
-
-.stat-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 }
 
 .stat-icon{
-    width:45px;
-    height:45px;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:21px;
-    background:#eff6ff;
+    font-size:30px;
+    margin-bottom:10px;
 }
 
-.stat-number{
-    font-size:27px;
-    font-weight:bold;
-    margin-top:15px;
+.stat-title{
+    color:#667085;
+    font-size:13px;
+    margin-bottom:6px;
 }
 
-.stat-label{
-    color:#6b7280;
-    margin-top:4px;
+.stat-value{
+    font-size:26px;
+    font-weight:800;
 }
 
-/* ================= CARDS ================= */
 
-.card{
+/* =====================================================
+CARDS
+===================================================== */
+
+.panel-card{
     background:#fff;
-    border-radius:14px;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-    overflow:hidden;
-}
-
-.card-header{
-    padding:18px 20px;
-    border-bottom:1px solid #e5e7eb;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.card-header h3{
-    font-size:17px;
-}
-
-.card-body{
+    border:1px solid #e7ebf1;
+    border-radius:15px;
     padding:20px;
+    margin-bottom:20px;
 }
 
-/* ================= TABLE ================= */
+.panel-card h3{
+    margin-bottom:15px;
+}
+
+
+/* =====================================================
+TABLE
+===================================================== */
 
 .table-wrapper{
-    width:100%;
     overflow-x:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:900px;
+    min-width:750px;
 }
 
 th,
 td{
-    padding:13px 12px;
+    border-bottom:1px solid #edf0f4;
+    padding:12px 10px;
     text-align:left;
-    border-bottom:1px solid #e5e7eb;
-    font-size:14px;
+    font-size:13px;
+    vertical-align:middle;
 }
 
 th{
     background:#f8fafc;
-    color:#374151;
+    font-weight:800;
 }
 
-tr:hover td{
-    background:#fafafa;
-}
-
-.actions{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-}
-
-.actions .btn{
-    padding:7px 10px;
-    font-size:12px;
-}
-
-/* ================= STATUS ================= */
-
-.status{
+.badge{
     display:inline-block;
     padding:5px 9px;
     border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
+    font-size:11px;
+    font-weight:700;
 }
 
-.status-pending{
-    background:#fef3c7;
-    color:#92400e;
-}
-
-.status-processing{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.status-completed{
+.badge-active{
     background:#dcfce7;
     color:#166534;
 }
 
-.status-cancelled{
+.badge-inactive{
     background:#fee2e2;
     color:#991b1b;
 }
 
-/* ================= SERVICE GRID ================= */
-
-.service-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
+.badge-pending{
+    background:#fef3c7;
+    color:#92400e;
 }
 
-.service-card{
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:18px;
-    background:#fff;
+.badge-processing{
+    background:#dbeafe;
+    color:#1e40af;
 }
 
-.service-icon{
-    width:50px;
-    height:50px;
-    background:#eff6ff;
+.badge-completed{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-cancelled{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+
+/* =====================================================
+ACTION BUTTONS
+===================================================== */
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.small-btn{
+    border:0;
+    padding:7px 10px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.edit-btn{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.delete-btn{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.view-btn{
+    background:#e0e7ff;
+    color:#3730a3;
+}
+
+.sub-btn{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.whatsapp-btn{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.small-btn:hover{
+    opacity:.8;
+}
+
+
+/* =====================================================
+SEARCH
+===================================================== */
+
+.search-input{
+    width:100%;
+    border:1px solid #d9e1eb;
+    padding:12px 14px;
     border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    margin-bottom:12px;
+    outline:none;
+    margin-bottom:15px;
 }
 
-.service-card h3{
-    font-size:17px;
-    margin-bottom:7px;
+.search-input:focus{
+    border-color:#2563eb;
 }
 
-.service-card p{
-    color:#6b7280;
-    font-size:13px;
-    min-height:35px;
-}
 
-.charge{
-    font-size:19px;
-    font-weight:bold;
-    margin:14px 0;
-    color:#0f766e;
-}
-
-.service-actions{
-    display:flex;
-    gap:8px;
-}
-
-/* ================= MODAL ================= */
+/* =====================================================
+MODAL
+===================================================== */
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:3000;
+    background:rgba(15,23,42,.62);
+    z-index:1000;
     padding:20px;
     overflow-y:auto;
 }
@@ -521,140 +518,186 @@ tr:hover td{
 
 .modal-box{
     width:100%;
-    max-width:650px;
+    max-width:600px;
+    max-height:92vh;
+    overflow-y:auto;
     background:#fff;
-    border-radius:15px;
-    overflow:hidden;
+    border-radius:18px;
+    padding:24px;
+}
+
+.modal-large{
+    max-width:900px;
 }
 
 .modal-header{
-    padding:18px 20px;
-    border-bottom:1px solid #e5e7eb;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:20px;
 }
 
 .modal-header h3{
-    font-size:18px;
+    font-size:21px;
 }
 
-.close{
-    border:none;
-    background:none;
-    font-size:27px;
-    cursor:pointer;
-    color:#6b7280;
-}
-
-.modal-body{
-    padding:20px;
+.close-btn{
+    width:35px;
+    height:35px;
+    border:0;
+    background:#f1f5f9;
+    border-radius:50%;
+    font-size:22px;
 }
 
 .modal-footer{
-    padding:15px 20px;
-    border-top:1px solid #e5e7eb;
     display:flex;
     justify-content:flex-end;
-    gap:8px;
+    gap:10px;
+    margin-top:20px;
 }
+
+.cancel-btn{
+    border:0;
+    background:#f1f5f9;
+    color:#334155;
+    padding:10px 16px;
+    border-radius:8px;
+    font-weight:700;
+}
+
+.save-btn{
+    border:0;
+    background:#16a34a;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:800;
+}
+
+
+/* =====================================================
+SUB SERVICE LIST
+===================================================== */
+
+.sub-list{
+    display:grid;
+    gap:10px;
+}
+
+.sub-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:12px;
+}
+
+.sub-item-name{
+    font-weight:700;
+}
+
+.sub-item-actions{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+
+/* =====================================================
+DETAIL
+===================================================== */
 
 .detail-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+    grid-template-columns:
+        repeat(2,1fr);
+    gap:12px;
 }
 
 .detail-item{
     background:#f8fafc;
-    padding:13px;
-    border-radius:8px;
-}
-
-.detail-item label{
-    display:block;
-    color:#6b7280;
-    font-size:12px;
-    margin-bottom:5px;
+    border-radius:9px;
+    padding:12px;
 }
 
 .detail-item strong{
+    display:block;
+    color:#667085;
+    font-size:12px;
+    margin-bottom:4px;
+}
+
+.detail-item span{
     word-break:break-word;
 }
 
-.full{
+.detail-full{
     grid-column:1/-1;
 }
 
-/* ================= SEARCH ================= */
 
-.search-box{
-    display:flex;
-    gap:10px;
-    margin-bottom:18px;
-}
-
-.search-box input{
-    flex:1;
-    padding:11px 13px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
-    outline:none;
-}
-
-/* ================= EMPTY ================= */
-
-.empty{
-    text-align:center;
-    padding:45px 20px;
-    color:#6b7280;
-}
-
-.empty-icon{
-    font-size:45px;
-    margin-bottom:10px;
-}
-
-/* ================= LOADING ================= */
-
-.loading{
-    text-align:center;
-    padding:40px;
-    color:#6b7280;
-}
-
-/* ================= TOAST ================= */
+/* =====================================================
+TOAST
+===================================================== */
 
 .toast{
     position:fixed;
     right:20px;
     bottom:20px;
-    background:#111827;
+    z-index:2000;
+    min-width:280px;
+    max-width:420px;
+    background:#172033;
     color:#fff;
-    padding:14px 18px;
-    border-radius:9px;
-    z-index:5000;
+    padding:14px 16px;
+    border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
     display:none;
-    box-shadow:0 5px 25px rgba(0,0,0,.2);
 }
 
 .toast.show{
     display:block;
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:1100px){
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .service-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+.toast.success{
+    background:#166534;
 }
 
-@media(max-width:768px){
+.toast.error{
+    background:#991b1b;
+}
+
+
+/* =====================================================
+LOADING
+===================================================== */
+
+.loading{
+    text-align:center;
+    padding:30px;
+    color:#667085;
+}
+
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1000px){
+
+    .stats-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:750px){
 
     .sidebar{
         transform:translateX(-100%);
@@ -675,22 +718,14 @@ tr:hover td{
     }
 
     .topbar{
-        padding:0 15px;
-    }
-
-    .topbar h2{
-        font-size:17px;
-    }
-
-    .admin-info{
-        display:none;
+        padding:13px 15px;
     }
 
     .content{
         padding:15px;
     }
 
-    .stats{
+    .stats-grid{
         grid-template-columns:1fr 1fr;
         gap:10px;
     }
@@ -699,84 +734,112 @@ tr:hover td{
         padding:15px;
     }
 
-    .stat-number{
+    .stat-value{
         font-size:22px;
     }
 
-    .service-grid{
-        grid-template-columns:1fr;
-    }
+}
 
-    .page-title{
-        align-items:flex-start;
-        flex-direction:column;
+@media(max-width:500px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
     }
 
     .detail-grid{
         grid-template-columns:1fr;
     }
 
-    .full{
-        grid-column:auto;
+    .section-header{
+        align-items:flex-start;
+        flex-direction:column;
     }
+
+    .modal{
+        padding:10px;
+    }
+
+    .modal-box{
+        padding:18px;
+    }
+
 }
 
-@media(max-width:480px){
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .login-box{
-        padding:25px 20px;
-    }
-}
 </style>
+
 </head>
+
 
 <body>
 
+
 <!-- =====================================================
-LOGIN
+LOGIN PAGE
 ===================================================== -->
 
-<div id="loginPage" class="login-page">
+<div
+    id="loginPage"
+    class="login-page"
+>
 
-    <div class="login-box">
+    <div class="login-card">
 
-        <div class="login-logo">DS</div>
+        <div class="login-logo">
+            🔐
+        </div>
 
-        <h1>Admin Login</h1>
+        <h1>
+            Admin Login
+        </h1>
 
-        <p>Digital Service Center</p>
+        <p>
+            ডিজিটাল সেবা কেন্দ্র
+        </p>
 
-        <div id="loginError" class="error"></div>
+
+        <div
+            id="loginError"
+            class="login-error hidden"
+        ></div>
+
 
         <form id="loginForm">
 
             <div class="form-group">
-                <label>Email</label>
+
+                <label>
+                    Email
+                </label>
+
                 <input
                     type="email"
                     id="loginEmail"
-                    placeholder="Admin Email"
                     required
+                    placeholder="Admin Email"
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label>Password</label>
+
+                <label>
+                    Password
+                </label>
+
                 <input
                     type="password"
                     id="loginPassword"
-                    placeholder="Password"
                     required
+                    placeholder="Password"
                 >
+
             </div>
+
 
             <button
                 type="submit"
-                class="btn btn-primary btn-full"
+                class="login-btn"
                 id="loginBtn"
             >
                 Login
@@ -790,71 +853,85 @@ LOGIN
 
 
 <!-- =====================================================
-APP
+ADMIN APP
 ===================================================== -->
 
-<div id="app">
+<div
+    id="adminApp"
+    class="admin-layout hidden"
+>
 
-<div class="layout">
 
-<!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 
-<aside class="sidebar" id="sidebar">
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
 
-    <div class="sidebar-logo">
-        <span>Digital</span> Service
-    </div>
+        <div class="sidebar-logo">
 
-    <div class="menu">
+            🛠️
+            ডিজিটাল
+            <span>সেবা</span>
+
+        </div>
+
+
+        <div class="sidebar-menu">
+
+            <button
+                class="sidebar-btn active"
+                onclick="showSection('dashboard',this)"
+            >
+                📊 Dashboard
+            </button>
+
+
+            <button
+                class="sidebar-btn"
+                onclick="showSection('services',this)"
+            >
+                🛠️ Services
+            </button>
+
+
+            <button
+                class="sidebar-btn"
+                onclick="showSection('subservices',this)"
+            >
+                📂 Category / Sub Service
+            </button>
+
+
+            <button
+                class="sidebar-btn"
+                onclick="showSection('requests',this)"
+            >
+                📋 Service Requests
+            </button>
+
+        </div>
+
 
         <button
-            class="active"
-            onclick="showSection('dashboard',this)"
+            class="logout-btn"
+            onclick="logout()"
         >
-            <span>📊</span>
-            Dashboard
+            🚪 Logout
         </button>
 
-        <button
-            onclick="showSection('requests',this)"
-        >
-            <span>📋</span>
-            Service Requests
-        </button>
-
-        <button
-            onclick="showSection('services',this)"
-        >
-            <span>🛠️</span>
-            Services
-        </button>
-
-        <button
-            onclick="openAddService()"
-        >
-            <span>➕</span>
-            Add Service
-        </button>
-
-        <button onclick="logout()">
-            <span>🚪</span>
-            Logout
-        </button>
-
-    </div>
-
-</aside>
+    </aside>
 
 
-<!-- MAIN -->
+    <!-- MAIN -->
 
-<main class="main">
+    <main class="main">
 
-    <!-- TOPBAR -->
 
-    <header class="topbar">
+        <!-- TOPBAR -->
 
-        <div style="display:flex;align-items:center;gap:12px;">
+        <div class="topbar">
 
             <button
                 class="mobile-menu"
@@ -863,311 +940,449 @@ APP
                 ☰
             </button>
 
-            <h2 id="topTitle">
+
+            <h2 id="pageTitle">
                 Dashboard
             </h2>
 
-        </div>
 
-        <div class="admin-info">
-
-            <div class="admin-avatar">
-                A
-            </div>
-
-            <div>
-                <strong>Administrator</strong>
-                <div style="font-size:12px;color:#6b7280;">
-                    Admin
-                </div>
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <div class="content">
-
-
-<!-- =====================================================
-DASHBOARD
-===================================================== -->
-
-<section id="dashboard" class="section active">
-
-    <div class="page-title">
-
-        <div>
-            <h1>Dashboard</h1>
-            <p>আপনার সার্ভিস সেন্টারের সংক্ষিপ্ত তথ্য</p>
-        </div>
-
-        <button
-            class="btn btn-primary"
-            onclick="loadAllData()"
-        >
-            🔄 Refresh
-        </button>
-
-    </div>
-
-
-    <div class="stats">
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-                <div>
-                    <div class="stat-label">
-                        মোট সার্ভিস
-                    </div>
-
-                    <div
-                        class="stat-number"
-                        id="totalServices"
-                    >
-                        0
-                    </div>
-                </div>
-
-                <div class="stat-icon">
-                    🛠️
-                </div>
-            </div>
+            <div
+                class="admin-email"
+                id="adminEmail"
+            ></div>
 
         </div>
 
 
-        <div class="stat-card">
-
-            <div class="stat-top">
-                <div>
-                    <div class="stat-label">
-                        মোট Request
-                    </div>
-
-                    <div
-                        class="stat-number"
-                        id="totalRequests"
-                    >
-                        0
-                    </div>
-                </div>
-
-                <div class="stat-icon">
-                    📋
-                </div>
-            </div>
-
-        </div>
+        <div class="content">
 
 
-        <div class="stat-card">
+            <!-- =================================================
+            DASHBOARD
+            ================================================= -->
 
-            <div class="stat-top">
-                <div>
-                    <div class="stat-label">
-                        Pending
-                    </div>
-
-                    <div
-                        class="stat-number"
-                        id="pendingRequests"
-                    >
-                        0
-                    </div>
-                </div>
-
-                <div class="stat-icon">
-                    ⏳
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-                <div>
-                    <div class="stat-label">
-                        Completed
-                    </div>
-
-                    <div
-                        class="stat-number"
-                        id="completedRequests"
-                    >
-                        0
-                    </div>
-                </div>
-
-                <div class="stat-icon">
-                    ✅
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <h3>
-                সর্বশেষ Service Requests
-            </h3>
-
-            <button
-                class="btn btn-secondary"
-                onclick="showSectionByName('requests')"
+            <section
+                id="dashboard"
+                class="page-section active"
             >
-                সব দেখুন
-            </button>
+
+                <div class="stats-grid">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🛠️
+                        </div>
+
+                        <div class="stat-title">
+                            মোট Service
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="totalServices"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            ✅
+                        </div>
+
+                        <div class="stat-title">
+                            Active Service
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="activeServices"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            📋
+                        </div>
+
+                        <div class="stat-title">
+                            Pending Request
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="pendingRequests"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🎉
+                        </div>
+
+                        <div class="stat-title">
+                            Completed Request
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="completedRequests"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel-card">
+
+                    <h3>
+                        📌 দ্রুত কাজ
+                    </h3>
+
+                    <div class="actions">
+
+                        <button
+                            class="primary-btn"
+                            onclick="openServiceModal()"
+                        >
+                            + নতুন Service
+                        </button>
+
+
+                        <button
+                            class="primary-btn"
+                            onclick="showSectionByName('subservices')"
+                        >
+                            + Sub Service
+                        </button>
+
+
+                        <button
+                            class="primary-btn"
+                            onclick="showSectionByName('requests')"
+                        >
+                            📋 Requests দেখুন
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+            SERVICES
+            ================================================= -->
+
+            <section
+                id="services"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        🛠️ Service Management
+                    </h2>
+
+                    <button
+                        class="primary-btn"
+                        onclick="openServiceModal()"
+                    >
+                        + নতুন Service
+                    </button>
+
+                </div>
+
+
+                <div class="panel-card">
+
+                    <input
+                        class="search-input"
+                        id="serviceSearch"
+                        placeholder="Service খুঁজুন..."
+                        oninput="renderServicesTable()"
+                    >
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Service
+                                    </th>
+
+                                    <th>
+                                        Category
+                                    </th>
+
+                                    <th>
+                                        Charge
+                                    </th>
+
+                                    <th>
+                                        Sub Service
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="servicesTableBody"
+                            >
+
+                                <tr>
+
+                                    <td colspan="6">
+                                        Loading...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+            SUB SERVICES
+            ================================================= -->
+
+            <section
+                id="subservices"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            📂 Category / Sub Service
+                        </h2>
+
+                        <p
+                            style="
+                                color:#667085;
+                                margin-top:5px;
+                                font-size:13px;
+                            "
+                        >
+                            প্রতিটি Service-এর জন্য
+                            User যে Sub Service দেখতে পাবে
+                            সেটি এখান থেকে নিয়ন্ত্রণ করুন।
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel-card">
+
+                    <div class="form-group">
+
+                        <label>
+                            Service নির্বাচন করুন
+                        </label>
+
+                        <select
+                            id="subServiceParent"
+                            onchange="loadSubServicesForSelectedService()"
+                        >
+
+                            <option value="">
+                                -- Service নির্বাচন করুন --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div
+                        id="selectedServiceInfo"
+                        class="hidden"
+                    >
+
+                        <div
+                            style="
+                                background:#eff6ff;
+                                border-radius:10px;
+                                padding:14px;
+                                margin-bottom:18px;
+                            "
+                        >
+
+                            <strong id="selectedServiceName">
+                            </strong>
+
+                            <div
+                                id="selectedServiceCategory"
+                                style="
+                                    color:#667085;
+                                    font-size:13px;
+                                    margin-top:5px;
+                                "
+                            ></div>
+
+                        </div>
+
+
+                        <button
+                            class="primary-btn"
+                            onclick="openSubServiceModal()"
+                            style="margin-bottom:18px;"
+                        >
+                            + নতুন Sub Service
+                        </button>
+
+
+                        <div
+                            id="subServicesList"
+                            class="sub-list"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+            REQUESTS
+            ================================================= -->
+
+            <section
+                id="requests"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        📋 Service Requests
+                    </h2>
+
+                </div>
+
+
+                <div class="panel-card">
+
+                    <input
+                        class="search-input"
+                        id="requestSearch"
+                        placeholder="Request / নাম / WhatsApp / Service খুঁজুন..."
+                        oninput="renderRequestsTable()"
+                    >
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Request
+                                    </th>
+
+                                    <th>
+                                        Customer
+                                    </th>
+
+                                    <th>
+                                        Service
+                                    </th>
+
+                                    <th>
+                                        Charge
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="requestsTableBody"
+                            >
+
+                                <tr>
+
+                                    <td colspan="7">
+                                        Loading...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
 
         </div>
 
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Request No</th>
-                        <th>নাম</th>
-                        <th>Service</th>
-                        <th>Charge</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="recentRequestsBody">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-REQUESTS
-===================================================== -->
-
-<section id="requests" class="section">
-
-    <div class="page-title">
-
-        <div>
-            <h1>Service Requests</h1>
-            <p>গ্রাহকদের সকল সার্ভিস আবেদন</p>
-        </div>
-
-        <button
-            class="btn btn-primary"
-            onclick="loadRequests()"
-        >
-            🔄 Refresh
-        </button>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-body">
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="requestSearch"
-                    placeholder="নাম, ফোন, Request No অথবা Service দিয়ে খুঁজুন..."
-                    oninput="filterRequests()"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Request No</th>
-                        <th>নাম</th>
-                        <th>WhatsApp</th>
-                        <th>Service</th>
-                        <th>Charge</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="requestsBody">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-SERVICES
-===================================================== -->
-
-<section id="services" class="section">
-
-    <div class="page-title">
-
-        <div>
-            <h1>Services</h1>
-            <p>আপনার সকল সার্ভিস পরিচালনা করুন</p>
-        </div>
-
-        <button
-            class="btn btn-success"
-            onclick="openAddService()"
-        >
-            + Add Service
-        </button>
-
-    </div>
-
-
-    <div id="servicesGrid" class="service-grid">
-
-    </div>
-
-</section>
-
-
-    </div>
-
-</main>
-
-</div>
+    </main>
 
 </div>
 
@@ -1186,11 +1401,11 @@ SERVICE MODAL
         <div class="modal-header">
 
             <h3 id="serviceModalTitle">
-                Add Service
+                নতুন Service
             </h3>
 
             <button
-                class="close"
+                class="close-btn"
                 onclick="closeModal('serviceModal')"
             >
                 ×
@@ -1201,129 +1416,122 @@ SERVICE MODAL
 
         <form id="serviceForm">
 
-            <div class="modal-body">
+            <input
+                type="hidden"
+                id="serviceId"
+            >
 
-                <div id="serviceError" class="error"></div>
+
+            <div class="form-group">
+
+                <label>
+                    Service Name *
+                </label>
 
                 <input
-                    type="hidden"
-                    id="serviceId"
+                    id="serviceName"
+                    required
+                    placeholder="যেমন: NID / জাতীয় পরিচয়পত্র"
                 >
 
-                <div class="form-group">
-
-                    <label>
-                        Service Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="serviceName"
-                        placeholder="যেমন: জন্ম নিবন্ধন"
-                        required
-                    >
-
-                </div>
+            </div>
 
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <label>
-                        Category
-                    </label>
+                <label>
+                    Category *
+                </label>
 
-                    <input
-                        type="text"
-                        id="serviceCategory"
-                        placeholder="যেমন: সরকারি সেবা"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Icon / Emoji
-                    </label>
-
-                    <input
-                        type="text"
-                        id="serviceIcon"
-                        placeholder="📄"
-                    >
-
-                </div>
+                <input
+                    id="serviceCategory"
+                    list="categoryList"
+                    required
+                    placeholder="যেমন: ডকুমেন্ট"
+                >
 
 
-                <div class="form-group">
+                <datalist id="categoryList"></datalist>
 
-                    <label>
-                        Charge
-                    </label>
-
-                    <input
-                        type="number"
-                        id="serviceCharge"
-                        min="0"
-                        step="0.01"
-                        placeholder="100"
-                        required
-                    >
-
-                </div>
+            </div>
 
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <label>
-                        Service Key
-                    </label>
+                <label>
+                    Icon
+                </label>
 
-                    <input
-                        type="text"
-                        id="serviceKey"
-                        placeholder="birth_certificate"
-                        required
-                    >
+                <input
+                    id="serviceIcon"
+                    placeholder="যেমন: 🪪"
+                >
 
-                </div>
+            </div>
 
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <label>
-                        Description
-                    </label>
+                <label>
+                    Service Key
+                </label>
 
-                    <textarea
-                        id="serviceDescription"
-                        rows="3"
-                        placeholder="সার্ভিস সম্পর্কে সংক্ষিপ্ত বিবরণ"
-                    ></textarea>
+                <input
+                    id="serviceKey"
+                    placeholder="যেমন: nid"
+                >
 
-                </div>
+            </div>
 
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <label>
+                <label>
+                    Charge
+                </label>
+
+                <input
+                    type="number"
+                    id="serviceCharge"
+                    min="0"
+                    step="1"
+                    value="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="serviceDescription"
+                    placeholder="Service সম্পর্কে সংক্ষিপ্ত বিবরণ"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="serviceActive">
+
+                    <option value="true">
                         Active
-                    </label>
+                    </option>
 
-                    <select id="serviceActive">
+                    <option value="false">
+                        Inactive
+                    </option>
 
-                        <option value="true">
-                            Active
-                        </option>
-
-                        <option value="false">
-                            Inactive
-                        </option>
-
-                    </select>
-
-                </div>
+                </select>
 
             </div>
 
@@ -1332,15 +1540,16 @@ SERVICE MODAL
 
                 <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="cancel-btn"
                     onclick="closeModal('serviceModal')"
                 >
-                    Cancel
+                    বাতিল
                 </button>
+
 
                 <button
                     type="submit"
-                    class="btn btn-primary"
+                    class="save-btn"
                     id="saveServiceBtn"
                 >
                     Save Service
@@ -1356,7 +1565,119 @@ SERVICE MODAL
 
 
 <!-- =====================================================
-REQUEST DETAILS MODAL
+SUB SERVICE MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="subServiceModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3 id="subServiceModalTitle">
+                নতুন Sub Service
+            </h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal('subServiceModal')"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="subServiceForm">
+
+            <input
+                type="hidden"
+                id="subServiceId"
+            >
+
+
+            <div class="form-group">
+
+                <label>
+                    Parent Service
+                </label>
+
+                <input
+                    id="subServiceParentName"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Sub Service Name *
+                </label>
+
+                <input
+                    id="subServiceName"
+                    required
+                    placeholder="যেমন: NID ডাউনলোড"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="subServiceActive">
+
+                    <option value="true">
+                        Active
+                    </option>
+
+                    <option value="false">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeModal('subServiceModal')"
+                >
+                    বাতিল
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Sub Service
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+REQUEST DETAIL MODAL
 ===================================================== -->
 
 <div
@@ -1364,16 +1685,16 @@ REQUEST DETAILS MODAL
     id="requestModal"
 >
 
-    <div class="modal-box">
+    <div class="modal-box modal-large">
 
         <div class="modal-header">
 
             <h3>
-                Request Details
+                📋 Request Details
             </h3>
 
             <button
-                class="close"
+                class="close-btn"
                 onclick="closeModal('requestModal')"
             >
                 ×
@@ -1382,40 +1703,19 @@ REQUEST DETAILS MODAL
         </div>
 
 
-        <div class="modal-body">
-
-            <div id="requestDetails">
-
-            </div>
-
-        </div>
+        <div
+            id="requestDetails"
+            class="detail-grid"
+        ></div>
 
 
         <div class="modal-footer">
 
             <button
-                type="button"
-                class="btn btn-whatsapp"
-                id="modalWhatsappBtn"
-            >
-                💬 WhatsApp
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-danger"
-                id="modalDeleteBtn"
-                style="display:none;"
-            >
-                🗑️ Delete
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-secondary"
+                class="cancel-btn"
                 onclick="closeModal('requestModal')"
             >
-                Close
+                বন্ধ করুন
             </button>
 
         </div>
@@ -1430,149 +1730,54 @@ TOAST
 ===================================================== -->
 
 <div
-    class="toast"
     id="toast"
+    class="toast"
 ></div>
 
 
 <script>
 
 /* =====================================================
-SUPABASE CONFIG
+SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
     "https://mulroqtysdawwvdrpdxt.supabase.co";
 
-const SUPABASE_KEY =
+const SUPABASE_ANON_KEY =
     "sb_publishable_-v7fU5dwzz0LddbM-f87PQ_-L1BH-bl";
-
-const ADMIN_ID =
-    "95b9a85a-c30b-4111-b688-20abde0d3236";
 
 
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_KEY
+        SUPABASE_ANON_KEY
     );
 
 
 /* =====================================================
-GLOBAL DATA
+ADMIN ID
 ===================================================== */
 
-let services = [];
-let requests = [];
-
-let currentRequest = null;
+const ADMIN_ID =
+    "95b9a85a-c30b-4111-b688-20abde0d3236";
 
 
 /* =====================================================
-HELPERS
+GLOBAL
 ===================================================== */
 
-function escapeHtml(value){
+let services = [];
 
-    if(value === null || value === undefined){
-        return "";
-    }
+let subServices = [];
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
+let requests = [];
 
+let editingServiceId = null;
 
-function formatMoney(value){
+let editingSubServiceId = null;
 
-    const number =
-        Number(value || 0);
-
-    return "৳ " +
-        number.toLocaleString(
-            "bn-BD",
-            {
-                minimumFractionDigits:0,
-                maximumFractionDigits:2
-            }
-        );
-}
-
-
-function formatDate(date){
-
-    if(!date){
-        return "-";
-    }
-
-    return new Date(date)
-        .toLocaleString(
-            "bn-BD",
-            {
-                year:"numeric",
-                month:"short",
-                day:"numeric",
-                hour:"numeric",
-                minute:"2-digit"
-            }
-        );
-}
-
-
-function statusClass(status){
-
-    const s =
-        String(status || "")
-        .toLowerCase();
-
-    if(s === "completed"){
-        return "status-completed";
-    }
-
-    if(s === "processing"){
-        return "status-processing";
-    }
-
-    if(s === "cancelled"){
-        return "status-cancelled";
-    }
-
-    return "status-pending";
-}
-
-
-function statusText(status){
-
-    const map = {
-        pending:"Pending",
-        processing:"Processing",
-        completed:"Completed",
-        cancelled:"Cancelled"
-    };
-
-    return map[
-        String(status || "").toLowerCase()
-    ] || status || "Pending";
-}
-
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(() => {
-        toast.classList.remove("show");
-    },3000);
-}
+let selectedSubServiceServiceId = "";
 
 
 /* =====================================================
@@ -1580,123 +1785,157 @@ LOGIN
 ===================================================== */
 
 document
-.getElementById("loginForm")
-.addEventListener(
-    "submit",
-    async function(e){
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event){
 
-        e.preventDefault();
+            event.preventDefault();
 
-        const email =
-            document.getElementById("loginEmail")
+            await login();
+
+        }
+    );
+
+
+async function login(){
+
+    const email =
+        document
+            .getElementById("loginEmail")
             .value
             .trim();
 
-        const password =
-            document.getElementById("loginPassword")
+    const password =
+        document
+            .getElementById("loginPassword")
             .value;
 
-        const loginBtn =
-            document.getElementById("loginBtn");
 
-        const errorBox =
-            document.getElementById("loginError");
+    const btn =
+        document.getElementById(
+            "loginBtn"
+        );
 
-        errorBox.style.display = "none";
+    const errorBox =
+        document.getElementById(
+            "loginError"
+        );
 
-        loginBtn.disabled = true;
-        loginBtn.textContent = "Login হচ্ছে...";
+
+    errorBox.classList.add(
+        "hidden"
+    );
 
 
-        try{
+    btn.disabled = true;
 
-            const {
-                data,
-                error
-            } =
-            await supabaseClient.auth.signInWithPassword({
+    btn.textContent =
+        "Login হচ্ছে...";
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth
+            .signInWithPassword({
                 email,
                 password
             });
 
 
-            if(error){
-                throw error;
-            }
+        if(error){
 
-
-            if(!data.user){
-                throw new Error(
-                    "Login user পাওয়া যায়নি"
-                );
-            }
-
-
-            /* ADMIN CHECK */
-
-            const {
-                data: admin,
-                error: adminError
-            } =
-            await supabaseClient
-                .from("admins")
-                .select("id,email")
-                .eq("id",data.user.id)
-                .maybeSingle();
-
-
-            if(adminError){
-                throw adminError;
-            }
-
-
-            if(!admin){
-
-                await supabaseClient.auth.signOut();
-
-                throw new Error(
-                    "এই account-এর Admin access নেই।"
-                );
-            }
-
-
-            if(
-                ADMIN_ID &&
-                data.user.id !== ADMIN_ID
-            ){
-
-                await supabaseClient.auth.signOut();
-
-                throw new Error(
-                    "এই account অনুমোদিত Admin নয়।"
-                );
-            }
-
-
-            showApp();
+            throw error;
 
         }
-        catch(error){
 
-            console.error(error);
 
-            errorBox.textContent =
-                error.message ||
-                "Login failed";
+        if(!data.user){
 
-            errorBox.style.display =
-                "block";
+            throw new Error(
+                "User পাওয়া যায়নি।"
+            );
 
         }
-        finally{
 
-            loginBtn.disabled = false;
-            loginBtn.textContent = "Login";
+
+        /*
+         * Admin verification
+         */
+
+        const {
+            data: admin,
+            error: adminError
+        } =
+        await supabaseClient
+            .from("admins")
+            .select("id,email")
+            .eq(
+                "id",
+                data.user.id
+            )
+            .maybeSingle();
+
+
+        if(adminError){
+
+            throw adminError;
 
         }
+
+
+        if(
+            !admin ||
+            data.user.id !== ADMIN_ID
+        ){
+
+            await supabaseClient.auth
+                .signOut();
+
+            throw new Error(
+                "এই Account-এর Admin access নেই।"
+            );
+
+        }
+
+
+        showAdminApp(
+            data.user.email
+        );
+
+
+        await loadAllData();
 
     }
-);
+    catch(error){
+
+        console.error(error);
+
+
+        errorBox.textContent =
+            error.message ||
+            "Login failed";
+
+
+        errorBox.classList.remove(
+            "hidden"
+        );
+
+    }
+    finally{
+
+        btn.disabled = false;
+
+        btn.textContent =
+            "Login";
+
+    }
+
+}
 
 
 /* =====================================================
@@ -1710,40 +1949,32 @@ async function checkSession(){
         const {
             data
         } =
-        await supabaseClient
-            .auth
+        await supabaseClient.auth
             .getSession();
 
 
-        if(data.session){
+        if(
+            data &&
+            data.session &&
+            data.session.user
+        ){
 
             const user =
                 data.session.user;
 
 
             if(
-                ADMIN_ID &&
-                user.id !== ADMIN_ID
+                user.id === ADMIN_ID
             ){
 
-                await supabaseClient.auth.signOut();
+                showAdminApp(
+                    user.email
+                );
+
+
+                await loadAllData();
+
                 return;
-            }
-
-
-            const {
-                data:admin
-            } =
-            await supabaseClient
-                .from("admins")
-                .select("id")
-                .eq("id",user.id)
-                .maybeSingle();
-
-
-            if(admin){
-
-                showApp();
 
             }
 
@@ -1752,68 +1983,57 @@ async function checkSession(){
     }
     catch(error){
 
-        console.error(
-            "Session error:",
-            error
-        );
+        console.error(error);
 
     }
 
 }
 
 
-async function showApp(){
+/* =====================================================
+SHOW ADMIN
+===================================================== */
+
+function showAdminApp(email){
 
     document
         .getElementById("loginPage")
-        .style.display = "none";
+        .classList.add("hidden");
+
 
     document
-        .getElementById("app")
-        .style.display = "block";
-
-    await loadAllData();
-
-}
+        .getElementById("adminApp")
+        .classList.remove("hidden");
 
 
-/* =====================================================
-LOGOUT
-===================================================== */
-
-async function logout(){
-
-    const ok =
-        confirm(
-            "আপনি কি Logout করতে চান?"
-        );
-
-    if(!ok){
-        return;
-    }
-
-    await supabaseClient
-        .auth
-        .signOut();
-
-    location.reload();
+    document
+        .getElementById("adminEmail")
+        .textContent =
+        email || "";
 
 }
 
 
 /* =====================================================
-LOAD ALL DATA
+LOAD ALL
 ===================================================== */
 
 async function loadAllData(){
 
     await Promise.all([
         loadServices(),
+        loadSubServices(),
         loadRequests()
     ]);
 
-    updateStats();
-    renderRecentRequests();
+
+    updateDashboard();
+
+    populateServiceSelectors();
+
+    renderServicesTable();
+
+    renderRequestsTable();
 
 }
 
@@ -1834,489 +2054,74 @@ async function loadServices(){
         .order(
             "created_at",
             {
-                ascending:false
+                ascending:true
             }
         );
 
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "SERVICE ERROR:",
+            error
+        );
 
         showToast(
-            "Services load করা যায়নি: " +
-            error.message
+            error.message,
+            "error"
         );
 
         return;
+
     }
 
 
     services =
         data || [];
 
-    renderServices();
-
-    updateStats();
-
 }
 
 
 /* =====================================================
-RENDER SERVICES
+LOAD SUB SERVICES
 ===================================================== */
 
-function renderServices(){
-
-    const grid =
-        document.getElementById(
-            "servicesGrid"
-        );
-
-
-    if(!services.length){
-
-        grid.innerHTML = `
-            <div class="empty" style="grid-column:1/-1;">
-                <div class="empty-icon">🛠️</div>
-                <p>কোনো Service পাওয়া যায়নি।</p>
-            </div>
-        `;
-
-        return;
-    }
-
-
-    grid.innerHTML =
-        services.map(service => {
-
-            const icon =
-                service.icon || "📄";
-
-            const active =
-                service.active !== false;
-
-
-            return `
-
-                <div class="service-card">
-
-                    <div class="service-icon">
-                        ${escapeHtml(icon)}
-                    </div>
-
-                    <h3>
-                        ${escapeHtml(
-                            service.service_name
-                        )}
-                    </h3>
-
-                    <p>
-                        ${
-                            escapeHtml(
-                                service.description ||
-                                service.category ||
-                                "Digital Service"
-                            )
-                        }
-                    </p>
-
-                    <div class="charge">
-                        ${formatMoney(service.charge)}
-                    </div>
-
-                    <div style="margin-bottom:12px;">
-
-                        <span class="status ${
-                            active
-                            ? "status-completed"
-                            : "status-cancelled"
-                        }">
-
-                            ${
-                                active
-                                ? "Active"
-                                : "Inactive"
-                            }
-
-                        </span>
-
-                    </div>
-
-                    <div class="service-actions">
-
-                        <button
-                            class="btn btn-primary"
-                            onclick="editService('${service.id}')"
-                        >
-                            ✏️ Edit
-                        </button>
-
-                        <button
-                            class="btn btn-danger"
-                            onclick="deleteService('${service.id}')"
-                        >
-                            🗑️ Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
-
-}
-
-
-/* =====================================================
-ADD SERVICE
-===================================================== */
-
-function openAddService(){
-
-    document.getElementById(
-        "serviceModalTitle"
-    ).textContent =
-        "Add Service";
-
-
-    document.getElementById(
-        "serviceForm"
-    ).reset();
-
-
-    document.getElementById(
-        "serviceId"
-    ).value = "";
-
-
-    document.getElementById(
-        "serviceIcon"
-    ).value = "📄";
-
-
-    document.getElementById(
-        "serviceActive"
-    ).value = "true";
-
-
-    document.getElementById(
-        "serviceError"
-    ).style.display = "none";
-
-
-    document
-        .getElementById("serviceModal")
-        .classList.add("show");
-
-}
-
-
-/* =====================================================
-EDIT SERVICE
-===================================================== */
-
-function editService(id){
-
-    const service =
-        services.find(
-            item => item.id === id
-        );
-
-
-    if(!service){
-        return;
-    }
-
-
-    document.getElementById(
-        "serviceModalTitle"
-    ).textContent =
-        "Edit Service";
-
-
-    document.getElementById(
-        "serviceId"
-    ).value =
-        service.id || "";
-
-
-    document.getElementById(
-        "serviceName"
-    ).value =
-        service.service_name || "";
-
-
-    document.getElementById(
-        "serviceCategory"
-    ).value =
-        service.category || "";
-
-
-    document.getElementById(
-        "serviceIcon"
-    ).value =
-        service.icon || "📄";
-
-
-    document.getElementById(
-        "serviceCharge"
-    ).value =
-        service.charge || 0;
-
-
-    document.getElementById(
-        "serviceKey"
-    ).value =
-        service.service_key || "";
-
-
-    document.getElementById(
-        "serviceDescription"
-    ).value =
-        service.description || "";
-
-
-    document.getElementById(
-        "serviceActive"
-    ).value =
-        service.active === false
-        ? "false"
-        : "true";
-
-
-    document.getElementById(
-        "serviceError"
-    ).style.display = "none";
-
-
-    document
-        .getElementById("serviceModal")
-        .classList.add("show");
-
-}
-
-
-/* =====================================================
-SAVE SERVICE
-===================================================== */
-
-document
-.getElementById("serviceForm")
-.addEventListener(
-    "submit",
-    async function(e){
-
-        e.preventDefault();
-
-
-        const id =
-            document.getElementById(
-                "serviceId"
-            ).value;
-
-
-        const payload = {
-
-            service_name:
-                document.getElementById(
-                    "serviceName"
-                ).value.trim(),
-
-            category:
-                document.getElementById(
-                    "serviceCategory"
-                ).value.trim(),
-
-            icon:
-                document.getElementById(
-                    "serviceIcon"
-                ).value.trim() || "📄",
-
-            charge:
-                Number(
-                    document.getElementById(
-                        "serviceCharge"
-                    ).value
-                ),
-
-            service_key:
-                document.getElementById(
-                    "serviceKey"
-                ).value.trim(),
-
-            description:
-                document.getElementById(
-                    "serviceDescription"
-                ).value.trim(),
-
-            active:
-                document.getElementById(
-                    "serviceActive"
-                ).value === "true",
-
-            updated_at:
-                new Date().toISOString()
-
-        };
-
-
-        const errorBox =
-            document.getElementById(
-                "serviceError"
-            );
-
-
-        const saveBtn =
-            document.getElementById(
-                "saveServiceBtn"
-            );
-
-
-        errorBox.style.display =
-            "none";
-
-        saveBtn.disabled = true;
-        saveBtn.textContent =
-            "Saving...";
-
-
-        try{
-
-            let result;
-
-
-            if(id){
-
-                result =
-                    await supabaseClient
-                        .from("services")
-                        .update(payload)
-                        .eq("id",id);
-
+async function loadSubServices(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("service_sub_services")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:true
             }
-            else{
-
-                result =
-                    await supabaseClient
-                        .from("services")
-                        .insert([payload]);
-
-            }
-
-
-            if(result.error){
-                throw result.error;
-            }
-
-
-            closeModal(
-                "serviceModal"
-            );
-
-
-            showToast(
-                id
-                ? "Service সফলভাবে আপডেট হয়েছে।"
-                : "Service সফলভাবে যোগ হয়েছে।"
-            );
-
-
-            await loadServices();
-
-            updateStats();
-
-        }
-        catch(error){
-
-            console.error(error);
-
-            errorBox.textContent =
-                error.message ||
-                "Service save করা যায়নি।";
-
-            errorBox.style.display =
-                "block";
-
-        }
-        finally{
-
-            saveBtn.disabled = false;
-            saveBtn.textContent =
-                "Save Service";
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-DELETE SERVICE
-===================================================== */
-
-async function deleteService(id){
-
-    const service =
-        services.find(
-            item => item.id === id
         );
 
 
-    if(!service){
-        return;
-    }
+    if(error){
 
-
-    const ok =
-        confirm(
-            `"${service.service_name}" Service delete করবেন?`
-        );
-
-
-    if(!ok){
-        return;
-    }
-
-
-    try{
-
-        const {
+        console.error(
+            "SUB SERVICE ERROR:",
             error
-        } =
-        await supabaseClient
-            .from("services")
-            .delete()
-            .eq("id",id);
-
-
-        if(error){
-            throw error;
-        }
-
-
-        showToast(
-            "Service delete হয়েছে।"
         );
 
-
-        await loadServices();
-
-        updateStats();
-
-    }
-    catch(error){
-
-        console.error(error);
-
         showToast(
-            "Delete failed: " +
-            error.message
+            error.message,
+            "error"
         );
 
+        return;
+
     }
+
+
+    subServices =
+        data || [];
 
 }
 
@@ -2326,23 +2131,6 @@ LOAD REQUESTS
 ===================================================== */
 
 async function loadRequests(){
-
-    const body =
-        document.getElementById(
-            "requestsBody"
-        );
-
-
-    body.innerHTML = `
-        <tr>
-            <td colspan="8">
-                <div class="loading">
-                    Loading...
-                </div>
-            </td>
-        </tr>
-    `;
-
 
     const {
         data,
@@ -2361,972 +2149,50 @@ async function loadRequests(){
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "REQUEST ERROR:",
+            error
+        );
 
-        body.innerHTML = `
-            <tr>
-                <td colspan="8">
-                    <div class="empty">
-                        Request load করা যায়নি।
-                        <br>
-                        ${escapeHtml(error.message)}
-                    </div>
-                </td>
-            </tr>
-        `;
+        showToast(
+            error.message,
+            "error"
+        );
 
         return;
+
     }
 
 
     requests =
         data || [];
 
-
-    renderRequests();
-
-    updateStats();
-
-    renderRecentRequests();
-
 }
 
 
 /* =====================================================
-RENDER REQUESTS
+DASHBOARD
 ===================================================== */
 
-function renderRequests(list = requests){
+function updateDashboard(){
 
-    const body =
-        document.getElementById(
-            "requestsBody"
-        );
-
-
-    if(!list.length){
-
-        body.innerHTML = `
-            <tr>
-                <td colspan="8">
-                    <div class="empty">
-
-                        <div class="empty-icon">
-                            📋
-                        </div>
-
-                        <p>
-                            কোনো Request পাওয়া যায়নি।
-                        </p>
-
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    body.innerHTML =
-        list.map(request => {
-
-            const completed =
-                String(request.status)
-                .toLowerCase() ===
-                "completed";
-
-
-            return `
-
-                <tr>
-
-                    <td>
-                        <strong>
-                            ${escapeHtml(
-                                request.request_no || "-"
-                            )}
-                        </strong>
-                    </td>
-
-
-                    <td>
-                        ${escapeHtml(
-                            request.name || "-"
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHtml(
-                            request.whatsapp || "-"
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHtml(
-                            request.service_name || "-"
-                        )}
-
-                        ${
-                            request.sub_service
-                            ?
-                            `<br>
-                            <small style="color:#6b7280;">
-                                ${escapeHtml(
-                                    request.sub_service
-                                )}
-                            </small>`
-                            :
-                            ""
-                        }
-
-                    </td>
-
-
-                    <td>
-                        ${formatMoney(
-                            request.charge
-                        )}
-                    </td>
-
-
-                    <td>
-
-                        <span class="status ${
-                            statusClass(
-                                request.status
-                            )
-                        }">
-
-                            ${statusText(
-                                request.status
-                            )}
-
-                        </span>
-
-                    </td>
-
-
-                    <td>
-                        ${formatDate(
-                            request.created_at
-                        )}
-                    </td>
-
-
-                    <td>
-
-                        <div class="actions">
-
-                            <button
-                                class="btn btn-primary"
-                                onclick="viewRequest('${request.id}')"
-                            >
-                                👁️ View
-                            </button>
-
-
-                            ${
-                                request.whatsapp
-                                ?
-                                `
-                                <button
-                                    class="btn btn-whatsapp"
-                                    onclick="sendWhatsApp('${request.id}')"
-                                >
-                                    💬 WhatsApp
-                                </button>
-                                `
-                                :
-                                ""
-                            }
-
-
-                            ${
-                                completed
-                                ?
-                                `
-                                <button
-                                    class="btn btn-danger"
-                                    onclick="deleteCompletedRequest('${request.id}')"
-                                >
-                                    🗑️ Delete
-                                </button>
-                                `
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }).join("");
-
-}
-
-
-/* =====================================================
-FILTER REQUESTS
-===================================================== */
-
-function filterRequests(){
-
-    const search =
-        document.getElementById(
-            "requestSearch"
-        )
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    if(!search){
-
-        renderRequests(requests);
-
-        return;
-    }
-
-
-    const filtered =
-        requests.filter(request => {
-
-            const text = [
-
-                request.request_no,
-                request.name,
-                request.whatsapp,
-                request.service_name,
-                request.service_key,
-                request.status
-
-            ]
-            .join(" ")
-            .toLowerCase();
-
-
-            return text.includes(search);
-
-        });
-
-
-    renderRequests(filtered);
-
-}
-
-
-/* =====================================================
-VIEW REQUEST
-===================================================== */
-
-function viewRequest(id){
-
-    const request =
-        requests.find(
-            item => item.id === id
-        );
-
-
-    if(!request){
-        return;
-    }
-
-
-    currentRequest =
-        request;
-
-
-    const completed =
-        String(request.status)
-        .toLowerCase() ===
-        "completed";
-
-
-    document.getElementById(
-        "requestDetails"
-    ).innerHTML = `
-
-        <div class="detail-grid">
-
-            <div class="detail-item">
-
-                <label>
-                    Request No
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.request_no || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    Created
-                </label>
-
-                <strong>
-                    ${formatDate(
-                        request.created_at
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    নাম
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.name || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    WhatsApp
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.whatsapp || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    Service
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.service_name || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    Sub Service
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.sub_service || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    Charge
-                </label>
-
-                <strong>
-                    ${formatMoney(
-                        request.charge
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <label>
-                    Status
-                </label>
-
-                <strong>
-
-                    <span class="status ${
-                        statusClass(
-                            request.status
-                        )
-                    }">
-
-                        ${statusText(
-                            request.status
-                        )}
-
-                    </span>
-
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item full">
-
-                <label>
-                    Address
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.address || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item full">
-
-                <label>
-                    Additional Details
-                </label>
-
-                <strong>
-                    ${escapeHtml(
-                        request.additional_details || "-"
-                    )}
-                </strong>
-
-            </div>
-
-
-            ${
-                request.service_data
-                ?
-                `
-                <div class="detail-item full">
-
-                    <label>
-                        Service Data
-                    </label>
-
-                    <pre style="
-                        white-space:pre-wrap;
-                        word-break:break-word;
-                        font-family:inherit;
-                    ">${escapeHtml(
-                        typeof request.service_data === "string"
-                        ? request.service_data
-                        : JSON.stringify(
-                            request.service_data,
-                            null,
-                            2
-                        )
-                    )}</pre>
-
-                </div>
-                `
-                :
-                ""
-            }
-
-
-            <div class="detail-item full">
-
-                <label>
-                    Update Status
-                </label>
-
-                <select
-                    id="requestStatusSelect"
-                    style="
-                        width:100%;
-                        padding:10px;
-                        border:1px solid #d1d5db;
-                        border-radius:8px;
-                    "
-                >
-
-                    <option
-                        value="pending"
-                        ${request.status === "pending" ? "selected" : ""}
-                    >
-                        Pending
-                    </option>
-
-                    <option
-                        value="processing"
-                        ${request.status === "processing" ? "selected" : ""}
-                    >
-                        Processing
-                    </option>
-
-                    <option
-                        value="completed"
-                        ${request.status === "completed" ? "selected" : ""}
-                    >
-                        Completed
-                    </option>
-
-                    <option
-                        value="cancelled"
-                        ${request.status === "cancelled" ? "selected" : ""}
-                    >
-                        Cancelled
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-        <button
-            class="btn btn-primary"
-            style="width:100%;margin-top:15px;"
-            onclick="updateRequestStatus('${request.id}')"
-        >
-            💾 Status Update
-        </button>
-
-    `;
-
-
-    const whatsappBtn =
-        document.getElementById(
-            "modalWhatsappBtn"
-        );
-
-
-    if(request.whatsapp){
-
-        whatsappBtn.style.display =
-            "inline-block";
-
-        whatsappBtn.onclick =
-            function(){
-
-                sendWhatsApp(
-                    request.id
-                );
-
-            };
-
-    }
-    else{
-
-        whatsappBtn.style.display =
-            "none";
-
-    }
-
-
-    const deleteBtn =
-        document.getElementById(
-            "modalDeleteBtn"
-        );
-
-
-    if(completed){
-
-        deleteBtn.style.display =
-            "inline-block";
-
-        deleteBtn.onclick =
-            function(){
-
-                deleteCompletedRequest(
-                    request.id
-                );
-
-            };
-
-    }
-    else{
-
-        deleteBtn.style.display =
-            "none";
-
-    }
-
-
-    document
-        .getElementById("requestModal")
-        .classList.add("show");
-
-}
-
-
-/* =====================================================
-UPDATE REQUEST STATUS
-===================================================== */
-
-async function updateRequestStatus(id){
-
-    const select =
-        document.getElementById(
-            "requestStatusSelect"
-        );
-
-
-    if(!select){
-        return;
-    }
-
-
-    const newStatus =
-        select.value;
-
-
-    try{
-
-        const {
-            error
-        } =
-        await supabaseClient
-            .from("service_requests")
-            .update({
-
-                status:newStatus,
-
-                updated_at:
-                    new Date().toISOString()
-
-            })
-            .eq("id",id);
-
-
-        if(error){
-            throw error;
-        }
-
-
-        showToast(
-            "Request status সফলভাবে আপডেট হয়েছে।"
-        );
-
-
-        closeModal(
-            "requestModal"
-        );
-
-
-        await loadRequests();
-
-        updateStats();
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        showToast(
-            "Status update failed: " +
-            error.message
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-WHATSAPP NUMBER
-===================================================== */
-
-function normalizeWhatsAppNumber(phone){
-
-    if(!phone){
-        return null;
-    }
-
-
-    let number =
-        String(phone)
-        .trim()
-        .replace(/\D/g,"");
-
-
-    /*
-       Bangladesh:
-
-       01712345678
-       ↓
-       8801712345678
-
-       +8801712345678
-       ↓
-       8801712345678
-    */
-
-
-    if(number.startsWith("00880")){
-
-        number =
-            number.substring(2);
-
-    }
-
-
-    if(number.startsWith("880")){
-
-        return number;
-
-    }
-
-
-    if(number.startsWith("0")){
-
-        return "880" +
-            number.substring(1);
-
-    }
-
-
-    /*
-       যদি 1712345678 হয়
-    */
-
-    if(
-        number.length === 10 &&
-        number.startsWith("1")
-    ){
-
-        return "880" + number;
-
-    }
-
-
-    return number;
-
-}
-
-
-/* =====================================================
-SEND WHATSAPP
-===================================================== */
-
-function sendWhatsApp(id){
-
-    const request =
-        requests.find(
-            item => item.id === id
-        );
-
-
-    if(!request){
-
-        showToast(
-            "Request পাওয়া যায়নি।"
-        );
-
-        return;
-    }
-
-
-    if(!request.whatsapp){
-
-        showToast(
-            "এই Request-এর WhatsApp নম্বর নেই।"
-        );
-
-        return;
-    }
-
-
-    const phone =
-        normalizeWhatsAppNumber(
-            request.whatsapp
-        );
-
-
-    if(!phone){
-
-        showToast(
-            "WhatsApp নম্বর সঠিক নয়।"
-        );
-
-        return;
-    }
-
-
-    const message =
-
-`আসসালামু আলাইকুম ${request.name || ""},
-
-আপনার Digital Service Request-এর আপডেট:
-
-📋 Request No: ${request.request_no || "-"}
-🛠️ Service: ${request.service_name || "-"}
-${request.sub_service ? "📌 Sub Service: " + request.sub_service + "\n" : ""}
-💰 Charge: ${formatMoney(request.charge)}
-📌 Status: ${statusText(request.status)}
-
-ধন্যবাদ।
-Digital Service Center`;
-
-
-    const url =
-        "https://wa.me/" +
-        phone +
-        "?text=" +
-        encodeURIComponent(
-            message
-        );
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-
-/* =====================================================
-DELETE COMPLETED REQUEST
-===================================================== */
-
-async function deleteCompletedRequest(id){
-
-    const request =
-        requests.find(
-            item => item.id === id
-        );
-
-
-    if(!request){
-        return;
-    }
-
-
-    if(
-        String(request.status)
-        .toLowerCase() !==
-        "completed"
-    ){
-
-        showToast(
-            "শুধুমাত্র Completed Request delete করা যাবে।"
-        );
-
-        return;
-    }
-
-
-    const ok =
-        confirm(
-
-`Request "${request.request_no || ""}" Completed হয়েছে।
-
-আপনি কি এটি স্থায়ীভাবে Delete করতে চান?
-
-এই কাজটি Undo করা যাবে না।`
-
-        );
-
-
-    if(!ok){
-        return;
-    }
-
-
-    try{
-
-        const {
-            error
-        } =
-        await supabaseClient
-            .from("service_requests")
-            .delete()
-            .eq("id",id)
-            .eq("status","completed");
-
-
-        if(error){
-            throw error;
-        }
-
-
-        /*
-          Local array থেকেও remove
-        */
-
-        requests =
-            requests.filter(
-                item => item.id !== id
-            );
-
-
-        showToast(
-            "Completed Request সফলভাবে Delete হয়েছে।"
-        );
-
-
-        closeModal(
-            "requestModal"
-        );
-
-
-        renderRequests();
-
-        renderRecentRequests();
-
-        updateStats();
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        showToast(
-            "Request Delete failed: " +
-            error.message
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-UPDATE STATS
-===================================================== */
-
-function updateStats(){
-
-    document.getElementById(
-        "totalServices"
-    ).textContent =
+    const total =
         services.length;
 
 
-    document.getElementById(
-        "totalRequests"
-    ).textContent =
-        requests.length;
+    const active =
+        services.filter(
+            s => s.active === true
+        ).length;
 
 
     const pending =
         requests.filter(
             r =>
-                String(r.status)
-                .toLowerCase() ===
+                String(
+                    r.status || ""
+                ).toLowerCase()
+                ===
                 "pending"
         ).length;
 
@@ -3334,10 +2200,24 @@ function updateStats(){
     const completed =
         requests.filter(
             r =>
-                String(r.status)
-                .toLowerCase() ===
+                String(
+                    r.status || ""
+                ).toLowerCase()
+                ===
                 "completed"
         ).length;
+
+
+    document.getElementById(
+        "totalServices"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "activeServices"
+    ).textContent =
+        active;
 
 
     document.getElementById(
@@ -3355,99 +2235,7 @@ function updateStats(){
 
 
 /* =====================================================
-RECENT REQUESTS
-===================================================== */
-
-function renderRecentRequests(){
-
-    const body =
-        document.getElementById(
-            "recentRequestsBody"
-        );
-
-
-    const recent =
-        requests.slice(0,5);
-
-
-    if(!recent.length){
-
-        body.innerHTML = `
-            <tr>
-                <td colspan="6">
-                    <div class="empty">
-                        কোনো Request নেই।
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    body.innerHTML =
-        recent.map(request => `
-
-            <tr>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            request.request_no || "-"
-                        )}
-                    </strong>
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.name || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.service_name || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${formatMoney(
-                        request.charge
-                    )}
-                </td>
-
-                <td>
-
-                    <span class="status ${
-                        statusClass(
-                            request.status
-                        )
-                    }">
-
-                        ${statusText(
-                            request.status
-                        )}
-
-                    </span>
-
-                </td>
-
-                <td>
-                    ${formatDate(
-                        request.created_at
-                    )}
-                </td>
-
-            </tr>
-
-        `).join("");
-
-}
-
-
-/* =====================================================
-NAVIGATION
+SHOW SECTION
 ===================================================== */
 
 function showSection(
@@ -3456,30 +2244,42 @@ function showSection(
 ){
 
     document
-        .querySelectorAll(".section")
-        .forEach(section => {
+        .querySelectorAll(
+            ".page-section"
+        )
+        .forEach(
+            section =>
+                section.classList.remove(
+                    "active"
+                )
+        );
 
-            section.classList.remove(
-                "active"
-            );
 
-        });
+    const section =
+        document.getElementById(
+            sectionId
+        );
+
+
+    if(section){
+
+        section.classList.add(
+            "active"
+        );
+
+    }
 
 
     document
-        .getElementById(sectionId)
-        .classList.add("active");
-
-
-    document
-        .querySelectorAll(".menu button")
-        .forEach(btn => {
-
-            btn.classList.remove(
-                "active"
-            );
-
-        });
+        .querySelectorAll(
+            ".sidebar-btn"
+        )
+        .forEach(
+            btn =>
+                btn.classList.remove(
+                    "active"
+                )
+        );
 
 
     if(button){
@@ -3493,28 +2293,42 @@ function showSection(
 
     const titles = {
 
-        dashboard:"Dashboard",
+        dashboard:
+            "Dashboard",
 
-        requests:"Service Requests",
+        services:
+            "Service Management",
 
-        services:"Services"
+        subservices:
+            "Category / Sub Service",
+
+        requests:
+            "Service Requests"
 
     };
 
 
     document.getElementById(
-        "topTitle"
+        "pageTitle"
     ).textContent =
         titles[sectionId] ||
         "Admin Panel";
 
 
     document
-        .getElementById("sidebar")
-        .classList.remove("open");
+        .getElementById(
+            "sidebar"
+        )
+        .classList.remove(
+            "open"
+        );
 
 }
 
+
+/* =====================================================
+SHOW SECTION BY NAME
+===================================================== */
 
 function showSectionByName(
     sectionId
@@ -3522,31 +2336,63 @@ function showSectionByName(
 
     const buttons =
         document.querySelectorAll(
-            ".menu button"
+            ".sidebar-btn"
         );
 
 
     let targetButton = null;
 
 
-    buttons.forEach(button => {
+    buttons.forEach(
+        btn => {
 
-        if(
-            button.textContent
-            .toLowerCase()
-            .includes(
-                sectionId === "requests"
-                ? "service requests"
-                : sectionId
-            )
-        ){
+            const text =
+                btn.textContent
+                .toLowerCase();
 
-            targetButton =
-                button;
+
+            if(
+                sectionId === "services" &&
+                text.includes("service")
+            ){
+
+                targetButton =
+                    btn;
+
+            }
+
+            if(
+                sectionId === "subservices" &&
+                text.includes("sub service")
+            ){
+
+                targetButton =
+                    btn;
+
+            }
+
+            if(
+                sectionId === "requests" &&
+                text.includes("requests")
+            ){
+
+                targetButton =
+                    btn;
+
+            }
+
+            if(
+                sectionId === "dashboard" &&
+                text.includes("dashboard")
+            ){
+
+                targetButton =
+                    btn;
+
+            }
 
         }
-
-    });
+    );
 
 
     showSection(
@@ -3558,14 +2404,2303 @@ function showSectionByName(
 
 
 /* =====================================================
+SERVICE TABLE
+===================================================== */
+
+function renderServicesTable(){
+
+    const tbody =
+        document.getElementById(
+            "servicesTableBody"
+        );
+
+
+    const search =
+        String(
+            document.getElementById(
+                "serviceSearch"
+            )?.value ||
+            ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+        services.filter(
+            service => {
+
+                const text =
+                    (
+                        String(
+                            service.service_name ||
+                            ""
+                        ) +
+                        " " +
+                        String(
+                            service.category ||
+                            ""
+                        ) +
+                        " " +
+                        String(
+                            service.service_key ||
+                            ""
+                        )
+                    )
+                    .toLowerCase();
+
+
+                return !search ||
+                    text.includes(search);
+
+            }
+        );
+
+
+    if(!filtered.length){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+                    কোনো Service পাওয়া যায়নি।
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        filtered
+        .map(
+            service => {
+
+                const count =
+                    subServices.filter(
+                        s =>
+                            String(
+                                s.service_id
+                            ) ===
+                            String(
+                                service.id
+                            )
+                    ).length;
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    service.icon ||
+                                    "🛠️"
+                                )}
+                                ${escapeHtml(
+                                    service.service_name ||
+                                    ""
+                                )}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                service.category ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ৳${Number(
+                                service.charge || 0
+                            ).toLocaleString("en-BD")}
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge badge-processing">
+                                ${count}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                                service.active
+                                ?
+                                `
+                                <span class="badge badge-active">
+                                    Active
+                                </span>
+                                `
+                                :
+                                `
+                                <span class="badge badge-inactive">
+                                    Inactive
+                                </span>
+                                `
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="small-btn sub-btn"
+                                    onclick="manageSubServices('${escapeJs(service.id)}')"
+                                >
+                                    📂 Sub
+                                </button>
+
+
+                                <button
+                                    class="small-btn edit-btn"
+                                    onclick="editService('${escapeJs(service.id)}')"
+                                >
+                                    ✏️ Edit
+                                </button>
+
+
+                                <button
+                                    class="small-btn delete-btn"
+                                    onclick="deleteService('${escapeJs(service.id)}')"
+                                >
+                                    🗑️ Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+OPEN SERVICE MODAL
+===================================================== */
+
+function openServiceModal(){
+
+    editingServiceId =
+        null;
+
+
+    document.getElementById(
+        "serviceModalTitle"
+    ).textContent =
+        "নতুন Service";
+
+
+    document.getElementById(
+        "serviceForm"
+    ).reset();
+
+
+    document.getElementById(
+        "serviceActive"
+    ).value =
+        "true";
+
+
+    populateCategories();
+
+
+    document
+        .getElementById(
+            "serviceModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+EDIT SERVICE
+===================================================== */
+
+function editService(id){
+
+    const service =
+        services.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!service){
+
+        return;
+
+    }
+
+
+    editingServiceId =
+        service.id;
+
+
+    document.getElementById(
+        "serviceModalTitle"
+    ).textContent =
+        "Service Edit";
+
+
+    document.getElementById(
+        "serviceId"
+    ).value =
+        service.id;
+
+
+    document.getElementById(
+        "serviceName"
+    ).value =
+        service.service_name || "";
+
+
+    document.getElementById(
+        "serviceCategory"
+    ).value =
+        service.category || "";
+
+
+    document.getElementById(
+        "serviceIcon"
+    ).value =
+        service.icon || "";
+
+
+    document.getElementById(
+        "serviceKey"
+    ).value =
+        service.service_key || "";
+
+
+    document.getElementById(
+        "serviceCharge"
+    ).value =
+        Number(
+            service.charge || 0
+        );
+
+
+    document.getElementById(
+        "serviceDescription"
+    ).value =
+        service.description || "";
+
+
+    document.getElementById(
+        "serviceActive"
+    ).value =
+        String(
+            service.active !== false
+        );
+
+
+    populateCategories();
+
+
+    document
+        .getElementById(
+            "serviceModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+SAVE SERVICE
+===================================================== */
+
+document
+    .getElementById(
+        "serviceForm"
+    )
+    .addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
+
+            await saveService();
+
+        }
+    );
+
+
+async function saveService(){
+
+    const name =
+        document.getElementById(
+            "serviceName"
+        )
+        .value
+        .trim();
+
+
+    const category =
+        document.getElementById(
+            "serviceCategory"
+        )
+        .value
+        .trim();
+
+
+    const icon =
+        document.getElementById(
+            "serviceIcon"
+        )
+        .value
+        .trim();
+
+
+    const serviceKey =
+        document.getElementById(
+            "serviceKey"
+        )
+        .value
+        .trim();
+
+
+    const charge =
+        Number(
+            document.getElementById(
+                "serviceCharge"
+            )
+            .value || 0
+        );
+
+
+    const description =
+        document.getElementById(
+            "serviceDescription"
+        )
+        .value
+        .trim();
+
+
+    const active =
+        document.getElementById(
+            "serviceActive"
+        )
+        .value === "true";
+
+
+    if(!name){
+
+        showToast(
+            "Service Name দিন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!category){
+
+        showToast(
+            "Category দিন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const btn =
+        document.getElementById(
+            "saveServiceBtn"
+        );
+
+
+    btn.disabled = true;
+
+    btn.textContent =
+        "Saving...";
+
+
+    try{
+
+        const payload = {
+
+            service_name:
+                name,
+
+            category:
+                category,
+
+            icon:
+                icon || "🛠️",
+
+            service_key:
+                serviceKey || null,
+
+            charge:
+                charge,
+
+            description:
+                description || null,
+
+            active:
+                active
+
+        };
+
+
+        let result;
+
+
+        if(editingServiceId){
+
+            result =
+                await supabaseClient
+                    .from("services")
+                    .update(payload)
+                    .eq(
+                        "id",
+                        editingServiceId
+                    );
+
+        }
+        else{
+
+            result =
+                await supabaseClient
+                    .from("services")
+                    .insert(
+                        payload
+                    );
+
+        }
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        closeModal(
+            "serviceModal"
+        );
+
+
+        showToast(
+            editingServiceId
+            ?
+            "Service আপডেট হয়েছে।"
+            :
+            "নতুন Service যোগ হয়েছে।",
+            "success"
+        );
+
+
+        await loadServices();
+
+
+        populateServiceSelectors();
+
+        populateCategories();
+
+        updateDashboard();
+
+        renderServicesTable();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "Service save করা যায়নি।",
+            "error"
+        );
+
+    }
+    finally{
+
+        btn.disabled = false;
+
+        btn.textContent =
+            "Save Service";
+
+    }
+
+}
+
+
+/* =====================================================
+DELETE SERVICE
+===================================================== */
+
+async function deleteService(id){
+
+    const service =
+        services.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!service){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "আপনি কি সত্যিই এই Service delete করতে চান?\n\n" +
+            service.service_name +
+            "\n\nএই Service-এর Sub Service-ও delete হবে।"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("services")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showToast(
+            "Service delete হয়েছে।",
+            "success"
+        );
+
+
+        await loadServices();
+
+        await loadSubServices();
+
+        populateServiceSelectors();
+
+        updateDashboard();
+
+        renderServicesTable();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "Delete করা যায়নি।",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+CATEGORY LIST
+===================================================== */
+
+function populateCategories(){
+
+    const list =
+        document.getElementById(
+            "categoryList"
+        );
+
+
+    const categories =
+        [
+            ...new Set(
+                services
+                    .map(
+                        s =>
+                            String(
+                                s.category ||
+                                ""
+                            ).trim()
+                    )
+                    .filter(Boolean)
+            )
+        ];
+
+
+    list.innerHTML =
+        categories
+        .map(
+            category => `
+
+                <option value="${escapeHtml(category)}">
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+SERVICE SELECTOR
+===================================================== */
+
+function populateServiceSelectors(){
+
+    const select =
+        document.getElementById(
+            "subServiceParent"
+        );
+
+
+    const current =
+        select.value;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            -- Service নির্বাচন করুন --
+        </option>
+
+    `;
+
+
+    services.forEach(
+        service => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                service.id;
+
+
+            option.textContent =
+                (
+                    service.icon ||
+                    "🛠️"
+                ) +
+                " " +
+                service.service_name +
+                (
+                    service.category
+                    ?
+                    " — " +
+                    service.category
+                    :
+                    ""
+                );
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if(current){
+
+        select.value =
+            current;
+
+    }
+
+}
+
+
+/* =====================================================
+MANAGE SUB SERVICES
+===================================================== */
+
+function manageSubServices(
+    serviceId
+){
+
+    showSectionByName(
+        "subservices"
+    );
+
+
+    const select =
+        document.getElementById(
+            "subServiceParent"
+        );
+
+
+    select.value =
+        serviceId;
+
+
+    loadSubServicesForSelectedService();
+
+}
+
+
+/* =====================================================
+LOAD SELECTED SUB SERVICES
+===================================================== */
+
+function loadSubServicesForSelectedService(){
+
+    const serviceId =
+        document.getElementById(
+            "subServiceParent"
+        )
+        .value;
+
+
+    const info =
+        document.getElementById(
+            "selectedServiceInfo"
+        );
+
+
+    if(!serviceId){
+
+        info.classList.add(
+            "hidden"
+        );
+
+        return;
+
+    }
+
+
+    selectedSubServiceServiceId =
+        serviceId;
+
+
+    const service =
+        services.find(
+            s =>
+                String(s.id) ===
+                String(serviceId)
+        );
+
+
+    if(!service){
+
+        return;
+
+    }
+
+
+    info.classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "selectedServiceName"
+    ).textContent =
+        (
+            service.icon ||
+            "🛠️"
+        ) +
+        " " +
+        service.service_name;
+
+
+    document.getElementById(
+        "selectedServiceCategory"
+    ).textContent =
+        service.category
+        ?
+        "Category: " +
+        service.category
+        :
+        "";
+
+
+    renderSubServices();
+
+}
+
+
+/* =====================================================
+RENDER SUB SERVICES
+===================================================== */
+
+function renderSubServices(){
+
+    const container =
+        document.getElementById(
+            "subServicesList"
+        );
+
+
+    const serviceId =
+        selectedSubServiceServiceId;
+
+
+    const list =
+        subServices.filter(
+            item =>
+                String(
+                    item.service_id
+                ) ===
+                String(
+                    serviceId
+                )
+        );
+
+
+    if(!list.length){
+
+        container.innerHTML = `
+
+            <div
+                style="
+                    background:#f8fafc;
+                    border:1px dashed #cbd5e1;
+                    padding:25px;
+                    border-radius:10px;
+                    text-align:center;
+                    color:#667085;
+                "
+            >
+
+                এখনো কোনো Sub Service যোগ করা হয়নি।
+
+                <br><br>
+
+                উপরের
+                <strong>
+                    + নতুন Sub Service
+                </strong>
+                বাটনে চাপুন।
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        list
+        .map(
+            item => `
+
+                <div class="sub-item">
+
+                    <div>
+
+                        <div class="sub-item-name">
+
+                            ${escapeHtml(
+                                item.name
+                            )}
+
+                        </div>
+
+
+                        <div
+                            style="
+                                margin-top:5px;
+                                font-size:11px;
+                                color:#667085;
+                            "
+                        >
+
+                            ${
+                                item.active
+                                ?
+                                "Active"
+                                :
+                                "Inactive"
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sub-item-actions">
+
+                        <button
+                            class="small-btn edit-btn"
+                            onclick="editSubService('${escapeJs(item.id)}')"
+                        >
+                            ✏️ Edit
+                        </button>
+
+
+                        <button
+                            class="small-btn delete-btn"
+                            onclick="deleteSubService('${escapeJs(item.id)}')"
+                        >
+                            🗑️ Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+OPEN SUB SERVICE MODAL
+===================================================== */
+
+function openSubServiceModal(){
+
+    if(!selectedSubServiceServiceId){
+
+        showToast(
+            "প্রথমে Service নির্বাচন করুন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const service =
+        services.find(
+            s =>
+                String(s.id) ===
+                String(
+                    selectedSubServiceServiceId
+                )
+        );
+
+
+    if(!service){
+
+        return;
+
+    }
+
+
+    editingSubServiceId =
+        null;
+
+
+    document.getElementById(
+        "subServiceModalTitle"
+    ).textContent =
+        "নতুন Sub Service";
+
+
+    document.getElementById(
+        "subServiceForm"
+    ).reset();
+
+
+    document.getElementById(
+        "subServiceParentName"
+    ).value =
+        service.service_name;
+
+
+    document.getElementById(
+        "subServiceActive"
+    ).value =
+        "true";
+
+
+    document
+        .getElementById(
+            "subServiceModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+EDIT SUB SERVICE
+===================================================== */
+
+function editSubService(id){
+
+    const item =
+        subServices.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!item){
+
+        return;
+
+    }
+
+
+    const service =
+        services.find(
+            s =>
+                String(s.id) ===
+                String(item.service_id)
+        );
+
+
+    editingSubServiceId =
+        item.id;
+
+
+    selectedSubServiceServiceId =
+        item.service_id;
+
+
+    document.getElementById(
+        "subServiceModalTitle"
+    ).textContent =
+        "Sub Service Edit";
+
+
+    document.getElementById(
+        "subServiceId"
+    ).value =
+        item.id;
+
+
+    document.getElementById(
+        "subServiceParentName"
+    ).value =
+        service
+        ?
+        service.service_name
+        :
+        "";
+
+
+    document.getElementById(
+        "subServiceName"
+    ).value =
+        item.name || "";
+
+
+    document.getElementById(
+        "subServiceActive"
+    ).value =
+        String(
+            item.active !== false
+        );
+
+
+    document
+        .getElementById(
+            "subServiceModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+SAVE SUB SERVICE
+===================================================== */
+
+document
+    .getElementById(
+        "subServiceForm"
+    )
+    .addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
+
+            await saveSubService();
+
+        }
+    );
+
+
+async function saveSubService(){
+
+    const name =
+        document.getElementById(
+            "subServiceName"
+        )
+        .value
+        .trim();
+
+
+    const active =
+        document.getElementById(
+            "subServiceActive"
+        )
+        .value === "true";
+
+
+    if(!selectedSubServiceServiceId){
+
+        showToast(
+            "Parent Service নির্বাচন করুন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!name){
+
+        showToast(
+            "Sub Service Name দিন।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const payload = {
+
+            service_id:
+                selectedSubServiceServiceId,
+
+            name:
+                name,
+
+            active:
+                active
+
+        };
+
+
+        let result;
+
+
+        if(editingSubServiceId){
+
+            result =
+                await supabaseClient
+                    .from(
+                        "service_sub_services"
+                    )
+                    .update(
+                        payload
+                    )
+                    .eq(
+                        "id",
+                        editingSubServiceId
+                    );
+
+        }
+        else{
+
+            result =
+                await supabaseClient
+                    .from(
+                        "service_sub_services"
+                    )
+                    .insert(
+                        payload
+                    );
+
+        }
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        closeModal(
+            "subServiceModal"
+        );
+
+
+        showToast(
+            editingSubServiceId
+            ?
+            "Sub Service আপডেট হয়েছে।"
+            :
+            "Sub Service যোগ হয়েছে।",
+            "success"
+        );
+
+
+        await loadSubServices();
+
+
+        renderSubServices();
+
+        renderServicesTable();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "Sub Service save করা যায়নি।",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+DELETE SUB SERVICE
+===================================================== */
+
+async function deleteSubService(id){
+
+    const item =
+        subServices.find(
+            s =>
+                String(s.id) ===
+                String(id)
+        );
+
+
+    if(!item){
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "আপনি কি এই Sub Service delete করতে চান?\n\n" +
+            item.name
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from(
+                "service_sub_services"
+            )
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showToast(
+            "Sub Service delete হয়েছে।",
+            "success"
+        );
+
+
+        await loadSubServices();
+
+
+        renderSubServices();
+
+        renderServicesTable();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "Delete করা যায়নি।",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+REQUEST TABLE
+===================================================== */
+
+function renderRequestsTable(){
+
+    const tbody =
+        document.getElementById(
+            "requestsTableBody"
+        );
+
+
+    const search =
+        String(
+            document.getElementById(
+                "requestSearch"
+            )?.value ||
+            ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+        requests.filter(
+            request => {
+
+                const text =
+                    (
+                        String(
+                            request.request_no ||
+                            ""
+                        ) +
+                        " " +
+                        String(
+                            request.name ||
+                            ""
+                        ) +
+                        " " +
+                        String(
+                            request.whatsapp ||
+                            ""
+                        ) +
+                        " " +
+                        String(
+                            request.service_name ||
+                            ""
+                        ) +
+                        " " +
+                        String(
+                            request.sub_service ||
+                            ""
+                        )
+                    )
+                    .toLowerCase();
+
+
+                return !search ||
+                    text.includes(search);
+
+            }
+        );
+
+
+    if(!filtered.length){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+                    কোনো Request পাওয়া যায়নি।
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        filtered
+        .map(
+            request => {
+
+                const status =
+                    String(
+                        request.status ||
+                        "pending"
+                    )
+                    .toLowerCase();
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                #${escapeHtml(
+                                    request.request_no ||
+                                    request.id
+                                )}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    request.name ||
+                                    "-"
+                                )}
+                            </strong>
+
+                            <br>
+
+                            <span
+                                style="
+                                    color:#667085;
+                                    font-size:11px;
+                                "
+                            >
+                                ${escapeHtml(
+                                    request.whatsapp ||
+                                    "-"
+                                )}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                request.service_name ||
+                                "-"
+                            )}
+
+                            ${
+                                request.sub_service
+                                ?
+                                `
+                                <br>
+                                <span
+                                    style="
+                                        color:#667085;
+                                        font-size:11px;
+                                    "
+                                >
+                                    ${escapeHtml(
+                                        request.sub_service
+                                    )}
+                                </span>
+                                `
+                                :
+                                ""
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            ৳${Number(
+                                request.charge || 0
+                            ).toLocaleString("en-BD")}
+
+                        </td>
+
+
+                        <td>
+
+                            <select
+                                onchange="updateRequestStatus('${escapeJs(request.id)}',this.value)"
+                                style="
+                                    border:1px solid #d9e1eb;
+                                    padding:7px;
+                                    border-radius:7px;
+                                    font-size:12px;
+                                "
+                            >
+
+                                <option
+                                    value="pending"
+                                    ${
+                                        status === "pending"
+                                        ?
+                                        "selected"
+                                        :
+                                        ""
+                                    }
+                                >
+                                    Pending
+                                </option>
+
+                                <option
+                                    value="processing"
+                                    ${
+                                        status === "processing"
+                                        ?
+                                        "selected"
+                                        :
+                                        ""
+                                    }
+                                >
+                                    Processing
+                                </option>
+
+                                <option
+                                    value="completed"
+                                    ${
+                                        status === "completed"
+                                        ?
+                                        "selected"
+                                        :
+                                        ""
+                                    }
+                                >
+                                    Completed
+                                </option>
+
+                                <option
+                                    value="cancelled"
+                                    ${
+                                        status === "cancelled"
+                                        ?
+                                        "selected"
+                                        :
+                                        ""
+                                    }
+                                >
+                                    Cancelled
+                                </option>
+
+                            </select>
+
+                        </td>
+
+
+                        <td>
+
+                            ${formatDate(
+                                request.created_at
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="small-btn view-btn"
+                                    onclick="viewRequest('${escapeJs(request.id)}')"
+                                >
+                                    👁️
+                                </button>
+
+
+                                <button
+                                    class="small-btn whatsapp-btn"
+                                    onclick="openWhatsApp('${escapeJs(request.whatsapp)}','${escapeJs(request.name)}','${escapeJs(request.request_no || request.id)}')"
+                                >
+                                    WhatsApp
+                                </button>
+
+
+                                ${
+                                    status === "completed"
+                                    ?
+                                    `
+                                    <button
+                                        class="small-btn delete-btn"
+                                        onclick="deleteCompletedRequest('${escapeJs(request.id)}')"
+                                    >
+                                        🗑️
+                                    </button>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+UPDATE REQUEST STATUS
+===================================================== */
+
+async function updateRequestStatus(
+    id,
+    status
+){
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("service_requests")
+            .update({
+                status:
+                    status,
+
+                updated_at:
+                    new Date()
+                    .toISOString()
+            })
+            .eq(
+                "id",
+                id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        const request =
+            requests.find(
+                r =>
+                    String(r.id) ===
+                    String(id)
+            );
+
+
+        if(request){
+
+            request.status =
+                status;
+
+        }
+
+
+        updateDashboard();
+
+
+        showToast(
+            "Request status আপডেট হয়েছে।",
+            "success"
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "Status update হয়নি।",
+            "error"
+        );
+
+        await loadRequests();
+
+        renderRequestsTable();
+
+    }
+
+}
+
+
+/* =====================================================
+VIEW REQUEST
+===================================================== */
+
+function viewRequest(id){
+
+    const request =
+        requests.find(
+            r =>
+                String(r.id) ===
+                String(id)
+        );
+
+
+    if(!request){
+
+        return;
+
+    }
+
+
+    const serviceData =
+        request.service_data || {};
+
+
+    let dynamicHtml = "";
+
+
+    if(
+        typeof serviceData === "object" &&
+        Object.keys(serviceData).length
+    ){
+
+        dynamicHtml = `
+
+            <div
+                class="detail-item detail-full"
+            >
+
+                <strong>
+                    অতিরিক্ত Service Information
+                </strong>
+
+                <span>
+
+                    ${
+                        Object.entries(
+                            serviceData
+                        )
+                        .map(
+                            ([key,value]) =>
+                                `
+                                <div
+                                    style="
+                                        padding:5px 0;
+                                    "
+                                >
+                                    <b>
+                                        ${escapeHtml(key)}
+                                    </b>
+                                    :
+                                    ${escapeHtml(value)}
+                                </div>
+                                `
+                        )
+                        .join("")
+                    }
+
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById(
+        "requestDetails"
+    ).innerHTML = `
+
+        <div class="detail-item">
+
+            <strong>
+                Request Number
+            </strong>
+
+            <span>
+                #${escapeHtml(
+                    request.request_no ||
+                    request.id
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Status
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.status ||
+                    "pending"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Customer Name
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.name ||
+                    "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                WhatsApp / Mobile
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.whatsapp ||
+                    "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Service
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.service_name ||
+                    "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Sub Service
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.sub_service ||
+                    "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Charge
+            </strong>
+
+            <span>
+                ৳${Number(
+                    request.charge || 0
+                ).toLocaleString("en-BD")}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Address
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.address ||
+                    "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item detail-full">
+
+            <strong>
+                Additional Details
+            </strong>
+
+            <span>
+                ${escapeHtml(
+                    request.additional_details ||
+                    "-"
+                )}
+            </span>
+
+        </div>
+
+
+        ${dynamicHtml}
+
+
+        <div class="detail-item">
+
+            <strong>
+                Created
+            </strong>
+
+            <span>
+                ${formatDate(
+                    request.created_at
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+            <strong>
+                Updated
+            </strong>
+
+            <span>
+                ${formatDate(
+                    request.updated_at
+                )}
+            </span>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "requestModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =====================================================
+DELETE COMPLETED REQUEST
+===================================================== */
+
+async function deleteCompletedRequest(
+    id
+){
+
+    const request =
+        requests.find(
+            r =>
+                String(r.id) ===
+                String(id)
+        );
+
+
+    if(!request){
+
+        return;
+
+    }
+
+
+    if(
+        String(
+            request.status
+        ).toLowerCase()
+        !==
+        "completed"
+    ){
+
+        showToast(
+            "শুধু Completed Request delete করা যাবে।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "আপনি কি এই Completed Request delete করতে চান?\n\n" +
+            "#" +
+            (
+                request.request_no ||
+                request.id
+            )
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("service_requests")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showToast(
+            "Completed Request delete হয়েছে।",
+            "success"
+        );
+
+
+        await loadRequests();
+
+
+        updateDashboard();
+
+        renderRequestsTable();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "Request delete করা যায়নি।",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+WHATSAPP
+===================================================== */
+
+function openWhatsApp(
+    phone,
+    name,
+    requestNo
+){
+
+    let number =
+        String(
+            phone || ""
+        )
+        .replace(
+            /[^0-9+]/g,
+            ""
+        );
+
+
+    /*
+     * Bangladesh:
+     * 017xxxxxxxx
+     * -> 88017xxxxxxxx
+     */
+
+    if(
+        number.startsWith("01") &&
+        number.length === 11
+    ){
+
+        number =
+            "88" +
+            number;
+
+    }
+
+
+    number =
+        number.replace(
+            /^\+/,
+            ""
+        );
+
+
+    if(!number){
+
+        showToast(
+            "Customer-এর WhatsApp number পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const message =
+        "আসসালামু আলাইকুম " +
+        (
+            name ||
+            ""
+        ) +
+        ", আপনার Service Request #" +
+        (
+            requestNo ||
+            ""
+        ) +
+        " সম্পর্কে যোগাযোগ করছি।";
+
+
+    const url =
+        "https://wa.me/" +
+        number +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+async function logout(){
+
+    await supabaseClient.auth
+        .signOut();
+
+
+    document
+        .getElementById(
+            "adminApp"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "loginPage"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+
+/* =====================================================
 SIDEBAR
 ===================================================== */
 
 function toggleSidebar(){
 
     document
-        .getElementById("sidebar")
-        .classList.toggle("open");
+        .getElementById(
+            "sidebar"
+        )
+        .classList.toggle(
+            "open"
+        );
 
 }
 
@@ -3576,37 +4711,182 @@ MODAL
 
 function closeModal(id){
 
-    document
-        .getElementById(id)
-        .classList.remove("show");
+    const modal =
+        document.getElementById(
+            id
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
 
 }
 
 
 /* =====================================================
-CLICK OUTSIDE MODAL
+TOAST
 ===================================================== */
 
-document
-.querySelectorAll(".modal")
-.forEach(modal => {
+function showToast(
+    message,
+    type = "success"
+){
 
-    modal.addEventListener(
-        "click",
-        function(e){
+    const toast =
+        document.getElementById(
+            "toast"
+        );
 
-            if(e.target === modal){
 
-                modal.classList.remove(
-                    "show"
-                );
+    toast.textContent =
+        message;
 
-            }
 
-        }
+    toast.className =
+        "toast show " +
+        type;
+
+
+    setTimeout(
+        function(){
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        3000
     );
 
-});
+}
+
+
+/* =====================================================
+DATE
+===================================================== */
+
+function formatDate(
+    value
+){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    try{
+
+        return new Date(
+            value
+        ).toLocaleString(
+            "bn-BD",
+            {
+                dateStyle:"medium",
+                timeStyle:"short"
+            }
+        );
+
+    }
+    catch(error){
+
+        return value;
+
+    }
+
+}
+
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+ESCAPE JS
+===================================================== */
+
+function escapeJs(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /\r/g,
+        "\\r"
+    )
+    .replace(
+        /\n/g,
+        "\\n"
+    );
+
+}
+
+
+/* =====================================================
+OUTSIDE MODAL CLICK
+===================================================== */
+
+window.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target.classList.contains(
+                "modal"
+            )
+        ){
+
+            event.target.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
 
 
 /* =====================================================
@@ -3618,4 +4898,5 @@ checkSession();
 </script>
 
 </body>
+
 </html>
