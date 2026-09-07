@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard - Digital Service Center</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+button,input,select{
+    font:inherit;
+}
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg,#0f766e,#2563eb);
+}
+
+.login-box{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
+}
+
+.logo{
+    width:65px;
+    height:65px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    background:#0f766e;
+    color:white;
+    font-size:30px;
+}
+
+.login-box h1{
+    text-align:center;
+    margin:18px 0 7px;
+}
+
+.login-box p{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:25px;
+}
+
+.field{
+    margin-bottom:15px;
+}
+
+.field label{
+    display:block;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.field input,
+.field select{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+    outline:none;
+    background:#fff;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:#0f766e;
+}
+
+.btn{
+    border:0;
+    cursor:pointer;
+    border-radius:10px;
+    padding:12px 18px;
+    font-weight:700;
+}
+
+.login-btn{
+    width:100%;
+    background:#0f766e;
+    color:#fff;
+    margin-top:5px;
+}
+
+.message{
+    margin-top:15px;
+    padding:11px;
+    border-radius:9px;
+    display:none;
+    font-size:14px;
+}
+
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+#dashboard{
+    display:none;
+}
+
+.topbar{
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.topbar-inner{
+    max-width:1400px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#0f766e;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.logout{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    padding:25px 20px 50px;
+}
+
+.welcome{
+    margin-bottom:22px;
+}
+
+.welcome h1{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.welcome p{
+    color:#64748b;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    border:1px solid #e8edf3;
+}
+
+.stat-title{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:800;
+}
+
+.panel{
+    background:#fff;
+    border-radius:16px;
+    border:1px solid #e8edf3;
+    margin-bottom:25px;
+    overflow:hidden;
+}
+
+.panel-head{
+    padding:18px 20px;
+    border-bottom:1px solid #edf0f4;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.panel-head h2{
+    font-size:19px;
+}
+
+.service-grid{
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.service-box{
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:17px;
+}
+
+.service-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.service-icon{
+    font-size:25px;
+}
+
+.service-name{
+    font-weight:800;
+}
+
+.charge-row{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.charge-row input{
+    flex:1;
+    padding:11px;
+    border:1px solid #dbe2ea;
+    border-radius:9px;
+}
+
+.save-btn{
+    background:#0f766e;
+    color:white;
+}
+
+.filters{
+    padding:15px 20px;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:10px;
+    border-bottom:1px solid #edf0f4;
+}
+
+.filters input,
+.filters select{
+    padding:11px 12px;
+    border:1px solid #dbe2ea;
+    border-radius:9px;
+    background:white;
+    outline:none;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
+}
+
+th,td{
+    padding:14px 15px;
+    text-align:left;
+    border-bottom:1px solid #edf0f4;
+    font-size:14px;
+}
+
+th{
+    background:#f8fafc;
+    color:#475569;
+}
+
+.status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.processing{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.completed{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.cancelled{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.action-btn{
+    background:#e0f2fe;
+    color:#0369a1;
+    border:0;
+    padding:7px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.status-select{
+    padding:7px;
+    border:1px solid #dbe2ea;
+    border-radius:8px;
+}
+
+.empty{
+    padding:35px;
+    text-align:center;
+    color:#64748b;
+}
+
+.loading{
+    padding:35px;
+    text-align:center;
+    color:#64748b;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow:auto;
+    background:white;
+    border-radius:18px;
+}
+
+.modal-head{
+    padding:18px 20px;
+    border-bottom:1px solid #edf0f4;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.close{
+    border:0;
+    background:#f1f5f9;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.detail{
+    margin-bottom:15px;
+}
+
+.detail strong{
+    display:block;
+    color:#475569;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.detail span,
+.detail pre{
+    display:block;
+    background:#f8fafc;
+    padding:10px;
+    border-radius:8px;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+@media(max-width:1000px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .service-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:650px){
+    .topbar-inner{
+        padding:12px 15px;
+    }
+
+    .container{
+        padding:20px 14px 40px;
+    }
+
+    .welcome h1{
+        font-size:23px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat{
+        padding:15px;
+    }
+
+    .stat-number{
+        font-size:23px;
+    }
+
+    .service-grid{
+        grid-template-columns:1fr;
+        padding:14px;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+        padding:14px;
+    }
+
+    .panel-head{
+        padding:15px;
+    }
+
+    .brand-text{
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <div class="logo">🔐</div>
+
+        <h1>Admin Login</h1>
+
+        <p>Digital Service Center</p>
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Admin Email"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                >
+            </div>
+
+            <button class="btn login-btn" type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <div id="loginMessage" class="message"></div>
+
+    </div>
+
+</div>
+
+
+<div id="dashboard">
+
+    <div class="topbar">
+
+        <div class="topbar-inner">
+
+            <div class="brand">
+
+                <div class="brand-icon">⚙️</div>
+
+                <div class="brand-text">
+                    Digital Service Center Admin
+                </div>
+
+            </div>
+
+            <button
+                class="btn logout"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <main class="container">
+
+        <div class="welcome">
+
+            <h1>Admin Dashboard</h1>
+
+            <p id="adminEmail"></p>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-title">
+                    মোট আবেদন
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="totalRequests"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-title">
+                    Pending
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="pendingRequests"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-title">
+                    Processing
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="processingRequests"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-title">
+                    Completed
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="completedRequests"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="panel">
+
+            <div class="panel-head">
+
+                <h2>💰 সার্ভিস চার্জ</h2>
+
+                <button
+                    class="btn"
+                    onclick="loadServices()"
+                >
+                    Refresh
+                </button>
+
+            </div>
+
+            <div id="servicesContainer">
+                <div class="loading">
+                    সার্ভিস লোড হচ্ছে...
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-head">
+
+                <h2>📋 Service Requests</h2>
+
+                <button
+                    class="btn"
+                    onclick="loadRequests()"
+                >
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <div class="filters">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Request No / নাম / WhatsApp"
+                    oninput="renderRequests()"
+                >
+
+                <select
+                    id="statusFilter"
+                    onchange="renderRequests()"
+                >
+                    <option value="">সব Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Processing</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+
+                <select
+                    id="serviceFilter"
+                    onchange="renderRequests()"
+                >
+                    <option value="">সব সার্ভিস</option>
+                </select>
+
+            </div>
+
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Request No</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Sub Service</th>
+                            <th>Charge</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="requestsTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<div id="detailModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <h2>Request Details</h2>
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div
+            id="modalBody"
+            class="modal-body"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://mulroqtysdawvwdrpdxt.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_-v7fU5dwzz0LddbM-f87PQ_-L1BH-bl";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+let requests = [];
+let services = [];
+
+
+const loginPage =
+    document.getElementById("loginPage");
+
+const dashboard =
+    document.getElementById("dashboard");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+
+function showLoginMessage(message,type="error"){
+
+    loginMessage.textContent = message;
+
+    loginMessage.className =
+        "message " + type;
+
+    loginMessage.style.display = "block";
+
+}
+
+
+async function checkSession(){
+
+    const {
+        data:{
+            session
+        }
+    } = await supabaseClient
+        .auth
+        .getSession();
+
+    if(session){
+
+        const isAdmin =
+            await checkAdmin(session.user.id);
+
+        if(isAdmin){
+
+            showDashboard(
+                session.user
+            );
+
+        }else{
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+            showLoginMessage(
+                "আপনার Admin Access নেই।"
+            );
+
+        }
+
+    }
+
+}
+
+
+async function checkAdmin(userId){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("admins")
+        .select("id,email")
+        .eq("id",userId)
+        .maybeSingle();
+
+    if(error){
+
+        console.error(error);
+
+        return false;
+
+    }
+
+    return !!data;
+
+}
+
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(e){
+
+            e.preventDefault();
+
+            const email =
+                document
+                .getElementById("email")
+                .value
+                .trim();
+
+            const password =
+                document
+                .getElementById("password")
+                .value;
+
+            showLoginMessage(
+                "Login হচ্ছে...",
+                "success"
+            );
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .auth
+                .signInWithPassword({
+                    email,
+                    password
+                });
+
+            if(error){
+
+                showLoginMessage(
+                    error.message
+                );
+
+                return;
+
+            }
+
+            const isAdmin =
+                await checkAdmin(
+                    data.user.id
+                );
+
+            if(!isAdmin){
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+                showLoginMessage(
+                    "এই Account-এর Admin Permission নেই।"
+                );
+
+                return;
+
+            }
+
+            showDashboard(data.user);
+
+        }
+    );
+
+
+function showDashboard(user){
+
+    loginPage.style.display = "none";
+
+    dashboard.style.display = "block";
+
+    document.getElementById(
+        "adminEmail"
+    ).textContent =
+        "Logged in: " + user.email;
+
+    loadServices();
+
+    loadRequests();
+
+}
+
+
+async function logout(){
+
+    await supabaseClient
+        .auth
+        .signOut();
+
+    location.reload();
+
+}
+
+
+async function loadServices(){
+
+    const container =
+        document.getElementById(
+            "servicesContainer"
+        );
+
+    container.innerHTML =
+        `<div class="loading">
+            সার্ভিস লোড হচ্ছে...
+        </div>`;
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("services")
+        .select("*")
+        .order("created_at");
+
+    if(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            `<div class="empty">
+                সার্ভিস লোড করা যায়নি।
+                <br>
+                ${error.message}
+            </div>`;
+
+        return;
+
+    }
+
+    services = data || [];
+
+    renderServices();
+
+    updateServiceFilter();
+
+}
+
+
+function renderServices(){
+
+    const container =
+        document.getElementById(
+            "servicesContainer"
+        );
+
+    if(!services.length){
+
+        container.innerHTML =
+            `<div class="empty">
+                কোনো সার্ভিস পাওয়া যায়নি।
+            </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML = `
+        <div class="service-grid">
+
+            ${services.map(service => `
+
+                <div class="service-box">
+
+                    <div class="service-title">
+
+                        <div class="service-icon">
+                            ${service.icon || "📌"}
+                        </div>
+
+                        <div class="service-name">
+                            ${escapeHtml(
+                                service.service_name || ""
+                            )}
+                        </div>
+
+                    </div>
+
+                    <div class="charge-row">
+
+                        <input
+                            type="number"
+                            min="0"
+                            id="charge-${service.id}"
+                            value="${service.charge || 0}"
+                        >
+
+                        <button
+                            class="btn save-btn"
+                            onclick="saveCharge('${service.id}')"
+                        >
+                            Save
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `).join("")}
+
+        </div>
+    `;
+
+}
+
+
+async function saveCharge(id){
+
+    const input =
+        document.getElementById(
+            "charge-" + id
+        );
+
+    const charge =
+        Number(input.value);
+
+    if(charge < 0){
+
+        alert("সঠিক চার্জ দিন।");
+
+        return;
+
+    }
+
+    const {
+        error
+    } = await supabaseClient
+        .from("services")
+        .update({
+            charge,
+            updated_at:new Date().toISOString()
+        })
+        .eq("id",id);
+
+    if(error){
+
+        alert(
+            "Charge Update হয়নি: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    alert("Service charge সফলভাবে Update হয়েছে।");
+
+    loadServices();
+
+}
+
+
+async function loadRequests(){
+
+    const tbody =
+        document.getElementById(
+            "requestsTable"
+        );
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="7">
+                <div class="loading">
+                    Request লোড হচ্ছে...
+                </div>
+            </td>
+        </tr>
+    `;
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("service_requests")
+        .select("*")
+        .order("created_at",{
+            ascending:false
+        });
+
+    if(error){
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty">
+                        Request লোড করা যায়নি।
+                        <br>
+                        ${escapeHtml(error.message)}
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    requests = data || [];
+
+    updateStats();
+
+    renderRequests();
+
+}
+
+
+function updateStats(){
+
+    document.getElementById(
+        "totalRequests"
+    ).textContent =
+        requests.length;
+
+    document.getElementById(
+        "pendingRequests"
+    ).textContent =
+        requests.filter(
+            r => r.status === "pending"
+        ).length;
+
+    document.getElementById(
+        "processingRequests"
+    ).textContent =
+        requests.filter(
+            r => r.status === "processing"
+        ).length;
+
+    document.getElementById(
+        "completedRequests"
+    ).textContent =
+        requests.filter(
+            r => r.status === "completed"
+        ).length;
+
+}
+
+
+function updateServiceFilter(){
+
+    const select =
+        document.getElementById(
+            "serviceFilter"
+        );
+
+    const current =
+        select.value;
+
+    select.innerHTML =
+        `<option value="">
+            সব সার্ভিস
+        </option>`;
+
+    services.forEach(service => {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            service.service_name;
+
+        option.textContent =
+            service.service_name;
+
+        select.appendChild(option);
+
+    });
+
+    select.value = current;
+
+}
+
+
+function renderRequests(){
+
+    const tbody =
+        document.getElementById(
+            "requestsTable"
+        );
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+    const service =
+        document.getElementById(
+            "serviceFilter"
+        ).value;
+
+    let filtered =
+        requests.filter(request => {
+
+            const text =
+                (
+                    request.request_no +
+                    " " +
+                    request.name +
+                    " " +
+                    request.whatsapp
+                )
+                .toLowerCase();
+
+            const searchMatch =
+                !search ||
+                text.includes(search);
+
+            const statusMatch =
+                !status ||
+                request.status === status;
+
+            const serviceMatch =
+                !service ||
+                request.service_name === service;
+
+            return (
+                searchMatch &&
+                statusMatch &&
+                serviceMatch
+            );
+
+        });
+
+
+    if(!filtered.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty">
+                        কোনো Request পাওয়া যায়নি।
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        filtered.map(request => `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            request.request_no || "-"
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        request.name || "-"
+                    )}
+                    <br>
+                    <small>
+                        ${escapeHtml(
+                            request.whatsapp || ""
+                        )}
+                    </small>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        request.service_name || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        request.sub_service || "-"
+                    )}
+                </td>
+
+                <td>
+                    ৳${Number(
+                        request.charge || 0
+                    ).toLocaleString("bn-BD")}
+                </td>
+
+                <td>
+
+                    <select
+                        class="status-select"
+                        onchange="updateStatus(
+                            '${request.id}',
+                            this.value
+                        )"
+                    >
+
+                        <option
+                            value="pending"
+                            ${request.status==="pending" ? "selected" : ""}
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="processing"
+                            ${request.status==="processing" ? "selected" : ""}
+                        >
+                            Processing
+                        </option>
+
+                        <option
+                            value="completed"
+                            ${request.status==="completed" ? "selected" : ""}
+                        >
+                            Completed
+                        </option>
+
+                        <option
+                            value="cancelled"
+                            ${request.status==="cancelled" ? "selected" : ""}
+                        >
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn"
+                        onclick="showDetails('${request.id}')"
+                    >
+                        Details
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+async function updateStatus(id,status){
+
+    const {
+        error
+    } = await supabaseClient
+        .from("service_requests")
+        .update({
+            status,
+            updated_at:new Date().toISOString()
+        })
+        .eq("id",id);
+
+    if(error){
+
+        alert(
+            "Status Update হয়নি: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    const request =
+        requests.find(
+            r => r.id === id
+        );
+
+    if(request){
+
+        request.status = status;
+
+    }
+
+    updateStats();
+
+    alert("Status Update হয়েছে।");
+
+}
+
+
+function showDetails(id){
+
+    const request =
+        requests.find(
+            r => r.id === id
+        );
+
+    if(!request) return;
+
+    let serviceData = "";
+
+    try{
+
+        serviceData =
+            JSON.stringify(
+                request.service_data || {},
+                null,
+                2
+            );
+
+    }catch{
+
+        serviceData =
+            String(
+                request.service_data || ""
+            );
+
+    }
+
+
+    document.getElementById(
+        "modalBody"
+    ).innerHTML = `
+
+        <div class="detail">
+
+            <strong>Request No</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.request_no || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Customer Name</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.name || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>WhatsApp / Mobile</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.whatsapp || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Address</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.address || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Service</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.service_name || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Sub Service</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.sub_service || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Charge</strong>
+
+            <span>
+                ৳${Number(
+                    request.charge || 0
+                ).toLocaleString("bn-BD")}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Additional Details</strong>
+
+            <span>
+                ${escapeHtml(
+                    request.additional_details || "-"
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Service Information</strong>
+
+            <pre>${escapeHtml(
+                serviceData
+            )}</pre>
+
+        </div>
+
+
+        <div class="detail">
+
+            <strong>Created At</strong>
+
+            <span>
+                ${request.created_at
+                    ? new Date(
+                        request.created_at
+                    ).toLocaleString(
+                        "bn-BD"
+                    )
+                    : "-"
+                }
+            </span>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "detailModal"
+    ).style.display = "flex";
+
+}
+
+
+function closeModal(){
+
+    document.getElementById(
+        "detailModal"
+    ).style.display = "none";
+
+}
+
+
+document
+    .getElementById("detailModal")
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(e.target === this){
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+checkSession();
+
+</script>
+
+</body>
+</html>
